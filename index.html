@@ -549,7 +549,21 @@
             .hero-btn { width: 90%; max-width: 320px; justify-content: center; }
             .form-row { grid-template-columns: 1fr; }
             .trust-items { gap: 14px; }
-            .hamburger { display: flex; }
+            /* 헤더: 로고 가운데, 햄버거 우측 */
+            header {
+                display: flex;
+                justify-content: center;
+                position: relative;
+                padding: 0 20px;
+            }
+            .logo { text-align: center; }
+            .hamburger {
+                display: flex;
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
             nav {
                 display: none; position: fixed;
                 top: 72px; left: 0; right: 0; z-index: 999;
@@ -563,6 +577,10 @@
                 padding: 18px 28px; font-size: 16px;
                 border-bottom: 1px solid rgba(255,255,255,0.06);
             }
+            /* LIVE 배지 + 티커 한 줄 유지 */
+            .ticker-bar { padding: 10px 16px; gap: 10px; }
+            .ticker-live { font-size: 10px; padding: 3px 8px; }
+            .ticker-msg { font-size: 13px; }
         }
     </style>
 </head>
