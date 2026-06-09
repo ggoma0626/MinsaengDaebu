@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>민생대부 | 당일 대출 상담 · 빠른 실행</title>
+    <meta name="description" content="민생대부에서 빠르고 편리한 대출 상담을 받아보세요. 당일 승인, 즉시 실행 가능.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        :root {
+            --primary: #1a3a6b;
+            --primary-dark: #0d2447;
+            --primary-light: #2a5298;
+            --accent: #e8a000;
+            --red: #e63946;
+            --green: #22c55e;
+            --bg: #f0f4fa;
+            --white: #ffffff;
+            --text: #111827;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+            --px: clamp(20px, calc(50vw - 530px), 400px);
+            --spy: clamp(60px, 8vw, 110px);
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+        a { text-decoration: none; transition: all 0.3s; }
+
+
+        /* ── Header ── */
+        header {
+            background: var(--primary-dark);
+            padding: 0 40px;
+            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            height: 72px;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+        }
+        .logo { font-size: 34px; font-weight: 900; color: #fff; letter-spacing: -0.5px; line-height: 1.1; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .logo small { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.35); display: block; letter-spacing: 1px; }
+        nav { display: flex; justify-content: center; gap: 36px; }
+        nav a { color: rgba(255,255,255,0.7); font-size: 19px; font-weight: 700; }
+        nav a:hover { color: var(--accent); }
+        /* ── 햄버거 메뉴 ── */
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 4px;
+        }
+        .hamburger span {
+            width: 24px; height: 2px; background: #fff;
+            border-radius: 2px; transition: all 0.3s;
+            display: block;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── Ticker ── */
+        .ticker-bar {
+            background: #060d1e;
+            padding: 14px 40px;
+            display: flex; align-items: center; justify-content: center; gap: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .ticker-live {
+            background: var(--red); color: #fff;
+            font-size: 12px; font-weight: 900; padding: 5px 13px;
+            border-radius: 6px; white-space: nowrap; flex-shrink: 0;
+            letter-spacing: 1px;
+            box-shadow: 0 0 14px rgba(230,57,70,0.7);
+            animation: blink 1.2s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1; box-shadow:0 0 14px rgba(230,57,70,0.7)} 50%{opacity:0.7; box-shadow:0 0 28px rgba(230,57,70,1)} }
+        .ticker-msg { color: #cbd5e1; font-size: 16px; font-weight: 500; transition: opacity 0.3s; }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(150deg, #04091a 0%, #0d2447 55%, #1a3a6b 100%);
+            padding: clamp(64px,10vw,120px) var(--px) clamp(60px,8vw,100px);
+            position: relative; overflow: hidden; text-align: center;
+        }
+        .orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(80px); pointer-events: none;
+        }
+        .orb-1 {
+            width: 520px; height: 520px;
+            background: radial-gradient(circle, rgba(232,160,0,0.22), transparent 70%);
+            top: -160px; right: -100px;
+            animation: orb-drift 12s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(42,82,152,0.35), transparent 70%);
+            bottom: -120px; left: -80px;
+            animation: orb-drift 16s ease-in-out infinite reverse;
+        }
+        .orb-3 {
+            width: 260px; height: 260px;
+            background: radial-gradient(circle, rgba(232,160,0,0.12), transparent 70%);
+            top: 40%; left: 25%;
+            animation: orb-drift 9s ease-in-out infinite 3s;
+        }
+        @keyframes orb-drift {
+            0%,100%{ transform: translate(0,0) scale(1); }
+            33%{ transform: translate(28px,-28px) scale(1.08); }
+            66%{ transform: translate(-18px,14px) scale(0.93); }
+        }
+        .hero-inner { position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1.5px solid rgba(232,160,0,0.45);
+            background: rgba(232,160,0,0.07);
+            color: var(--accent);
+            padding: 7px 20px; border-radius: 50px;
+            font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+            margin-bottom: 28px;
+        }
+        .live-dot {
+            width: 7px; height: 7px; background: var(--green);
+            border-radius: 50%; animation: pdot 1.5s ease-in-out infinite;
+        }
+        @keyframes pdot {
+            0%,100%{ box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
+            50%{ box-shadow: 0 0 0 7px rgba(34,197,94,0); }
+        }
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 58px); font-weight: 900; color: #fff;
+            line-height: 1.2; margin-bottom: 18px; letter-spacing: -1px;
+        }
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--accent), #ffd04d);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .hero-sub { font-size: clamp(15px,2vw,18px); color: rgba(255,255,255,0.5); margin-bottom: 44px; }
+
+        /* ── 스크롤 투 탑 ── */
+        .scroll-top {
+            position: fixed; bottom: 28px; right: 28px; z-index: 1500;
+            width: 46px; height: 46px; border-radius: 50%;
+            background: var(--primary); color: #fff; border: none; cursor: pointer;
+            font-size: 20px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+            opacity: 0; transform: translateY(12px);
+            transition: opacity 0.3s, transform 0.3s, background 0.2s;
+        }
+        .scroll-top.show { opacity: 1; transform: translateY(0); }
+        .scroll-top:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+        .hero-ctas {
+            display: flex; justify-content: center; gap: 14px;
+            margin-bottom: 52px; flex-wrap: wrap;
+        }
+        .hero-btn {
+            padding: 16px 36px; border-radius: 50px;
+            font-size: 16px; font-weight: 800;
+            display: inline-flex; align-items: center; gap: 8px;
+            border: none; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hero-btn:hover { transform: translateY(-3px); }
+        .hb-call {
+            background: linear-gradient(135deg, #e63946, #c0392b);
+            color: #fff;
+            animation: pulse-red 2.5s ease-out infinite;
+        }
+        .hb-kakao { background: #fee500; color: #3c1e1e; box-shadow: 0 12px 30px rgba(254,229,0,0.3); }
+        @keyframes pulse-red {
+            0%{ box-shadow: 0 12px 30px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0.6); }
+            70%{ box-shadow: 0 12px 30px rgba(230,57,70,0.4), 0 0 0 20px rgba(230,57,70,0); }
+            100%{ box-shadow: 0 12px 30px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0); }
+        }
+        .hero-stats { display: flex; justify-content: center; gap: clamp(28px,5vw,80px); }
+        .hero-stat-num { font-size: clamp(28px,4vw,44px); font-weight: 900; color: var(--accent); line-height: 1; }
+        .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 6px; }
+
+        /* ── Trust Strip ── */
+        .trust-strip {
+            background: var(--white); border-bottom: 1px solid var(--border);
+            padding: 18px var(--px);
+        }
+        .trust-items {
+            display: flex; justify-content: center; gap: clamp(20px,4vw,56px); flex-wrap: wrap;
+        }
+        .trust-item { display: flex; align-items: center; gap: 10px; }
+        .trust-icon {
+            width: 38px; height: 38px; flex-shrink: 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+        .trust-text strong { display: block; font-size: 13px; font-weight: 800; color: var(--text); }
+        .trust-text span { font-size: 11px; color: var(--gray); }
+
+        /* ── 공통 섹션 ── */
+        .sec { padding: var(--spy) var(--px); }
+        .sec-eyebrow { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+        .sec-title { font-size: clamp(26px,3.5vw,38px); font-weight: 900; color: var(--text); line-height: 1.3; }
+        .sec-title em { color: var(--primary); font-style: normal; }
+        .sec-header { text-align: center; margin-bottom: clamp(40px,6vw,72px); }
+
+        /* ── Stats ── */
+        .stats-bg {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 64px var(--px);
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4,1fr);
+            max-width: 900px; margin: 0 auto;
+        }
+        .stat-card {
+            text-align: center; padding: 28px 16px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-card:last-child { border-right: none; }
+        .stat-emoji { font-size: 30px; margin-bottom: 12px; }
+        .stat-count {
+            font-size: clamp(30px,4vw,48px); font-weight: 900; color: var(--accent);
+            line-height: 1; margin-bottom: 6px;
+        }
+        .stat-suffix { font-size: 20px; }
+        .stat-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+        /* ── Products ── */
+        .products-sec { background: var(--white); }
+        .products-grid {
+            display: grid; grid-template-columns: repeat(3,1fr);
+            gap: 24px; max-width: 1000px; margin: 0 auto;
+        }
+        .product-card {
+            border-radius: 24px; border: 2px solid var(--border); overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-8px); border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(26,58,107,0.15);
+        }
+        .product-card.hot { border-color: var(--accent); }
+        .hot-badge {
+            background: linear-gradient(135deg, var(--accent), #ff8c00);
+            color: #fff; font-size: 11px; font-weight: 800;
+            padding: 8px 16px; text-align: center;
+        }
+        .product-body { padding: 30px 26px; }
+        .product-icon { font-size: 38px; margin-bottom: 14px; }
+        .product-name { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+        .product-desc { font-size: 13px; color: var(--gray); line-height: 1.75; margin-bottom: 20px; }
+        .product-row {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg); border-radius: 10px; padding: 11px 14px; margin-bottom: 10px;
+        }
+        .product-row-label { font-size: 12px; color: var(--gray); }
+        .product-row-val { font-size: 15px; font-weight: 900; color: var(--primary); }
+        .product-cta {
+            width: 100%; padding: 14px; border: none; cursor: pointer;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff; border-radius: 12px;
+            font-size: 14px; font-weight: 800; font-family: inherit;
+            transition: opacity 0.2s, transform 0.2s; margin-top: 6px;
+        }
+        .product-card.hot .product-cta { background: linear-gradient(135deg, var(--accent), #ff8c00); }
+        .product-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* ── Steps ── */
+        .steps-sec { background: var(--bg); }
+        .steps-grid {
+            display: grid; grid-template-columns: repeat(4,1fr);
+            max-width: 960px; margin: 0 auto; position: relative;
+        }
+        .steps-line {
+            position: absolute; top: 44px; left: 12.5%; width: 75%; height: 2px;
+            background: linear-gradient(to right, var(--accent), var(--primary)); z-index: 0;
+        }
+        .step-item { text-align: center; padding: 0 14px; position: relative; z-index: 1; }
+        .step-circle {
+            width: 90px; height: 90px; margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; border: 3px solid #fff;
+            box-shadow: 0 8px 24px rgba(26,58,107,0.3);
+        }
+        .step-label { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+        .step-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+        /* ── Calculator ── */
+        .calc-sec {
+            background: linear-gradient(150deg, #04091a, var(--primary-dark));
+        }
+        .calc-sec .sec-title { color: #fff; }
+        .calc-sec .sec-eyebrow { color: var(--accent); }
+        .calc-subtitle { color: rgba(255,255,255,0.45); font-size: 14px; margin-top: 10px; }
+        .calc-card {
+            max-width: 800px; margin: 0 auto;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 28px; padding: clamp(28px,5vw,52px);
+        }
+        .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+        .calc-label {
+            display: flex; justify-content: space-between;
+            font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.8);
+            margin-bottom: 14px;
+        }
+        .calc-label span { color: var(--accent); font-size: 16px; font-weight: 800; }
+        input[type="range"] {
+            width: 100%; height: 6px;
+            -webkit-appearance: none; appearance: none;
+            background: rgba(255,255,255,0.1); border-radius: 3px;
+            outline: none; cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px; height: 22px;
+            background: var(--accent); border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .range-ends { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 6px; }
+        .calc-result {
+            background: rgba(232,160,0,0.07);
+            border: 1px solid rgba(232,160,0,0.2);
+            border-radius: 18px; padding: 28px;
+        }
+        .calc-res-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; text-align: center; }
+        .calc-res-item { padding: 14px 8px; }
+        .calc-res-item.hl { background: rgba(232,160,0,0.1); border-radius: 12px; }
+        .calc-res-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+        .calc-res-val { font-size: clamp(16px,2.5vw,24px); font-weight: 900; color: var(--accent); }
+        .calc-note { text-align: center; margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.2); }
+
+        /* ── Form ── */
+        .form-sec {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: var(--spy) var(--px);
+        }
+        .form-card {
+            max-width: 680px; margin: 0 auto;
+            background: #fff; border-radius: 28px;
+            padding: clamp(28px,5vw,56px) clamp(20px,5vw,52px);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+        }
+        .form-header { text-align: center; margin-bottom: 32px; }
+        .form-header h2 { font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+        .form-header p { font-size: 13px; color: var(--gray); }
+        .fg { margin-bottom: 18px; }
+        .fg label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 7px; }
+        .fg label .req { color: var(--red); }
+        .fg input, .fg select {
+            width: 100%; padding: 13px 16px;
+            border: 1.5px solid var(--border); border-radius: 10px;
+            font-size: 15px; font-family: inherit; color: var(--text);
+            background: #f9fafb; transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none; appearance: none;
+        }
+        .fg input:focus, .fg select:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26,58,107,0.1);
+            background: #fff;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .agree-row {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 13px; color: var(--gray); margin: 22px 0 4px; cursor: pointer;
+        }
+        .agree-row input[type="checkbox"] {
+            width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px;
+            accent-color: var(--primary);
+        }
+        .form-submit {
+            width: 100%; padding: 18px; border: none; cursor: pointer;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff; border-radius: 14px;
+            font-size: 17px; font-weight: 800; font-family: inherit;
+            margin-top: 14px; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,58,107,0.4); }
+        .form-submit:disabled { cursor: not-allowed; }
+
+        /* ── 실시간 신청현황 ── */
+        .live-apply-sec {
+            background: #060d1e;
+            padding: 20px var(--px);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .live-apply-inner {
+            max-width: 600px; margin: 0 auto;
+        }
+        .live-apply-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .live-apply-title {
+            display: flex; align-items: center; gap: 10px;
+            color: #fff; font-size: 15px; font-weight: 800;
+        }
+        .la-dot {
+            width: 9px; height: 9px; background: var(--green);
+            border-radius: 50%; flex-shrink: 0;
+            animation: pdot 1.5s ease-in-out infinite;
+        }
+        .la-count {
+            background: rgba(255,255,255,0.07);
+            color: rgba(255,255,255,0.5);
+            font-size: 12px; font-weight: 700;
+            padding: 4px 12px; border-radius: 20px;
+        }
+        .la-viewport {
+            height: 240px; overflow: hidden;
+            mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+        }
+        .la-track {
+            display: flex; flex-direction: column; gap: 8px;
+            animation: marquee-v 28s linear infinite;
+        }
+        .la-track:hover { animation-play-state: paused; }
+        @keyframes marquee-v {
+            from { transform: translateY(0); }
+            to   { transform: translateY(-50%); }
+        }
+        .la-item {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px; padding: 9px 16px;
+            flex-shrink: 0;
+        }
+        .la-item-left { display: flex; align-items: center; gap: 12px; }
+        .la-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; flex-shrink: 0;
+        }
+        .la-name { font-size: 14px; font-weight: 700; color: #fff; }
+        .la-meta { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+        .la-right { text-align: right; }
+        .la-amount { font-size: 14px; font-weight: 800; color: var(--accent); }
+        .la-time { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+        .la-badge {
+            display: inline-block; background: rgba(34,197,94,0.15);
+            color: var(--green); font-size: 10px; font-weight: 700;
+            padding: 2px 8px; border-radius: 4px; margin-top: 4px;
+        }
+
+        /* ── FAQ ── */
+        .faq-sec { background: var(--white); }
+        .faq-list { max-width: 720px; margin: 0 auto; }
+        .faq-item {
+            border: 1.5px solid var(--border); border-radius: 14px;
+            margin-bottom: 12px; overflow: hidden; transition: border-color 0.3s;
+        }
+        .faq-item.open { border-color: var(--primary); }
+        .faq-q {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 24px; cursor: pointer; gap: 16px;
+        }
+        .faq-q-text { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 700; }
+        .faq-q-badge {
+            background: var(--primary); color: #fff;
+            font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; flex-shrink: 0;
+        }
+        .faq-arrow {
+            width: 28px; height: 28px; border-radius: 50%; background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; flex-shrink: 0; transition: transform 0.3s, background 0.3s;
+        }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); background: var(--primary); color: #fff; }
+        .faq-ans { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-item.open .faq-ans { max-height: 300px; }
+        .faq-ans-inner {
+            border-top: 1px solid var(--border);
+            padding: 16px 24px 20px;
+            font-size: 14px; color: var(--gray); line-height: 1.85;
+        }
+
+        /* ── Reviews ── */
+        .reviews-sec { background: var(--bg); padding: var(--spy) 0; overflow: hidden; }
+        .reviews-sec .sec-header { padding: 0 var(--px) clamp(36px,5vw,56px); }
+        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        .marquee-wrapper {
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+        }
+        .marquee-wrapper:hover .marquee-track { animation-play-state: paused; }
+        .marquee-track {
+            display: flex; gap: 20px; width: max-content;
+            animation: marquee 48s linear infinite; padding: 8px 0 40px;
+        }
+        .review-card {
+            width: 300px; flex-shrink: 0; background: #fff;
+            border-radius: 18px; padding: 26px; border: 1px solid var(--border);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05); transition: transform 0.3s;
+        }
+        .review-card:hover { transform: translateY(-5px); }
+        .review-stars { color: #f59e0b; font-size: 14px; margin-bottom: 6px; }
+        .review-badge {
+            display: inline-block; background: var(--primary); color: #fff;
+            font-size: 11px; font-weight: 700; padding: 3px 10px;
+            border-radius: 20px; margin-bottom: 12px;
+        }
+        .review-text { font-size: 13px; color: #374151; line-height: 1.75; margin-bottom: 16px; }
+        .review-footer { display: flex; align-items: center; gap: 10px; }
+        .review-avatar {
+            width: 34px; height: 34px; background: #e5e7eb; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .review-name { font-size: 13px; font-weight: 700; }
+        .review-name span { font-weight: 400; color: var(--gray); font-size: 11px; margin-left: 4px; }
+        .review-date { font-size: 11px; color: var(--gray); }
+
+        /* ── Legal / Footer ── */
+        .legal {
+            background: #0d1117; padding: 40px clamp(20px, 5vw, 120px);
+            color: rgba(255,255,255,0.35); font-size: 12px; line-height: 2;
+            text-align: center;
+        }
+        footer {
+            background: #080b11; padding: 44px clamp(20px, 5vw, 120px);
+            color: rgba(255,255,255,0.32); font-size: 13px; text-align: center;
+        }
+        footer p { margin-bottom: 5px; }
+
+
+        /* ── 반응형 ── */
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2,1fr); }
+            .stat-card:nth-child(2) { border-right: none; }
+            .stat-card { border-bottom: 1px solid rgba(255,255,255,0.08); }
+            .stat-card:nth-child(3), .stat-card:nth-child(4) { border-bottom: none; }
+            .products-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+            .steps-grid { grid-template-columns: repeat(2,1fr); gap: 36px; }
+            .steps-line { display: none; }
+            .calc-inputs { grid-template-columns: 1fr; }
+            .calc-res-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            .hero-ctas { flex-direction: column; align-items: center; }
+            .hero-btn { width: 90%; max-width: 320px; justify-content: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .trust-items { gap: 14px; }
+            .hamburger { display: flex; }
+            nav {
+                display: none; position: fixed;
+                top: 72px; left: 0; right: 0; z-index: 999;
+                background: var(--primary-dark);
+                flex-direction: column; gap: 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            }
+            nav.open { display: flex; }
+            nav a {
+                padding: 18px 28px; font-size: 16px;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header>
+    <a href="#" class="logo">
+        민생<span>대부</span>
+        <small>MINSAENG FINANCE</small>
+    </a>
+    <nav id="mainNav">
+        <a href="#products">대출상품</a>
+        <a href="#process">이용안내</a>
+        <a href="#calc">계산기</a>
+        <a href="#faq">FAQ</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="메뉴">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+<button class="scroll-top" id="scrollTop" aria-label="맨 위로">↑</button>
+
+<!-- ── Ticker ── -->
+<div class="ticker-bar">
+    <span class="ticker-live">LIVE</span>
+    <span class="ticker-msg" id="tickerMsg">서울 마포구 김** 님이 방금 상담을 신청했습니다.</span>
+</div>
+
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="hero-inner">
+        <div data-aos="fade-down">
+            <div class="hero-badge">
+                <span class="live-dot"></span>
+                지금 상담사 연결 가능 · 24시간 연중무휴
+            </div>
+            <h1>지금 바로 상담하면<br><em>당일 대출 실행</em> 가능합니다</h1>
+            <p class="hero-sub">복잡한 절차 없이 간편하게 · 민생대부가 함께합니다</p>
+        </div>
+
+        <div class="hero-ctas" data-aos="fade-up" data-aos-delay="150">
+            <a href="tel:000-0000-0000" class="hero-btn hb-call">📱 지금 바로 전화 상담</a>
+            <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="hero-btn hb-kakao">💬 카카오 무료 상담</a>
+        </div>
+
+        <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
+            <div>
+                <div class="hero-stat-num">98%</div>
+                <div class="hero-stat-label">당일 승인율</div>
+            </div>
+            <div>
+                <div class="hero-stat-num">30분</div>
+                <div class="hero-stat-label">평균 처리시간</div>
+            </div>
+            <div>
+                <div class="hero-stat-num">24H</div>
+                <div class="hero-stat-label">연중무휴 상담</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Trust Strip ── -->
+<div class="trust-strip">
+    <div class="trust-items">
+        <div class="trust-item">
+            <div class="trust-icon">🏛️</div>
+            <div class="trust-text">
+                <strong>금융위원회 등록</strong>
+                <span>정식 등록 대부업체</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">🔒</div>
+            <div class="trust-text">
+                <strong>SSL 보안 인증</strong>
+                <span>개인정보 암호화</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">⚡</div>
+            <div class="trust-text">
+                <strong>당일 실행</strong>
+                <span>빠른 승인 시스템</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">🕐</div>
+            <div class="trust-text">
+                <strong>24시간 운영</strong>
+                <span>365일 연중무휴</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Stats Counter ── -->
+<div class="stats-bg" id="stats-section">
+    <div class="stats-grid">
+        <div class="stat-card" data-aos="fade-up">
+            <div class="stat-emoji">✅</div>
+            <div class="stat-count" data-target="15000" data-suffix="+">0</div>
+            <div class="stat-label">누적 승인 건수</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-emoji">😊</div>
+            <div class="stat-count" data-target="98" data-suffix="%">0</div>
+            <div class="stat-label">고객 만족도</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-emoji">⚡</div>
+            <div class="stat-count" data-target="30" data-suffix="분">0</div>
+            <div class="stat-label">평균 처리 시간</div>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="stat-emoji">🏆</div>
+            <div class="stat-count" data-target="10" data-suffix="년+">0</div>
+            <div class="stat-label">업력 및 경험</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── 대출 상품 ── -->
+<section class="sec products-sec" id="products">
+    <div class="sec-header" data-aos="fade-down">
+        <p class="sec-eyebrow">PRODUCTS</p>
+        <h2 class="sec-title">맞춤형 <em>대출 상품</em></h2>
+    </div>
+    <div class="products-grid">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="product-body">
+                <div class="product-icon">💼</div>
+                <div class="product-name">직장인 대출</div>
+                <p class="product-desc">재직 중인 직장인을 위한 맞춤 대출. 간단한 재직 증명으로 빠르게 처리됩니다.</p>
+                <div class="product-row">
+                    <span class="product-row-label">최대 한도</span>
+                    <span class="product-row-val">3,000만원</span>
+                </div>
+                <div class="product-row">
+                    <span class="product-row-label">연이율</span>
+                    <span class="product-row-val">연 [X]% ~ [Y]%</span>
+                </div>
+                <button class="product-cta" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">상담 신청하기 →</button>
+            </div>
+        </div>
+        <div class="product-card hot" data-aos="fade-up" data-aos-delay="200">
+            <div class="hot-badge">🔥 인기 상품</div>
+            <div class="product-body">
+                <div class="product-icon">🏪</div>
+                <div class="product-name">자영업자 대출</div>
+                <p class="product-desc">사업 운영자금이 필요하신가요? 사업장 기반 맞춤 대출로 빠르게 해결하세요.</p>
+                <div class="product-row">
+                    <span class="product-row-label">최대 한도</span>
+                    <span class="product-row-val">2,000만원</span>
+                </div>
+                <div class="product-row">
+                    <span class="product-row-label">연이율</span>
+                    <span class="product-row-val">연 [X]% ~ [Y]%</span>
+                </div>
+                <button class="product-cta" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">상담 신청하기 →</button>
+            </div>
+        </div>
+        <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="product-body">
+                <div class="product-icon">⚡</div>
+                <div class="product-name">긴급 소액 대출</div>
+                <p class="product-desc">급한 상황에 빠르게! 최소한의 서류로 당일 입금까지 처리해드립니다.</p>
+                <div class="product-row">
+                    <span class="product-row-label">최대 한도</span>
+                    <span class="product-row-val">300만원</span>
+                </div>
+                <div class="product-row">
+                    <span class="product-row-label">연이율</span>
+                    <span class="product-row-val">연 [X]% ~ [Y]%</span>
+                </div>
+                <button class="product-cta" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">상담 신청하기 →</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 이용 절차 ── -->
+<section class="sec steps-sec" id="process">
+    <div class="sec-header" data-aos="fade-down">
+        <p class="sec-eyebrow">PROCESS</p>
+        <h2 class="sec-title">간단한 <em>4단계</em> 승인 절차</h2>
+    </div>
+    <div class="steps-grid">
+        <div class="steps-line"></div>
+        <div class="step-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="step-circle">📋</div>
+            <div class="step-label">상담 신청</div>
+            <p class="step-desc">전화·카톡·온라인 폼으로<br>간편하게 신청</p>
+        </div>
+        <div class="step-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="step-circle">🪪</div>
+            <div class="step-label">본인 확인</div>
+            <p class="step-desc">간단한 신분 확인 및<br>기본 정보 입력</p>
+        </div>
+        <div class="step-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="step-circle">📄</div>
+            <div class="step-label">서류 검토</div>
+            <p class="step-desc">최소한의 서류로<br>빠른 심사 진행</p>
+        </div>
+        <div class="step-item" data-aos="fade-up" data-aos-delay="400">
+            <div class="step-circle">💸</div>
+            <div class="step-label">대출 실행</div>
+            <p class="step-desc">승인 즉시 지정 계좌로<br>당일 입금</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── 대출 계산기 ── -->
+<section class="sec calc-sec" id="calc">
+    <div class="sec-header" data-aos="fade-down">
+        <p class="sec-eyebrow">CALCULATOR</p>
+        <h2 class="sec-title" style="color:#fff">대출 <em style="color:var(--accent)">상환금 계산기</em></h2>
+        <p class="calc-subtitle">실제 이율은 신용도에 따라 달라질 수 있습니다. 상담 후 정확한 조건을 안내드립니다.</p>
+    </div>
+    <div class="calc-card" data-aos="zoom-in">
+        <div class="calc-inputs">
+            <div>
+                <div class="calc-label">
+                    대출 금액
+                    <span id="amountDisplay">1,000만원</span>
+                </div>
+                <input type="range" id="amountRange" min="100" max="3000" step="50" value="1000">
+                <div class="range-ends"><span>100만원</span><span>3,000만원</span></div>
+            </div>
+            <div>
+                <div class="calc-label">
+                    대출 기간
+                    <span id="monthDisplay">12개월</span>
+                </div>
+                <input type="range" id="monthRange" min="3" max="60" step="3" value="12">
+                <div class="range-ends"><span>3개월</span><span>60개월</span></div>
+            </div>
+        </div>
+        <div class="calc-result">
+            <div class="calc-res-grid">
+                <div class="calc-res-item">
+                    <div class="calc-res-label">월 상환금액</div>
+                    <div class="calc-res-val" id="resMonthly">-</div>
+                </div>
+                <div class="calc-res-item hl">
+                    <div class="calc-res-label">총 상환금액</div>
+                    <div class="calc-res-val" id="resTotal">-</div>
+                </div>
+                <div class="calc-res-item">
+                    <div class="calc-res-label">총 이자 (연 19.9%)</div>
+                    <div class="calc-res-val" id="resInterest">-</div>
+                </div>
+            </div>
+            <p class="calc-note">※ 참고용 계산기입니다. 법정최고이자율 연 20% 이내로 실제 이율은 상담 후 결정됩니다.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── 상담 신청 폼 ── -->
+<section class="form-sec" id="form-sec">
+    <div class="form-card" data-aos="fade-up">
+        <div class="form-header">
+            <h2>무료 대출 상담 신청</h2>
+            <p>작성하신 정보는 상담 목적으로만 사용되며 외부에 제공되지 않습니다</p>
+        </div>
+        <form id="consultForm">
+            <div class="form-row">
+                <div class="fg">
+                    <label>이름 <span class="req">*</span></label>
+                    <input type="text" placeholder="홍길동" required>
+                </div>
+                <div class="fg">
+                    <label>연락처 <span class="req">*</span></label>
+                    <input type="tel" placeholder="010-0000-0000" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="fg">
+                    <label>희망 대출금액 <span class="req">*</span></label>
+                    <select required>
+                        <option value="">선택해주세요</option>
+                        <option>100만원 이하</option>
+                        <option>100만원 ~ 300만원</option>
+                        <option>300만원 ~ 500만원</option>
+                        <option>500만원 ~ 1,000만원</option>
+                        <option>1,000만원 이상</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>직업 <span class="req">*</span></label>
+                    <select required>
+                        <option value="">선택해주세요</option>
+                        <option>직장인</option>
+                        <option>자영업자</option>
+                        <option>프리랜서</option>
+                        <option>주부</option>
+                        <option>기타</option>
+                    </select>
+                </div>
+            </div>
+            <div class="fg">
+                <label>대출 목적 <span style="color:var(--gray);font-weight:400">(선택)</span></label>
+                <select>
+                    <option value="">선택해주세요</option>
+                    <option>생활비</option>
+                    <option>의료비</option>
+                    <option>사업자금</option>
+                    <option>부채상환</option>
+                    <option>기타</option>
+                </select>
+            </div>
+            <label class="agree-row">
+                <input type="checkbox" required>
+                <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
+            </label>
+            <button type="submit" class="form-submit">무료 상담 신청하기 →</button>
+        </form>
+    </div>
+</section>
+
+<!-- ── 실시간 신청현황 ── -->
+<section class="live-apply-sec">
+    <div class="live-apply-inner">
+        <div class="live-apply-header">
+            <div class="live-apply-title">
+                <span class="la-dot"></span>
+                실시간 신청현황
+            </div>
+            <span class="la-count" id="applyCount">0건</span>
+        </div>
+        <div class="la-viewport">
+            <div class="la-track" id="laTrack"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="sec faq-sec" id="faq">
+    <div class="sec-header" data-aos="fade-down">
+        <p class="sec-eyebrow">FAQ</p>
+        <h2 class="sec-title">자주 묻는 <em>질문</em></h2>
+    </div>
+    <div class="faq-list">
+        <div class="faq-item" data-aos="fade-up">
+            <div class="faq-q">
+                <div class="faq-q-text"><span class="faq-q-badge">Q</span> 신용등급이 낮아도 대출이 가능한가요?</div>
+                <span class="faq-arrow">▾</span>
+            </div>
+            <div class="faq-ans">
+                <div class="faq-ans-inner">네, 신용등급이 낮으신 분들도 상담 가능합니다. 신용등급 외에도 소득, 직업, 거래 이력 등 다양한 요소를 종합적으로 검토하여 최선의 방법을 찾아드립니다. 먼저 무료 상담을 통해 가능성을 확인해 보세요.</div>
+            </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="50">
+            <div class="faq-q">
+                <div class="faq-q-text"><span class="faq-q-badge">Q</span> 필요한 서류는 어떤 것들이 있나요?</div>
+                <span class="faq-arrow">▾</span>
+            </div>
+            <div class="faq-ans">
+                <div class="faq-ans-inner">기본적으로 신분증(주민등록증 또는 운전면허증)이 필요합니다. 직장인의 경우 재직증명서 또는 건강보험 납부확인서, 자영업자의 경우 사업자등록증이 추가로 필요할 수 있습니다. 자세한 서류는 상담을 통해 안내드립니다.</div>
+            </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="faq-q">
+                <div class="faq-q-text"><span class="faq-q-badge">Q</span> 대출 심사는 얼마나 걸리나요?</div>
+                <span class="faq-arrow">▾</span>
+            </div>
+            <div class="faq-ans">
+                <div class="faq-ans-inner">서류가 완비된 경우 평균 30분~1시간 이내에 심사가 완료됩니다. 당일 신청 시 당일 입금도 가능합니다. 상황에 따라 다소 시간이 걸릴 수 있으니 자세한 사항은 상담사에게 문의해 주세요.</div>
+            </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+            <div class="faq-q">
+                <div class="faq-q-text"><span class="faq-q-badge">Q</span> 대출 한도는 최대 얼마인가요?</div>
+                <span class="faq-arrow">▾</span>
+            </div>
+            <div class="faq-ans">
+                <div class="faq-ans-inner">개인의 신용도, 소득, 직업 등 여러 요소에 따라 한도가 결정됩니다. 직장인 최대 3,000만원, 자영업자 최대 2,000만원, 긴급 소액의 경우 최대 300만원까지 가능합니다. 정확한 한도는 상담 후 안내드립니다.</div>
+            </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="faq-q">
+                <div class="faq-q-text"><span class="faq-q-badge">Q</span> 중도상환이 가능한가요?</div>
+                <span class="faq-arrow">▾</span>
+            </div>
+            <div class="faq-ans">
+                <div class="faq-ans-inner">네, 중도상환이 가능합니다. 중도상환 시 남은 원금에 대한 이자만 납부하시면 됩니다. 중도상환 수수료 및 조건에 대해서는 계약 시 상세히 안내드립니다.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 이용 후기 ── -->
+<section class="reviews-sec" id="reviews">
+    <div class="sec-header" data-aos="fade-down">
+        <p class="sec-eyebrow">REVIEW</p>
+        <h2 class="sec-title">실제 고객 <em>후기</em></h2>
+    </div>
+    <div class="marquee-wrapper" data-aos="fade-up">
+        <div class="marquee-track">
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 300만원</div><p class="review-text">다른 곳에서 거절당해서 걱정했는데 여기는 친절하게 설명해주시고 당일에 바로 처리해주셨어요. 정말 감사합니다!</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">김** 님 <span>(서울 강서구)</span></div><div class="review-date">2026.05.12</div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 500만원</div><p class="review-text">급하게 운영자금이 필요했는데 전화 한 통에 30분 만에 해결됐습니다. 서류도 간단하고 직원분이 너무 친절하셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">이** 님 <span>(경기 수원)</span></div><div class="review-date">2026.05.18</div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div><div class="review-date">2026.05.20</div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div><div class="review-date">2026.05.22</div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div><div class="review-date">2026.05.25</div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div><div class="review-date">2026.05.28</div></div></div></div>
+            <!-- 무한 루프용 복제 -->
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 300만원</div><p class="review-text">다른 곳에서 거절당해서 걱정했는데 여기는 친절하게 설명해주시고 당일에 바로 처리해주셨어요. 정말 감사합니다!</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">김** 님 <span>(서울 강서구)</span></div><div class="review-date">2026.05.12</div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 500만원</div><p class="review-text">급하게 운영자금이 필요했는데 전화 한 통에 30분 만에 해결됐습니다. 서류도 간단하고 직원분이 너무 친절하셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">이** 님 <span>(경기 수원)</span></div><div class="review-date">2026.05.18</div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div><div class="review-date">2026.05.20</div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div><div class="review-date">2026.05.22</div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div><div class="review-date">2026.05.25</div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div><div class="review-date">2026.05.28</div></div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 법적 고지 ── -->
+<div class="legal">
+    <p>이 사이트에서 광고되는 상품들의 상환기간은 모두 61일 이상이며, 최장 상환기간 120개월 미만입니다.</p>
+    <p>대출 총비용 예시: 1,000,000원을 12개월 동안 이자 20%, 최대 이자율 20%로 대출할 시 총 상환금액은 1,111,614원 입니다. (대출상품에 따라 달라질 수 있습니다)</p>
+    <br>
+    <p>대출금리 연 20% 이내 단, 2021.7.7부터 체결, 갱신, 연장되는 계약에 한함. (연체금리는 약정이자율 +3%p 이내 연 20% 이내) 당사의 자금조달비용, 신용원가, 업무원가 마진 등을 고려하여 당사가 결정하며, 약정이자는 이자납입일을 정하여 일정주기(매월) 납입. 소정의 채무증명서 발급 비용 외 기타부대 비용과 조기상환조건 없음. 단, 담보대출은 부대비용(근저당설정 및 해지비용 등) 및 조기상환 시 조기상환 수수료 3% 이내. 본 상품은 신용대출과 부동산 담보대출, 자동차 담보대출 상품입니다. 만 20세 이상 성인(대학생 제외)으로 개인신용평점[KCB] 390점 이상 고객에 한하며 상품에 따라 원리금균등상환, 원금자유상환, 만기일시상환을 선택하여 상환할 수 있습니다. 당사 심사기준에 따라 대출결과 및 한도가 달라질 수 있으며, 연체대출금 보유자, 불건전 대출이 있는 자 등은 대출 취급이 제한됩니다. 일정 기간 원리금이 연체될 경우 기한의 이익을 상실할 수 있습니다. 대출시 귀하의 신용등급 또는 개인신용평점이 하락할 수 있습니다. 중개수수료를 요구하거나 받는 것은 불법입니다. 과도한 빚은 당신에게 큰 불행을 안겨줄 수 있습니다. 상환능력에 비해 대출금, 신용카드 사용액이 과도할 경우 개인신용 평점이 하락 할 수 있으며 개인평점 하락으로 금융거래 시 불이익이 발생할 수 있습니다. 대출계약을 체결하기 전에 관계법령에 따라 금융상품에 관한 중요 사항을 설명 받을 수 있습니다. 계약을 체결하기 전에 자세한 내용은 상품설명서와 약관을 읽어보시기 바랍니다.</p>
+    <br>
+    <p>당사는 대부업 정식 등록된 업체이며 법정 금리를 지키고 있습니다.</p>
+    <br>
+    <p>상호명: 민생대부 &nbsp;|&nbsp; 대부업등록번호: 2025-인천서구-0037 &nbsp;|&nbsp; 사업자등록번호: 289-18-02722</p>
+    <p>대표자: 이시우 &nbsp;|&nbsp; 주소: 인천광역시 서구 청라커낼로 260번길 7-19, 청라 에이스프라자 201-1호 (청라동)</p>
+    <p>대출금리: 연 20% 이내</p>
+    <br>
+    <p>당사는 중개수수료를 요구하거나 받지 않습니다. &nbsp;|&nbsp; 대출 시 신용등급 또는 개인신용평점이 하락할 수 있습니다.</p>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+    <p><strong style="color:rgba(255,255,255,0.7);font-size:17px">민생대부</strong></p>
+    <p>대표자: 이시우 &nbsp;|&nbsp; 사업자등록번호: 289-18-02722 &nbsp;|&nbsp; 대부업등록번호: 2025-인천서구-0037</p>
+    <p>주소: 인천광역시 서구 청라커낼로 260번길 7-19, 청라 에이스프라자 201-1호 (청라동)</p>
+    <p>대출금리: 연 20% 이내 &nbsp;|&nbsp; 중개수수료 없음</p>
+    <p style="margin-top:20px;font-size:11px;opacity:0.4">© 2026 민생대부. All Rights Reserved.</p>
+</footer>
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 700, once: true, easing: 'ease-out-cubic', offset: 50 });
+
+    // 새로고침 시 맨 위로
+    if (history.scrollRestoration) history.scrollRestoration = 'manual';
+    window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+
+    // ── Ticker ──
+    const tickerMessages = [
+        '서울 마포구 김** 님이 방금 상담을 신청했습니다.',
+        '경기 수원시 이** 님 승인이 완료되었습니다. ✅',
+        '인천 부평구 박** 님이 상담을 신청했습니다.',
+        '부산 해운대구 최** 님 당일 실행 완료되었습니다. ✅',
+        '대전 유성구 정** 님이 상담을 신청했습니다.',
+        '서울 강남구 한** 님 승인이 완료되었습니다. ✅',
+        '경기 고양시 윤** 님이 방금 상담을 신청했습니다.',
+        '대구 수성구 장** 님 당일 실행 완료되었습니다. ✅',
+    ];
+    let tickerIdx = 0;
+    const tickerEl = document.getElementById('tickerMsg');
+    setInterval(() => {
+        tickerEl.style.opacity = '0';
+        setTimeout(() => {
+            tickerIdx = (tickerIdx + 1) % tickerMessages.length;
+            tickerEl.textContent = tickerMessages[tickerIdx];
+            tickerEl.style.opacity = '1';
+        }, 300);
+    }, 3500);
+
+    // ── Stats 카운터 애니메이션 ──
+    function animateCount(el, target, suffix) {
+        const start = performance.now();
+        const duration = 2000;
+        const tick = (now) => {
+            const p = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.innerHTML = Math.round(target * eased).toLocaleString('ko-KR') +
+                `<span class="stat-suffix">${suffix}</span>`;
+            if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    }
+    let statsAnimated = false;
+    new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !statsAnimated) {
+            statsAnimated = true;
+            document.querySelectorAll('.stat-count[data-target]').forEach(el => {
+                animateCount(el, parseInt(el.dataset.target), el.dataset.suffix || '');
+            });
+        }
+    }, { threshold: 0.3 }).observe(document.getElementById('stats-section'));
+
+    // ── 대출 계산기 ──
+    const amountRange = document.getElementById('amountRange');
+    const monthRange  = document.getElementById('monthRange');
+
+    function fmtWon(manwon) {
+        const n = Math.round(manwon);
+        if (n >= 10000) {
+            const eok = Math.floor(n / 10000), man = n % 10000;
+            return man > 0 ? `${eok}억 ${man.toLocaleString()}만원` : `${eok}억원`;
+        }
+        return n.toLocaleString() + '만원';
+    }
+
+    function calcLoan() {
+        const amtMan = parseInt(amountRange.value);
+        const months = parseInt(monthRange.value);
+        const r = 0.199 / 12;
+        const P = amtMan * 10000;
+        document.getElementById('amountDisplay').textContent = fmtWon(amtMan);
+        document.getElementById('monthDisplay').textContent  = months + '개월';
+        const monthly = P * r * Math.pow(1+r, months) / (Math.pow(1+r, months) - 1);
+        const total   = monthly * months;
+        const interest = total - P;
+        const fmt = v => fmtWon(Math.round(v / 10000));
+        document.getElementById('resMonthly').textContent  = fmt(monthly);
+        document.getElementById('resTotal').textContent    = fmt(total);
+        document.getElementById('resInterest').textContent = fmt(interest);
+    }
+
+    function colorRange(inp) {
+        const pct = (inp.value - inp.min) / (inp.max - inp.min) * 100;
+        inp.style.background = `linear-gradient(to right,var(--accent) ${pct}%,rgba(255,255,255,0.1) ${pct}%)`;
+    }
+
+    [amountRange, monthRange].forEach(inp => {
+        colorRange(inp);
+        inp.addEventListener('input', () => { calcLoan(); colorRange(inp); });
+    });
+    calcLoan();
+
+    // ── 전화번호 자동 하이픈 ──
+    document.querySelector('input[type="tel"]').addEventListener('input', function() {
+        let val = this.value.replace(/[^0-9]/g, '');
+        if (val.length <= 3) this.value = val;
+        else if (val.length <= 7) this.value = val.slice(0,3) + '-' + val.slice(3);
+        else this.value = val.slice(0,3) + '-' + val.slice(3,7) + '-' + val.slice(7,11);
+    });
+
+    // ── 햄버거 메뉴 ──
+    const hamburger = document.getElementById('hamburger');
+    const mainNav   = document.getElementById('mainNav');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mainNav.classList.toggle('open');
+    });
+    mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mainNav.classList.remove('open');
+    }));
+
+    // ── 스크롤 투 탑 ──
+    const scrollTopBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+        scrollTopBtn.classList.toggle('show', window.scrollY > 400);
+    });
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ── FAQ 아코디언 ──
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.querySelector('.faq-q').addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        });
+    });
+
+    // ── 실시간 신청현황 ──
+    const laTrack    = document.getElementById('laTrack');
+    const applyCount = document.getElementById('applyCount');
+    let applyTotal   = 0;
+
+    const dummyData = [
+        { name: '김*현', job: '직장인',   amount: '300만원 ~ 500만원',   min: 62 },
+        { name: '이*영', job: '자영업자', amount: '500만원 ~ 1,000만원', min: 55 },
+        { name: '박*준', job: '직장인',   amount: '100만원 ~ 300만원',   min: 47 },
+        { name: '최*린', job: '프리랜서', amount: '100만원 이하',        min: 39 },
+        { name: '정*호', job: '자영업자', amount: '1,000만원 이상',      min: 31 },
+        { name: '강*서', job: '직장인',   amount: '300만원 ~ 500만원',   min: 24 },
+        { name: '윤*아', job: '주부',     amount: '100만원 이하',        min: 18 },
+        { name: '장*민', job: '직장인',   amount: '500만원 ~ 1,000만원', min: 12 },
+        { name: '한*진', job: '자영업자', amount: '100만원 ~ 300만원',   min: 6  },
+        { name: '오*빈', job: '프리랜서', amount: '300만원 ~ 500만원',   min: 2  },
+    ];
+
+    const avatars = ['👨','👩','🧑','👦','👧','🧔','👱'];
+    let allItems = [...dummyData];
+
+    function makeItemHTML(d) {
+        const t = new Date();
+        t.setMinutes(t.getMinutes() - (d.min || 0));
+        const timeStr = t.getHours().toString().padStart(2,'0') + ':' + t.getMinutes().toString().padStart(2,'0');
+        const avatar  = avatars[Math.floor(Math.random() * avatars.length)];
+        const label   = d.min === 0 ? '방금 신청' : d.min + '분 전';
+        return `<div class="la-item">
+            <div class="la-item-left">
+                <div class="la-avatar">${avatar}</div>
+                <div>
+                    <div class="la-name">${d.name} 님</div>
+                    <div class="la-meta">${d.job} · ${label}</div>
+                </div>
+            </div>
+            <div class="la-right">
+                <div class="la-amount">${d.amount}</div>
+                <div class="la-time">${timeStr}</div>
+                <div class="la-badge">✅ 접수완료</div>
+            </div>
+        </div>`;
+    }
+
+    function renderTrack() {
+        const html = allItems.map(makeItemHTML).join('');
+        laTrack.innerHTML = html + html;
+        applyCount.textContent = allItems.length + '건';
+    }
+
+    renderTrack();
+
+    function addApplyItem(name, job, amount) {
+        const maskedName = name.length > 1 ? name[0] + '*'.repeat(name.length - 1) : name + '*';
+        allItems.unshift({ name: maskedName, job, amount, min: 0 });
+        renderTrack();
+    }
+
+    // ── 폼 제출 ──
+    document.getElementById('consultForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form   = e.target;
+        const name   = form.querySelector('input[type="text"]').value.trim();
+        const job    = form.querySelectorAll('select')[1].value;
+        const amount = form.querySelectorAll('select')[0].value;
+
+        addApplyItem(name || '고객', job || '기타', amount || '미선택');
+
+        const btn = form.querySelector('.form-submit');
+        btn.textContent = '✅ 신청 완료! 곧 연락드리겠습니다.';
+        btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.textContent = '무료 상담 신청하기 →';
+            btn.style.background = '';
+            btn.disabled = false;
+            form.reset();
+        }, 4000);
+    });
+</script>
+</body>
+</html>
