@@ -35,8 +35,8 @@
         /* ── Header ── */
         header {
             background: var(--primary-dark);
-            padding: 0 40px;
-            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+            padding: 0 var(--px);
+            display: grid; grid-template-columns: auto 1fr auto; align-items: center;
             position: sticky; top: 0; z-index: 1000;
             height: 72px;
             box-shadow: 0 2px 30px rgba(0,0,0,0.5);
@@ -44,9 +44,17 @@
         .logo { font-size: 34px; font-weight: 900; color: #fff; letter-spacing: -0.5px; line-height: 1.1; text-decoration: none; }
         .logo span { color: var(--accent); }
         .logo small { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.35); display: block; letter-spacing: 1px; }
-        nav { display: flex; justify-content: center; gap: 36px; }
+        nav { display: flex; justify-content: center; gap: 48px; }
         nav a { color: rgba(255,255,255,0.7); font-size: 19px; font-weight: 700; }
         nav a:hover { color: var(--accent); }
+        nav a.active { color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+        /* ── 헤더 버튼 ── */
+        .header-btns { display: flex; gap: 10px; justify-content: flex-end; }
+        .hbtn { padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; white-space: nowrap; transition: all 0.2s; }
+        .hbtn-call { background: var(--red); color: #fff; }
+        .hbtn-call:hover { background: #c62b36; color: #fff; }
+        .hbtn-sms { background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
+        .hbtn-sms:hover { background: rgba(255,255,255,0.1); color: #fff; }
         /* ── 햄버거 메뉴 ── */
         .hamburger {
             display: none; flex-direction: column; gap: 5px;
@@ -64,7 +72,7 @@
         /* ── Ticker ── */
         .ticker-bar {
             background: #060d1e;
-            padding: 14px 40px;
+            padding: 14px var(--px);
             display: flex; align-items: center; justify-content: center; gap: 16px;
             border-bottom: 1px solid rgba(255,255,255,0.04);
         }
@@ -83,7 +91,7 @@
         .hero {
             background: linear-gradient(150deg, #04091a 0%, #0d2447 55%, #1a3a6b 100%);
             padding: clamp(64px,10vw,120px) var(--px) clamp(60px,8vw,100px);
-            position: relative; overflow: hidden; text-align: center;
+            position: relative; overflow: hidden;
         }
         .orb {
             position: absolute; border-radius: 50%;
@@ -112,7 +120,47 @@
             33%{ transform: translate(28px,-28px) scale(1.08); }
             66%{ transform: translate(-18px,14px) scale(0.93); }
         }
-        .hero-inner { position: relative; z-index: 1; }
+        .hero-inner {
+            position: relative; z-index: 1;
+            display: grid; grid-template-columns: 1.2fr 0.8fr;
+            gap: clamp(32px, 6vw, 72px); align-items: stretch;
+        }
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
+        .hero-tag {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.75); font-size: 15px; font-weight: 600;
+            padding: 8px 18px; border-radius: 50px;
+        }
+        .hero-right {
+            display: flex; flex-direction: column; gap: 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .hero-card-online { display: flex; align-items: center; gap: 8px; }
+        .hero-card-dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; animation: pdot 1.5s ease-in-out infinite; flex-shrink: 0; }
+        .hero-cert {
+            flex: 1; border: 1.5px dashed rgba(255,255,255,0.15);
+            border-radius: 16px; min-height: 320px;
+            background: rgba(255,255,255,0.03);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 10px;
+            cursor: pointer; transition: border-color 0.2s, background 0.2s;
+            overflow: hidden;
+        }
+        .hero-cert:hover { border-color: rgba(232,160,0,0.4); background: rgba(232,160,0,0.04); }
+        .hero-cert-icon { font-size: 32px; opacity: 0.35; }
+        .hero-cert-label { font-size: 13px; color: rgba(255,255,255,0.3); font-weight: 600; }
+        .hero-cert img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-info-row {
+            display: flex; justify-content: space-around;
+            border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px;
+        }
+        .hero-info-item { text-align: center; }
+        .hero-info-val { font-size: 15px; font-weight: 900; color: var(--accent); }
+        .hero-info-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
             border: 1.5px solid rgba(232,160,0,0.45);
@@ -131,7 +179,7 @@
             50%{ box-shadow: 0 0 0 7px rgba(34,197,94,0); }
         }
         .hero h1 {
-            font-size: clamp(30px, 5vw, 58px); font-weight: 900; color: #fff;
+            font-size: clamp(26px, 4vw, 44px); font-weight: 900; color: #fff;
             line-height: 1.2; margin-bottom: 18px; letter-spacing: -1px;
         }
         .hero h1 em {
@@ -154,50 +202,204 @@
         .scroll-top.show { opacity: 1; transform: translateY(0); }
         .scroll-top:hover { background: var(--primary-light); transform: translateY(-2px); }
 
-        .hero-ctas {
-            display: flex; justify-content: center; gap: 14px;
-            margin-bottom: 52px; flex-wrap: wrap;
+        .hero-cta-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+            border: 1px solid rgba(232,160,0,0.3);
+            border-radius: 20px; padding: 22px 24px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
         }
+        .hero-cta-label {
+            display: flex; align-items: center; gap: 7px;
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            color: rgba(255,255,255,0.45); text-transform: uppercase; margin-bottom: 8px;
+        }
+        .hero-cta-label-dot {
+            width: 6px; height: 6px; background: var(--green);
+            border-radius: 50%; animation: pdot 1.5s ease-in-out infinite; flex-shrink: 0;
+        }
+        .hero-cta-phone {
+            font-size: clamp(24px, 3.2vw, 32px); font-weight: 900; color: #fff;
+            letter-spacing: 2px; line-height: 1; margin-bottom: 18px;
+        }
+        .hero-cta-divider { height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 18px; }
+        .hero-ctas { display: flex; gap: 12px; }
         .hero-btn {
-            padding: 16px 36px; border-radius: 50px;
-            font-size: 16px; font-weight: 800;
-            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 20px; border-radius: 12px;
+            font-size: 15px; font-weight: 800; letter-spacing: 0.3px;
+            display: inline-flex; align-items: center; justify-content: center;
             border: none; cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s; flex: 1;
         }
-        .hero-btn:hover { transform: translateY(-3px); }
+        .hero-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
         .hb-call {
             background: linear-gradient(135deg, #e63946, #c0392b);
             color: #fff;
             animation: pulse-red 2.5s ease-out infinite;
         }
-        .hb-kakao { background: #fee500; color: #3c1e1e; box-shadow: 0 12px 30px rgba(254,229,0,0.3); }
+        .hb-kakao { background: #fee500; color: #3c1e1e; box-shadow: 0 6px 20px rgba(254,229,0,0.2); }
         @keyframes pulse-red {
-            0%{ box-shadow: 0 12px 30px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0.6); }
-            70%{ box-shadow: 0 12px 30px rgba(230,57,70,0.4), 0 0 0 20px rgba(230,57,70,0); }
-            100%{ box-shadow: 0 12px 30px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0); }
+            0%{ box-shadow: 0 6px 20px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0.6); }
+            70%{ box-shadow: 0 6px 20px rgba(230,57,70,0.4), 0 0 0 14px rgba(230,57,70,0); }
+            100%{ box-shadow: 0 6px 20px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0); }
         }
-        .hero-stats { display: flex; justify-content: center; gap: clamp(28px,5vw,80px); }
-        .hero-stat-num { font-size: clamp(28px,4vw,44px); font-weight: 900; color: var(--accent); line-height: 1; }
-        .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 6px; }
+        .hero-stats {
+            display: flex; justify-content: flex-start; gap: 8px;
+            background: none; border: none; border-radius: 0; overflow: visible;
+        }
+        .hero-stats > div {
+            flex: 1; text-align: center; padding: 12px 6px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(232,160,0,0.25);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.07);
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .hero-stats > div:hover {
+            border-color: rgba(232,160,0,0.5);
+            background: rgba(255,255,255,0.08);
+        }
+        .hero-stat-num {
+            font-size: 20px; font-weight: 900; line-height: 1;
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(232,160,0,0.35);
+        }
+        .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 5px; letter-spacing: 0.3px; }
+
+        /* ── Recommend Section ── */
+        .recommend-sec { background: var(--white); padding-bottom: clamp(30px, 4vw, 48px); }
+        .recommend-inner {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: clamp(32px, 6vw, 80px); align-items: stretch;
+        }
+        .recommend-visual {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            border-radius: 28px;
+            overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            align-self: stretch;
+        }
+        .recommend-visual::before {
+            content: '';
+            position: absolute; top: -60px; right: -60px;
+            width: 240px; height: 240px;
+            background: radial-gradient(circle, rgba(232,160,0,0.18) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .recommend-visual::after {
+            content: '';
+            position: absolute; bottom: -40px; left: -40px;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .recommend-big-text {
+            font-size: clamp(48px, 8vw, 80px); font-weight: 900;
+            color: rgba(255,255,255,0.06); line-height: 1;
+            position: absolute; top: 24px; left: 28px; letter-spacing: -2px;
+        }
+        .recommend-badges {
+            display: flex; flex-wrap: nowrap; gap: 8px; position: relative; z-index: 1;
+        }
+        .recommend-badge {
+            background: rgba(232,160,0,0.15);
+            border: 1px solid rgba(232,160,0,0.45);
+            border-radius: 100px; padding: 8px 14px;
+            font-size: 13px; font-weight: 700; color: var(--accent);
+            backdrop-filter: blur(8px); white-space: nowrap;
+        }
+        .recommend-badge.accent {
+            background: rgba(232,160,0,0.2);
+            border-color: rgba(232,160,0,0.4);
+            color: var(--accent);
+        }
+        .recommend-content { display: flex; flex-direction: column; gap: 20px; }
+        .recommend-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+        .recommend-item {
+            display: flex; align-items: flex-start; gap: 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 14px; padding: 16px 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .recommend-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 16px rgba(26,58,107,0.1);
+        }
+        .recommend-check {
+            width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 1px;
+        }
+        .recommend-check svg { width: 12px; height: 12px; }
+        .recommend-item p { font-size: 15px; color: var(--text); line-height: 1.5; font-weight: 500; }
+        .recommend-cta { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+        .recommend-cta-btn {
+            display: inline-block; padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: #fff; font-size: 15px; font-weight: 700;
+            border-radius: 100px;
+            box-shadow: 0 4px 16px rgba(26,58,107,0.3);
+        }
+        .recommend-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,58,107,0.4); }
+        .recommend-cta-link { font-size: 14px; color: var(--gray); font-weight: 600; }
+        .recommend-cta-link:hover { color: var(--primary); }
+
+        @media(max-width:640px){
+            .recommend-inner { grid-template-columns: 1fr; }
+            .recommend-visual { min-height: 200px; padding: 32px 24px; }
+            .recommend-big-text { font-size: 40px; }
+        }
 
         /* ── Trust Strip ── */
         .trust-strip {
-            background: var(--white); border-bottom: 1px solid var(--border);
-            padding: 18px var(--px);
+            background: #060d1e;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 24px var(--px);
+        }
+        .trust-layout {
+            display: grid; grid-template-columns: 0.7fr 1.4fr;
+            gap: 20px; align-items: stretch;
         }
         .trust-items {
-            display: flex; justify-content: center; gap: clamp(20px,4vw,56px); flex-wrap: wrap;
+            display: flex; flex-direction: column;
+            gap: 8px;
         }
-        .trust-item { display: flex; align-items: center; gap: 10px; }
+        .trust-item {
+            display: flex; align-items: center; gap: 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px; padding: 14px 18px;
+        }
         .trust-icon {
-            width: 38px; height: 38px; flex-shrink: 0;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 18px;
+            width: 48px; height: 48px; flex-shrink: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
         }
-        .trust-text strong { display: block; font-size: 13px; font-weight: 800; color: var(--text); }
-        .trust-text span { font-size: 11px; color: var(--gray); }
+        .trust-text strong { display: block; font-size: 17px; font-weight: 900; color: #fff; }
+        .trust-text span { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+        .trust-live {
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .trust-live .la-viewport {
+            height: 300px !important;
+        }
+        .trust-live-header {
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .trust-live-title {
+            display: flex; align-items: center; gap: 8px;
+            color: #fff; font-size: 14px; font-weight: 800;
+        }
+        @media(max-width:640px){
+            .trust-layout { grid-template-columns: 1fr; }
+            .trust-live { display: none; }
+        }
 
         /* ── 공통 섹션 ── */
         .sec { padding: var(--spy) var(--px); }
@@ -209,27 +411,27 @@
         /* ── Stats ── */
         .stats-bg {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            padding: 64px var(--px);
+            padding: 36px var(--px);
         }
         .stats-grid {
             display: grid; grid-template-columns: repeat(4,1fr);
             max-width: 900px; margin: 0 auto;
         }
         .stat-card {
-            text-align: center; padding: 28px 16px;
+            text-align: center; padding: 16px 16px;
             border-right: 1px solid rgba(255,255,255,0.1);
         }
         .stat-card:last-child { border-right: none; }
-        .stat-emoji { font-size: 30px; margin-bottom: 12px; }
+        .stat-emoji { font-size: 24px; margin-bottom: 8px; }
         .stat-count {
-            font-size: clamp(30px,4vw,48px); font-weight: 900; color: var(--accent);
-            line-height: 1; margin-bottom: 6px;
+            font-size: clamp(26px,3.5vw,40px); font-weight: 900; color: var(--accent);
+            line-height: 1; margin-bottom: 4px;
         }
-        .stat-suffix { font-size: 20px; }
+        .stat-suffix { font-size: 18px; }
         .stat-label { font-size: 13px; color: rgba(255,255,255,0.5); }
 
         /* ── Products ── */
-        .products-sec { background: var(--white); }
+        .products-sec { background: var(--white); padding-top: clamp(30px, 4vw, 48px); }
         .products-grid {
             display: grid; grid-template-columns: repeat(3,1fr);
             gap: 24px; max-width: 1000px; margin: 0 auto;
@@ -483,8 +685,8 @@
         }
 
         /* ── Reviews ── */
-        .reviews-sec { background: var(--bg); padding: var(--spy) 0; overflow: hidden; }
-        .reviews-sec .sec-header { padding: 0 var(--px) clamp(36px,5vw,56px); }
+        .reviews-sec { background: var(--bg); padding: clamp(36px,5vw,64px) 0; overflow: hidden; }
+        .reviews-sec .sec-header { padding: 0 var(--px) clamp(24px,3vw,36px); }
         @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
         .marquee-wrapper {
             overflow: hidden;
@@ -519,14 +721,53 @@
         .review-name span { font-weight: 400; color: var(--gray); font-size: 11px; margin-left: 4px; }
         .review-date { font-size: 11px; color: var(--gray); }
 
+        /* ── 등록증 모달 ── */
+        .cert-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .cert-row-label { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.7); }
+        .cert-view-btn {
+            font-size: 14px; font-weight: 700; color: var(--accent);
+            background: rgba(232,160,0,0.1); border: 1px solid rgba(232,160,0,0.3);
+            border-radius: 6px; padding: 5px 12px; cursor: pointer;
+            transition: all 0.2s; white-space: nowrap;
+        }
+        .cert-view-btn:hover { background: rgba(232,160,0,0.2); }
+        .cert-modal {
+            display: none; position: fixed; inset: 0; z-index: 2000;
+            background: rgba(0,0,0,0.85); align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .cert-modal.open { display: flex; }
+        .cert-modal-inner {
+            position: relative; max-width: 560px; width: 100%;
+            background: #fff; border-radius: 16px; overflow: hidden;
+        }
+        .cert-modal-close {
+            position: absolute; top: 12px; right: 12px;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: rgba(0,0,0,0.5); color: #fff; border: none; cursor: pointer;
+            font-size: 18px; display: flex; align-items: center; justify-content: center;
+            z-index: 1;
+        }
+        .cert-modal img { width: 100%; display: block; }
+        .cert-modal-placeholder {
+            width: 100%; aspect-ratio: 3/4;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 12px; background: #f5f5f5; color: #999;
+        }
+        .cert-modal-placeholder span { font-size: 48px; }
+        .cert-modal-placeholder p { font-size: 14px; font-weight: 600; }
+
         /* ── Legal / Footer ── */
         .legal {
-            background: #0d1117; padding: 40px clamp(20px, 5vw, 120px);
+            background: #0d1117; padding: 40px var(--px);
             color: rgba(255,255,255,0.35); font-size: 12px; line-height: 2;
             text-align: center;
         }
         footer {
-            background: #080b11; padding: 44px clamp(20px, 5vw, 120px);
+            background: #080b11; padding: 44px var(--px);
             color: rgba(255,255,255,0.32); font-size: 13px; text-align: center;
         }
         footer p { margin-bottom: 5px; }
@@ -545,10 +786,9 @@
             .calc-res-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
-            .hero-ctas { flex-direction: column; align-items: center; }
             .hero-btn { width: 90%; max-width: 320px; justify-content: center; }
             .form-row { grid-template-columns: 1fr; }
-            .trust-items { gap: 14px; }
+            .trust-items { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             /* 헤더: 로고 가운데, 햄버거 우측 */
             header {
                 display: flex;
@@ -557,6 +797,7 @@
                 padding: 0 20px;
             }
             .logo { text-align: center; }
+            .header-btns { display: none; }
             .hamburger {
                 display: flex;
                 position: absolute;
@@ -581,6 +822,12 @@
             .ticker-bar { padding: 10px 16px; gap: 10px; }
             .ticker-live { font-size: 10px; padding: 3px 8px; }
             .ticker-msg { font-size: 13px; }
+            /* hero 모바일 */
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-right { display: none; }
+            .hero-ctas { flex-direction: column; }
+            .hero-btn { flex: unset; width: 100%; }
+            .hero-stats { justify-content: center; }
         }
     </style>
 </head>
@@ -596,8 +843,14 @@
         <a href="#products">대출상품</a>
         <a href="#process">이용안내</a>
         <a href="#calc">계산기</a>
+        <a href="#form-sec">상담신청</a>
         <a href="#faq">FAQ</a>
+        <a href="#reviews">후기</a>
     </nav>
+    <div class="header-btns">
+        <a href="tel:000-0000-0000" class="hbtn hbtn-call">전화상담</a>
+        <a href="sms:000-0000-0000" class="hbtn hbtn-sms">문자상담</a>
+    </div>
     <button class="hamburger" id="hamburger" aria-label="메뉴">
         <span></span><span></span><span></span>
     </button>
@@ -617,32 +870,79 @@
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
     <div class="hero-inner">
-        <div data-aos="fade-down">
-            <div class="hero-badge">
-                <span class="live-dot"></span>
-                지금 상담사 연결 가능 · 24시간 연중무휴
+        <!-- 왼쪽: 텍스트 + CTA -->
+        <div class="hero-left">
+            <div data-aos="fade-down">
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px;">
+                    <div class="hero-badge" style="margin-bottom:0;">
+                        🏛️ 금융위원회 정식 등록 대부업체
+                    </div>
+                    <div class="hero-badge" style="margin-bottom:0;">
+                        등록번호 2025-인천서구-0037
+                    </div>
+                </div>
+                <h1>복잡한 서류 없이<br><em>당일 대출 실행</em> 가능합니다</h1>
+                <p class="hero-sub">금융위원회 정식 등록 대부업체 · 신속하고 안전하게 도와드립니다</p>
             </div>
-            <h1>지금 바로 상담하면<br><em>당일 대출 실행</em> 가능합니다</h1>
-            <p class="hero-sub">복잡한 절차 없이 간편하게 · 민생대부가 함께합니다</p>
+            <div class="hero-tags" data-aos="fade-up" data-aos-delay="100">
+                <span class="hero-tag">직장인</span>
+                <span class="hero-tag">자영업자</span>
+                <span class="hero-tag">무직자</span>
+                <span class="hero-tag">주부</span>
+                <span class="hero-tag">당일 실행</span>
+                <span class="hero-tag">비대면 가능</span>
+            </div>
+            <div class="hero-cta-box" data-aos="fade-up" data-aos-delay="150">
+                <div class="hero-cta-label">
+                    <span class="hero-cta-label-dot"></span>
+                    24시간 상담 연결
+                </div>
+                <div class="hero-cta-phone">010-1234-5678</div>
+                <div class="hero-cta-divider"></div>
+                <div class="hero-ctas">
+                    <a href="tel:010-1234-5678" class="hero-btn hb-call">지금 바로 전화상담</a>
+                    <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="hero-btn hb-kakao">카카오톡 간편 문의</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="hero-stat-num">98%</div>
+                    <div class="hero-stat-label">당일 승인율</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">30분</div>
+                    <div class="hero-stat-label">평균 처리시간</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">24H</div>
+                    <div class="hero-stat-label">연중무휴 상담</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">비대면</div>
+                    <div class="hero-stat-label">진행방식</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">연 20%</div>
+                    <div class="hero-stat-label">대출금리</div>
+                </div>
+            </div>
         </div>
-
-        <div class="hero-ctas" data-aos="fade-up" data-aos-delay="150">
-            <a href="tel:000-0000-0000" class="hero-btn hb-call">📱 지금 바로 전화 상담</a>
-            <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="hero-btn hb-kakao">💬 카카오 무료 상담</a>
-        </div>
-
-        <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
-            <div>
-                <div class="hero-stat-num">98%</div>
-                <div class="hero-stat-label">당일 승인율</div>
+        <!-- 오른쪽: 신뢰 카드 -->
+        <div class="hero-right" data-aos="fade-left" data-aos-delay="200">
+            <!-- 상담 가능 상태 -->
+            <div class="hero-card-online">
+                <span class="hero-card-dot"></span>
+                <span style="color:var(--green);font-weight:700;font-size:15px;">상담 가능</span>
+                <span style="color:rgba(255,255,255,0.4);font-size:13px;margin-left:6px;">전화 · 문자 연결</span>
             </div>
-            <div>
-                <div class="hero-stat-num">30분</div>
-                <div class="hero-stat-label">평균 처리시간</div>
+            <!-- 등록증 라벨 -->
+            <div class="cert-row">
+                <span class="cert-row-label">대부중개업등록증</span>
+                <button class="cert-view-btn" id="certViewBtn">크게보기</button>
             </div>
-            <div>
-                <div class="hero-stat-num">24H</div>
-                <div class="hero-stat-label">연중무휴 상담</div>
+            <!-- 등록증 -->
+            <div class="hero-cert">
+                <img src="license.jpg" alt="대부업 등록증">
             </div>
         </div>
     </div>
@@ -650,33 +950,47 @@
 
 <!-- ── Trust Strip ── -->
 <div class="trust-strip">
-    <div class="trust-items">
-        <div class="trust-item">
-            <div class="trust-icon">🏛️</div>
-            <div class="trust-text">
-                <strong>금융위원회 등록</strong>
-                <span>정식 등록 대부업체</span>
+    <div class="trust-layout">
+        <div class="trust-items">
+            <div class="trust-item">
+                <div class="trust-icon">🏛️</div>
+                <div class="trust-text">
+                    <strong>금융위원회 정식 등록</strong>
+                    <span>대부업 등록번호 2025-인천서구-0037</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🔒</div>
+                <div class="trust-text">
+                    <strong>SSL 보안 인증</strong>
+                    <span>개인정보 암호화</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">⚡</div>
+                <div class="trust-text">
+                    <strong>당일 실행</strong>
+                    <span>빠른 승인 시스템</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🕐</div>
+                <div class="trust-text">
+                    <strong>24시간 운영</strong>
+                    <span>365일 연중무휴</span>
+                </div>
             </div>
         </div>
-        <div class="trust-item">
-            <div class="trust-icon">🔒</div>
-            <div class="trust-text">
-                <strong>SSL 보안 인증</strong>
-                <span>개인정보 암호화</span>
+        <div class="trust-live">
+            <div class="trust-live-header">
+                <div class="trust-live-title">
+                    <span class="la-dot"></span>
+                    실시간 신청현황
+                </div>
+                <span class="la-count" id="applyCount">0건</span>
             </div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">⚡</div>
-            <div class="trust-text">
-                <strong>당일 실행</strong>
-                <span>빠른 승인 시스템</span>
-            </div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">🕐</div>
-            <div class="trust-text">
-                <strong>24시간 운영</strong>
-                <span>365일 연중무휴</span>
+            <div class="la-viewport">
+                <div class="la-track" id="laTrack"></div>
             </div>
         </div>
     </div>
@@ -708,6 +1022,65 @@
     </div>
 </div>
 
+<!-- ── 이런 분들께 ── -->
+<section class="sec recommend-sec" id="recommend">
+    <div class="recommend-inner">
+        <div class="recommend-visual" data-aos="fade-right">
+            <img src="advice2.png" alt="상담 이미지" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top;">
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(13,36,71,0.7) 0%, rgba(13,36,71,0.1) 60%, transparent 100%);"></div>
+            <p style="position:absolute; bottom:10px; right:14px; z-index:2; font-size:10px; color:rgba(255,255,255,0.35);">* AI로 생성된 연출된 이미지입니다</p>
+            <div class="recommend-badges" style="position:relative; z-index:1; padding:28px; flex-wrap:nowrap;">
+                <span class="recommend-badge accent">당일 실행 가능</span>
+                <span class="recommend-badge accent">비대면 진행</span>
+                <span class="recommend-badge accent">24시간 상담</span>
+                <span class="recommend-badge accent">빠른 심사</span>
+            </div>
+        </div>
+        <div class="recommend-content" data-aos="fade-left">
+            <div>
+                <p class="sec-eyebrow">RECOMMEND</p>
+                <h2 class="sec-title">이런 분들께<br><em>상담을 권해드립니다</em></h2>
+            </div>
+            <ul class="recommend-list">
+                <li class="recommend-item">
+                    <div class="recommend-check">
+                        <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <p>급한 생활자금이 필요한 분</p>
+                </li>
+                <li class="recommend-item">
+                    <div class="recommend-check">
+                        <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <p>카드 결제대금 마련이 필요한 분</p>
+                </li>
+                <li class="recommend-item">
+                    <div class="recommend-check">
+                        <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <p>비대면으로 빠른 상담을 원하는 분</p>
+                </li>
+                <li class="recommend-item">
+                    <div class="recommend-check">
+                        <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <p>직업·소득 조건 때문에 고민 중인 분</p>
+                </li>
+                <li class="recommend-item">
+                    <div class="recommend-check">
+                        <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <p>늦은 시간이나 주말 상담이 필요한 분</p>
+                </li>
+            </ul>
+            <div class="recommend-cta">
+                <a href="tel:010-1234-5678" class="recommend-cta-btn">지금 바로 전화상담</a>
+                <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="recommend-cta-btn" style="background: linear-gradient(135deg, #FAE100, #F9C200); color: #3C1E1E;">카카오톡 간편상담</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ── 대출 상품 ── -->
 <section class="sec products-sec" id="products">
     <div class="sec-header" data-aos="fade-down">
@@ -722,7 +1095,7 @@
                 <p class="product-desc">재직 중인 직장인을 위한 맞춤 대출. 간단한 재직 증명으로 빠르게 처리됩니다.</p>
                 <div class="product-row">
                     <span class="product-row-label">최대 한도</span>
-                    <span class="product-row-val">3,000만원</span>
+                    <span class="product-row-val">8,000만원</span>
                 </div>
                 <div class="product-row">
                     <span class="product-row-label">연이율</span>
@@ -739,7 +1112,7 @@
                 <p class="product-desc">사업 운영자금이 필요하신가요? 사업장 기반 맞춤 대출로 빠르게 해결하세요.</p>
                 <div class="product-row">
                     <span class="product-row-label">최대 한도</span>
-                    <span class="product-row-val">2,000만원</span>
+                    <span class="product-row-val">8,000만원</span>
                 </div>
                 <div class="product-row">
                     <span class="product-row-label">연이율</span>
@@ -755,7 +1128,7 @@
                 <p class="product-desc">급한 상황에 빠르게! 최소한의 서류로 당일 입금까지 처리해드립니다.</p>
                 <div class="product-row">
                     <span class="product-row-label">최대 한도</span>
-                    <span class="product-row-val">300만원</span>
+                    <span class="product-row-val">8,000만원</span>
                 </div>
                 <div class="product-row">
                     <span class="product-row-label">연이율</span>
@@ -812,8 +1185,8 @@
                     대출 금액
                     <span id="amountDisplay">1,000만원</span>
                 </div>
-                <input type="range" id="amountRange" min="100" max="3000" step="50" value="1000">
-                <div class="range-ends"><span>100만원</span><span>3,000만원</span></div>
+                <input type="range" id="amountRange" min="100" max="8000" step="100" value="1000">
+                <div class="range-ends"><span>100만원</span><span>8,000만원</span></div>
             </div>
             <div>
                 <div class="calc-label">
@@ -906,21 +1279,6 @@
     </div>
 </section>
 
-<!-- ── 실시간 신청현황 ── -->
-<section class="live-apply-sec">
-    <div class="live-apply-inner">
-        <div class="live-apply-header">
-            <div class="live-apply-title">
-                <span class="la-dot"></span>
-                실시간 신청현황
-            </div>
-            <span class="la-count" id="applyCount">0건</span>
-        </div>
-        <div class="la-viewport">
-            <div class="la-track" id="laTrack"></div>
-        </div>
-    </div>
-</section>
 
 <!-- ── FAQ ── -->
 <section class="sec faq-sec" id="faq">
@@ -962,7 +1320,7 @@
                 <span class="faq-arrow">▾</span>
             </div>
             <div class="faq-ans">
-                <div class="faq-ans-inner">개인의 신용도, 소득, 직업 등 여러 요소에 따라 한도가 결정됩니다. 직장인 최대 3,000만원, 자영업자 최대 2,000만원, 긴급 소액의 경우 최대 300만원까지 가능합니다. 정확한 한도는 상담 후 안내드립니다.</div>
+                <div class="faq-ans-inner">개인의 신용도, 소득, 직업 등 여러 요소에 따라 한도가 결정됩니다. 직장인 최대 8,000만원, 자영업자 최대 5,000만원, 긴급 소액의 경우 최대 500만원까지 가능합니다. 정확한 한도는 상담 후 안내드립니다.</div>
             </div>
         </div>
         <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
@@ -1001,6 +1359,14 @@
         </div>
     </div>
 </section>
+
+<!-- ── 등록증 모달 ── -->
+<div class="cert-modal" id="certModal">
+    <div class="cert-modal-inner">
+        <button class="cert-modal-close" id="certModalClose">✕</button>
+        <img src="license.jpg" alt="대부중개업등록증" id="certModalImg">
+    </div>
+</div>
 
 <!-- ── 법적 고지 ── -->
 <div class="legal">
@@ -1147,6 +1513,27 @@
         scrollTopBtn.classList.toggle('show', window.scrollY > 400);
     });
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ── 스크롤 스파이 ──
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    const navTargetIds = Array.from(navLinks).map(a => a.getAttribute('href').slice(1));
+    const spySections = navTargetIds.map(id => document.getElementById(id)).filter(Boolean);
+    const spyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(a => a.classList.remove('active'));
+                const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+                if (active) active.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    spySections.forEach(sec => spyObserver.observe(sec));
+
+    // ── 등록증 모달 ──
+    const certModal = document.getElementById('certModal');
+    document.getElementById('certViewBtn').addEventListener('click', () => certModal.classList.add('open'));
+    document.getElementById('certModalClose').addEventListener('click', () => certModal.classList.remove('open'));
+    certModal.addEventListener('click', (e) => { if (e.target === certModal) certModal.classList.remove('open'); });
 
     // ── FAQ 아코디언 ──
     document.querySelectorAll('.faq-item').forEach(item => {
