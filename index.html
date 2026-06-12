@@ -151,8 +151,7 @@
             overflow: hidden;
         }
         .hero-cert:hover { border-color: rgba(232,160,0,0.4); background: rgba(232,160,0,0.04); }
-        .hero-cert-icon { font-size: 32px; opacity: 0.35; }
-        .hero-cert-label { font-size: 13px; color: rgba(255,255,255,0.3); font-weight: 600; }
+
         .hero-cert img { width: 100%; height: 100%; object-fit: cover; }
         .hero-info-row {
             display: flex; justify-content: space-around;
@@ -296,11 +295,7 @@
             background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
             border-radius: 50%;
         }
-        .recommend-big-text {
-            font-size: clamp(48px, 8vw, 80px); font-weight: 900;
-            color: rgba(255,255,255,0.06); line-height: 1;
-            position: absolute; top: 24px; left: 28px; letter-spacing: -2px;
-        }
+
         .recommend-badges {
             display: flex; flex-wrap: nowrap; gap: 8px; position: relative; z-index: 1;
         }
@@ -471,29 +466,42 @@
         .product-cta:hover { opacity: 0.9; transform: translateY(-1px); }
 
         /* ── Steps ── */
-        .steps-sec { background: var(--bg); }
+        .steps-sec { background: var(--bg); padding-top: clamp(36px,5vw,56px); padding-bottom: clamp(36px,5vw,56px); }
         .steps-grid {
             display: grid; grid-template-columns: repeat(4,1fr);
-            max-width: 960px; margin: 0 auto; position: relative;
+            gap: 16px;
         }
-        .steps-line {
-            position: absolute; top: 44px; left: 12.5%; width: 75%; height: 2px;
-            background: linear-gradient(to right, var(--accent), var(--primary)); z-index: 0;
+        .step-item {
+            background: var(--white);
+            border-radius: 20px; padding: 28px 24px 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: flex; flex-direction: column; gap: 16px;
+            transition: box-shadow 0.2s, transform 0.2s;
         }
-        .step-item { text-align: center; padding: 0 14px; position: relative; z-index: 1; }
-        .step-circle {
-            width: 90px; height: 90px; margin: 0 auto 20px;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; border: 3px solid #fff;
-            box-shadow: 0 8px 24px rgba(26,58,107,0.3);
+        .step-item:hover {
+            box-shadow: 0 8px 28px rgba(26,58,107,0.12);
+            transform: translateY(-3px);
         }
-        .step-label { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
-        .step-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+        .step-num {
+            width: 52px; height: 52px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 900; color: #fff; letter-spacing: 1px;
+        }
+        .step-label { font-size: 20px; font-weight: 900; color: var(--text); }
+        .step-desc { font-size: 15px; color: var(--gray); line-height: 1.7; flex: 1; }
+        .step-link { font-size: 14px; font-weight: 700; color: var(--primary); }
+        .step-link:hover { color: var(--primary-light); }
+        @media(max-width:640px){
+            .steps-grid { grid-template-columns: repeat(2,1fr); }
+        }
 
         /* ── Calculator ── */
         .calc-sec {
             background: linear-gradient(150deg, #04091a, var(--primary-dark));
+            padding-top: clamp(36px, 5vw, 56px);
+            padding-bottom: clamp(36px, 5vw, 56px);
         }
         .calc-sec .sec-title { color: #fff; }
         .calc-sec .sec-eyebrow { color: var(--accent); }
@@ -587,22 +595,6 @@
         .form-submit:disabled { cursor: not-allowed; }
 
         /* ── 실시간 신청현황 ── */
-        .live-apply-sec {
-            background: #060d1e;
-            padding: 20px var(--px);
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .live-apply-inner {
-            max-width: 600px; margin: 0 auto;
-        }
-        .live-apply-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 16px;
-        }
-        .live-apply-title {
-            display: flex; align-items: center; gap: 10px;
-            color: #fff; font-size: 15px; font-weight: 800;
-        }
         .la-dot {
             width: 9px; height: 9px; background: var(--green);
             border-radius: 50%; flex-shrink: 0;
@@ -752,13 +744,7 @@
             z-index: 1;
         }
         .cert-modal img { width: 100%; display: block; }
-        .cert-modal-placeholder {
-            width: 100%; aspect-ratio: 3/4;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 12px; background: #f5f5f5; color: #999;
-        }
-        .cert-modal-placeholder span { font-size: 48px; }
-        .cert-modal-placeholder p { font-size: 14px; font-weight: 600; }
+
 
         /* ── Legal / Footer ── */
         .legal {
@@ -781,14 +767,50 @@
             .stat-card:nth-child(3), .stat-card:nth-child(4) { border-bottom: none; }
             .products-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
             .steps-grid { grid-template-columns: repeat(2,1fr); gap: 36px; }
-            .steps-line { display: none; }
+
             .calc-inputs { grid-template-columns: 1fr; }
             .calc-res-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
             .hero-btn { width: 90%; max-width: 320px; justify-content: center; }
             .form-row { grid-template-columns: 1fr; }
-            .trust-items { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .trust-items { gap: 6px; }
+
+            /* 1. 히어로 뱃지 한 줄 */
+            .hero-badge { font-size: 11px; padding: 5px 12px; white-space: nowrap; }
+            .hero-badge + .hero-badge { margin-left: 0; }
+
+            /* 3. Stats Counter 한 줄 */
+            .stats-bg { padding: 20px var(--px); }
+            .stats-grid { grid-template-columns: repeat(4,1fr) !important; }
+            .stat-card { border-bottom: none !important; border-right: 1px solid rgba(255,255,255,0.1); padding: 10px 4px; }
+            .stat-card:last-child { border-right: none; }
+            .stat-emoji { font-size: 16px; margin-bottom: 4px; }
+            .stat-count { font-size: 16px !important; }
+            .stat-suffix { font-size: 13px; }
+            .stat-label { font-size: 10px; }
+
+            /* 4. 이런 분들께 이미지 내 뱃지 위치 */
+            .recommend-badges { padding: 16px !important; gap: 6px !important; flex-wrap: wrap !important; }
+            .recommend-badge { font-size: 11px; padding: 5px 10px; }
+
+            /* 5. 대출 상품 가로 스크롤 한 줄 */
+            .products-grid {
+                grid-template-columns: repeat(3,260px) !important;
+                max-width: none !important;
+                overflow-x: auto; padding-bottom: 12px;
+                scrollbar-width: none;
+            }
+            .products-grid::-webkit-scrollbar { display: none; }
+
+            /* 6. 승인절차 가로 스크롤 한 줄 */
+            .steps-grid {
+                grid-template-columns: repeat(4,220px) !important;
+                overflow-x: auto; padding-bottom: 12px; gap: 12px !important;
+                scrollbar-width: none;
+            }
+            .steps-grid::-webkit-scrollbar { display: none; }
+
             /* 헤더: 로고 가운데, 햄버거 우측 */
             header {
                 display: flex;
@@ -840,6 +862,7 @@
         <small>MINSAENG FINANCE</small>
     </a>
     <nav id="mainNav">
+        <a href="#recommend">상담안내</a>
         <a href="#products">대출상품</a>
         <a href="#process">이용안내</a>
         <a href="#calc">계산기</a>
@@ -882,7 +905,7 @@
                     </div>
                 </div>
                 <h1>복잡한 서류 없이<br><em>당일 대출 실행</em> 가능합니다</h1>
-                <p class="hero-sub">금융위원회 정식 등록 대부업체 · 신속하고 안전하게 도와드립니다</p>
+                <p class="hero-sub">금융위원회 정식 등록 대부업체<br>신속하고 안전하게 도와드립니다</p>
             </div>
             <div class="hero-tags" data-aos="fade-up" data-aos-delay="100">
                 <span class="hero-tag">직장인</span>
@@ -1147,26 +1170,25 @@
         <h2 class="sec-title">간단한 <em>4단계</em> 승인 절차</h2>
     </div>
     <div class="steps-grid">
-        <div class="steps-line"></div>
         <div class="step-item" data-aos="fade-up" data-aos-delay="100">
-            <div class="step-circle">📋</div>
+            <div class="step-num">01</div>
             <div class="step-label">상담 신청</div>
-            <p class="step-desc">전화·카톡·온라인 폼으로<br>간편하게 신청</p>
+            <p class="step-desc">전화·카톡·온라인 폼으로 간편하게 신청하세요.</p>
         </div>
         <div class="step-item" data-aos="fade-up" data-aos-delay="200">
-            <div class="step-circle">🪪</div>
+            <div class="step-num">02</div>
             <div class="step-label">본인 확인</div>
-            <p class="step-desc">간단한 신분 확인 및<br>기본 정보 입력</p>
+            <p class="step-desc">본인 확인 및 상황에 맞는 가능 여부를 확인합니다.</p>
         </div>
         <div class="step-item" data-aos="fade-up" data-aos-delay="300">
-            <div class="step-circle">📄</div>
-            <div class="step-label">서류 검토</div>
-            <p class="step-desc">최소한의 서류로<br>빠른 심사 진행</p>
+            <div class="step-num">03</div>
+            <div class="step-label">조건 안내</div>
+            <p class="step-desc">심사 결과에 따른 금리, 한도, 상환 조건을 안내합니다.</p>
         </div>
         <div class="step-item" data-aos="fade-up" data-aos-delay="400">
-            <div class="step-circle">💸</div>
-            <div class="step-label">대출 실행</div>
-            <p class="step-desc">승인 즉시 지정 계좌로<br>당일 입금</p>
+            <div class="step-num">04</div>
+            <div class="step-label">진행 여부 결정</div>
+            <p class="step-desc">설명을 충분히 들은 뒤 진행 여부를 결정합니다.</p>
         </div>
     </div>
 </section>
@@ -1340,6 +1362,7 @@
     <div class="sec-header" data-aos="fade-down">
         <p class="sec-eyebrow">REVIEW</p>
         <h2 class="sec-title">실제 고객 <em>후기</em></h2>
+        <p style="margin-top:12px; font-size:20px; color:var(--gray);">저희 민생대부를 믿고 이용해주신 소중한 고객님들의 후기입니다.</p>
     </div>
     <div class="marquee-wrapper" data-aos="fade-up">
         <div class="marquee-track">
