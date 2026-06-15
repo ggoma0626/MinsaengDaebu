@@ -741,6 +741,52 @@
         .cert-modal img { width: 100%; display: block; }
 
 
+        /* ── 플로팅 CTA 바 ── */
+        .float-cta {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 1400;
+            display: flex;
+            background: var(--primary-dark);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
+            transform: translateY(100%);
+            transition: transform 0.35s ease;
+        }
+        .float-cta.show { transform: translateY(0); }
+        .float-cta-btn {
+            flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 14px 12px; font-size: 15px; font-weight: 800; color: #fff;
+            border: none; cursor: pointer; transition: filter 0.2s; text-decoration: none;
+        }
+        .float-cta-btn:hover { filter: brightness(1.1); }
+        .float-cta-call { background: linear-gradient(135deg, #e63946, #c0392b); }
+        .float-cta-kakao { background: #fee500; color: #3c1e1e; }
+        .float-cta-divider { width: 1px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
+
+        /* ── 심플 계산기 ── */
+        .calc-simple { display: flex; flex-direction: column; gap: 28px; }
+        .calc-simple-row { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .calc-simple-group { display: flex; flex-direction: column; gap: 10px; }
+        .calc-simple-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
+        .calc-simple-input-wrap { display: flex; align-items: center; gap: 12px; }
+        .calc-simple-input-wrap input[type="range"] { flex: 1; }
+        .calc-simple-val { font-size: 18px; font-weight: 900; color: var(--accent); white-space: nowrap; min-width: 80px; text-align: right; }
+        .calc-simple-result {
+            display: flex; align-items: center; justify-content: space-around;
+            background: rgba(232,160,0,0.07); border: 1px solid rgba(232,160,0,0.2);
+            border-radius: 16px; padding: 22px 16px;
+        }
+        .calc-simple-res-item { text-align: center; flex: 1; }
+        .calc-simple-res-label { display: block; font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+        .calc-simple-res-val { font-size: clamp(16px,2.2vw,22px); font-weight: 900; color: #fff; }
+        .calc-simple-res-val.accent { color: var(--accent); font-size: clamp(18px,2.5vw,26px); }
+        .calc-simple-res-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.1); }
+        @media(max-width:640px){
+            .calc-simple-row { grid-template-columns: 1fr; gap: 20px; }
+            .calc-simple-result { padding: 16px 10px; }
+            .calc-simple-res-val { font-size: 14px; }
+            .calc-simple-res-val.accent { font-size: 16px; }
+        }
+
         /* ── Legal / Footer ── */
         .legal {
             background: #0d1117; padding: 40px var(--px);
@@ -999,8 +1045,9 @@
                 <button class="cert-view-btn" id="certViewBtn">크게보기</button>
             </div>
             <!-- 등록증 -->
-            <div class="hero-cert">
-                <img src="license.jpg" alt="대부업 등록증">
+            <div class="hero-cert" style="position:relative;">
+                <img src="license2.jpg" alt="대부업 등록증">
+                <div style="position:absolute; background:#fff; top:53%; left:27%; width:30%; height:5%;"></div>
             </div>
         </div>
     </div>
@@ -1236,40 +1283,42 @@
         <p class="calc-subtitle">실제 이율은 신용도에 따라 달라질 수 있습니다. 상담 후 정확한 조건을 안내드립니다.</p>
     </div>
     <div class="calc-card" data-aos="zoom-in">
-        <div class="calc-inputs">
-            <div>
-                <div class="calc-label">
-                    대출 금액
-                    <span id="amountDisplay">1,000만원</span>
+        <div class="calc-simple">
+            <div class="calc-simple-row">
+                <div class="calc-simple-group">
+                    <label class="calc-simple-label">대출 금액</label>
+                    <div class="calc-simple-input-wrap">
+                        <input type="range" id="amountRange" min="100" max="8000" step="100" value="1000">
+                        <div class="calc-simple-val"><span id="amountDisplay">1,000</span>만원</div>
+                    </div>
+                    <div class="range-ends"><span>100만원</span><span>8,000만원</span></div>
                 </div>
-                <input type="range" id="amountRange" min="100" max="8000" step="100" value="1000">
-                <div class="range-ends"><span>100만원</span><span>8,000만원</span></div>
-            </div>
-            <div>
-                <div class="calc-label">
-                    대출 기간
-                    <span id="monthDisplay">12개월</span>
-                </div>
-                <input type="range" id="monthRange" min="3" max="60" step="3" value="12">
-                <div class="range-ends"><span>3개월</span><span>60개월</span></div>
-            </div>
-        </div>
-        <div class="calc-result">
-            <div class="calc-res-grid">
-                <div class="calc-res-item">
-                    <div class="calc-res-label">월 상환금액</div>
-                    <div class="calc-res-val" id="resMonthly">-</div>
-                </div>
-                <div class="calc-res-item hl">
-                    <div class="calc-res-label">총 상환금액</div>
-                    <div class="calc-res-val" id="resTotal">-</div>
-                </div>
-                <div class="calc-res-item">
-                    <div class="calc-res-label">총 이자 (연 19.9%)</div>
-                    <div class="calc-res-val" id="resInterest">-</div>
+                <div class="calc-simple-group">
+                    <label class="calc-simple-label">대출 기간</label>
+                    <div class="calc-simple-input-wrap">
+                        <input type="range" id="monthRange" min="3" max="60" step="3" value="12">
+                        <div class="calc-simple-val"><span id="monthDisplay">12</span>개월</div>
+                    </div>
+                    <div class="range-ends"><span>3개월</span><span>60개월</span></div>
                 </div>
             </div>
-            <p class="calc-note">※ 참고용 계산기입니다. 법정최고이자율 연 20% 이내로 실제 이율은 상담 후 결정됩니다.</p>
+            <div class="calc-simple-result">
+                <div class="calc-simple-res-item">
+                    <span class="calc-simple-res-label">월 상환금</span>
+                    <strong class="calc-simple-res-val accent" id="resMonthly">-</strong>
+                </div>
+                <div class="calc-simple-res-divider"></div>
+                <div class="calc-simple-res-item">
+                    <span class="calc-simple-res-label">총 상환금</span>
+                    <strong class="calc-simple-res-val" id="resTotal">-</strong>
+                </div>
+                <div class="calc-simple-res-divider"></div>
+                <div class="calc-simple-res-item">
+                    <span class="calc-simple-res-label">총 이자</span>
+                    <strong class="calc-simple-res-val" id="resInterest">-</strong>
+                </div>
+            </div>
+            <p class="calc-note">※ 연 19.9% 기준 참고용. 실제 이율은 상담 후 결정됩니다.</p>
         </div>
     </div>
 </section>
@@ -1420,10 +1469,18 @@
 
 <!-- ── 등록증 모달 ── -->
 <div class="cert-modal" id="certModal">
-    <div class="cert-modal-inner">
+    <div class="cert-modal-inner" style="position:relative;">
         <button class="cert-modal-close" id="certModalClose">✕</button>
-        <img src="license.jpg" alt="대부중개업등록증" id="certModalImg">
+        <img src="license2.jpg" alt="대부중개업등록증" id="certModalImg">
+        <div style="position:absolute; background:#fff; top:53%; left:27%; width:30%; height:5%;"></div>
     </div>
+</div>
+
+<!-- ── 플로팅 CTA 바 ── -->
+<div class="float-cta" id="floatCta">
+    <a href="tel:010-1234-5678" class="float-cta-btn float-cta-call">지금 바로 전화상담</a>
+    <div class="float-cta-divider"></div>
+    <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="float-cta-btn float-cta-kakao">카카오톡 간편 문의</a>
 </div>
 
 <!-- ── 법적 고지 ── -->
@@ -1523,8 +1580,8 @@
         const months = parseInt(monthRange.value);
         const r = 0.199 / 12;
         const P = amtMan * 10000;
-        document.getElementById('amountDisplay').textContent = fmtWon(amtMan);
-        document.getElementById('monthDisplay').textContent  = months + '개월';
+        document.getElementById('amountDisplay').textContent = amtMan.toLocaleString();
+        document.getElementById('monthDisplay').textContent  = months;
         const monthly = P * r * Math.pow(1+r, months) / (Math.pow(1+r, months) - 1);
         const total   = monthly * months;
         const interest = total - P;
@@ -1565,10 +1622,14 @@
         mainNav.classList.remove('open');
     }));
 
-    // ── 스크롤 투 탑 ──
+    // ── 스크롤 투 탑 + 플로팅 CTA ──
     const scrollTopBtn = document.getElementById('scrollTop');
+    const floatCta = document.getElementById('floatCta');
+    const heroEl = document.querySelector('.hero');
     window.addEventListener('scroll', () => {
-        scrollTopBtn.classList.toggle('show', window.scrollY > 400);
+        const past = window.scrollY > 400;
+        scrollTopBtn.classList.toggle('show', past);
+        floatCta.classList.toggle('show', window.scrollY > heroEl.offsetHeight);
     });
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
