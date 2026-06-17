@@ -55,6 +55,20 @@
         .hbtn-call:hover { background: #c62b36; color: #fff; }
         .hbtn-sms { background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
         .hbtn-sms:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .header-phone {
+            display: flex; align-items: center; gap: 10px;
+            border: 1.5px solid rgba(255,255,255,0.25); border-radius: 100px;
+            padding: 7px 18px 7px 8px; transition: border-color 0.2s;
+        }
+        .header-phone:hover { border-color: var(--accent); }
+        .header-phone-icon {
+            width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+            background: var(--accent); display: flex; align-items: center; justify-content: center;
+        }
+        .header-phone-icon svg { width: 18px; height: 18px; fill: #fff; }
+        .header-phone-text { display: flex; flex-direction: column; }
+        .header-phone-label { font-size: 15px; color: rgba(255,255,255,0.55); font-weight: 500; }
+        .header-phone-num { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: 0.5px; line-height: 1.2; }
         /* ── 햄버거 메뉴 ── */
         .hamburger {
             display: none; flex-direction: column; gap: 5px;
@@ -89,7 +103,15 @@
 
         /* ── Hero ── */
         .hero {
-            background: linear-gradient(150deg, #04091a 0%, #0d2447 55%, #1a3a6b 100%);
+            background-color: #04091a;
+            background-image:
+                linear-gradient(to right,  #04091a 0%, rgba(4,9,26,0.92) 15%, transparent 38%),
+                linear-gradient(to left,   #04091a 0%, rgba(4,9,26,0.85) 8%, rgba(4,9,26,0.3) 20%, transparent 30%),
+                linear-gradient(to bottom, transparent 60%, #060d1e 100%),
+                url('main3.png');
+            background-size: cover, cover, cover, cover;
+            background-position: center center, center center, center center, 70% top;
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
             padding: clamp(64px,10vw,120px) var(--px) clamp(60px,8vw,100px);
             position: relative; overflow: hidden;
         }
@@ -122,22 +144,17 @@
         }
         .hero-inner {
             position: relative; z-index: 1;
-            display: grid; grid-template-columns: 1.2fr 0.8fr;
-            gap: clamp(32px, 6vw, 72px); align-items: stretch;
+            max-width: 640px;
         }
-        .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
+        .hero-tags { display: flex; flex-wrap: nowrap; gap: 8px; margin: 0 0 32px; overflow: hidden; }
         .hero-tag {
             background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
             color: rgba(255,255,255,0.75); font-size: 15px; font-weight: 600;
-            padding: 8px 18px; border-radius: 50px;
+            padding: 8px 18px; border-radius: 50px; white-space: nowrap;
         }
         .hero-right {
-            display: flex; flex-direction: column; gap: 14px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px; padding: 20px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column; gap: 10px;
+            position: relative;
         }
         .hero-card-online { display: flex; align-items: center; gap: 8px; }
         .hero-card-dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; animation: pdot 1.5s ease-in-out infinite; flex-shrink: 0; }
@@ -186,7 +203,7 @@
             background: linear-gradient(135deg, var(--accent), #ffd04d);
             -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-        .hero-sub { font-size: clamp(15px,2vw,18px); color: rgba(255,255,255,0.5); margin-bottom: 44px; }
+        .hero-sub { font-size: clamp(15px,2vw,18px); color: rgba(255,255,255,0.85); margin-bottom: 44px; }
 
         /* ── 스크롤 투 탑 ── */
         .scroll-top {
@@ -204,7 +221,7 @@
         .hero-cta-box {
             background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
             border: 1px solid rgba(232,160,0,0.3);
-            border-radius: 20px; padding: 22px 24px;
+            border-radius: 20px; padding: 20px 22px; max-width: 550px;
             margin-bottom: 40px;
             backdrop-filter: blur(16px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
@@ -233,39 +250,32 @@
         }
         .hero-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
         .hb-call {
-            background: linear-gradient(135deg, #e63946, #c0392b);
+            background: linear-gradient(135deg, #1e90ff, #1267d6);
             color: #fff;
-            animation: pulse-red 2.5s ease-out infinite;
+            animation: pulse-blue 2.5s ease-out infinite;
         }
         .hb-kakao { background: #fee500; color: #3c1e1e; box-shadow: 0 6px 20px rgba(254,229,0,0.2); }
-        @keyframes pulse-red {
-            0%{ box-shadow: 0 6px 20px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0.6); }
-            70%{ box-shadow: 0 6px 20px rgba(230,57,70,0.4), 0 0 0 14px rgba(230,57,70,0); }
-            100%{ box-shadow: 0 6px 20px rgba(230,57,70,0.4), 0 0 0 0 rgba(230,57,70,0); }
+        @keyframes pulse-blue {
+            0%{ box-shadow: 0 6px 20px rgba(30,144,255,0.4), 0 0 0 0 rgba(30,144,255,0.6); }
+            70%{ box-shadow: 0 6px 20px rgba(30,144,255,0.4), 0 0 0 14px rgba(30,144,255,0); }
+            100%{ box-shadow: 0 6px 20px rgba(30,144,255,0.4), 0 0 0 0 rgba(30,144,255,0); }
         }
         .hero-stats {
-            display: flex; justify-content: flex-start; gap: 8px;
-            background: none; border: none; border-radius: 0; overflow: visible;
+            display: flex; justify-content: flex-start; gap: 8px; width: 100%; max-width: 550px;
         }
         .hero-stats > div {
-            flex: 1; text-align: center; padding: 12px 6px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(232,160,0,0.25);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.07);
-            transition: border-color 0.2s, background 0.2s;
+            flex: 1; text-align: center; padding: 16px 6px;
+            background: linear-gradient(145deg, rgba(232,160,0,0.12), rgba(232,160,0,0.03));
+            border: 1px solid rgba(232,160,0,0.35);
+            border-radius: 14px;
+            transition: transform 0.25s;
         }
-        .hero-stats > div:hover {
-            border-color: rgba(232,160,0,0.5);
-            background: rgba(255,255,255,0.08);
-        }
+        .hero-stats > div:hover { transform: translateY(-4px); }
         .hero-stat-num {
-            font-size: 20px; font-weight: 900; line-height: 1;
+            font-size: 22px; font-weight: 900; line-height: 1;
             color: var(--accent);
-            text-shadow: 0 0 12px rgba(232,160,0,0.35);
         }
-        .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 5px; letter-spacing: 0.3px; }
+        .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 6px; letter-spacing: 0.3px; }
 
         /* ── Recommend Section ── */
         .recommend-sec { background: var(--white); padding-bottom: clamp(30px, 4vw, 48px); }
@@ -335,49 +345,19 @@
         .recommend-cta { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
         .recommend-cta-btn {
             display: inline-block; padding: 14px 28px;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            background: linear-gradient(135deg, #1e90ff, #1267d6);
             color: #fff; font-size: 15px; font-weight: 700;
             border-radius: 100px;
-            box-shadow: 0 4px 16px rgba(26,58,107,0.3);
+            box-shadow: 0 4px 16px rgba(30,144,255,0.3);
         }
-        .recommend-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,58,107,0.4); }
+        .recommend-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,144,255,0.4); }
         .recommend-cta-link { font-size: 14px; color: var(--gray); font-weight: 600; }
         .recommend-cta-link:hover { color: var(--primary); }
 
 
-        /* ── Trust Strip ── */
-        .trust-strip {
-            background: #060d1e;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 24px var(--px);
-        }
-        .trust-layout {
-            display: grid; grid-template-columns: 0.7fr 1.4fr;
-            gap: 20px; align-items: stretch;
-        }
-        .trust-items {
-            display: flex; flex-direction: column;
-            gap: 8px;
-        }
-        .trust-item {
-            display: flex; align-items: center; gap: 14px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px; padding: 14px 18px;
-        }
-        .trust-icon {
-            width: 48px; height: 48px; flex-shrink: 0;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-        }
-        .trust-text strong { display: block; font-size: 17px; font-weight: 900; color: #fff; }
-        .trust-text span { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+        /* ── Trust Live ── */
         .trust-live {
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .trust-live .la-viewport {
-            height: 300px !important;
+            display: flex; flex-direction: column; gap: 10px; height: 100%;
         }
         .trust-live-header {
             display: flex; align-items: center; justify-content: space-between;
@@ -386,9 +366,65 @@
             display: flex; align-items: center; gap: 8px;
             color: #fff; font-size: 14px; font-weight: 800;
         }
-        @media(max-width:640px){
-            .trust-layout { grid-template-columns: 1fr; }
-            .trust-live { display: none; }
+
+        /* ── 신뢰 섹션 ── */
+        .trust-reason-sec {
+            background: #060d1e;
+            padding: var(--spy) var(--px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .trust-reason-inner { max-width: 1060px; margin: 0 auto; }
+        .trust-reason-header { text-align: center; margin-bottom: clamp(36px,5vw,60px); }
+        .trust-reason-header .sec-title { color: #fff; }
+        .sec-title .tr-em { color: var(--accent) !important; font-style: normal; font-weight: 900; }
+        .trust-reason-body {
+            display: grid; grid-template-columns: 1fr 1.4fr;
+            gap: 48px; align-items: center;
+        }
+        .trust-reason-cert { display: flex; flex-direction: column; gap: 16px; }
+        .trust-reason-img-wrap {
+            border-radius: 16px; overflow: hidden;
+            border: 2px solid rgba(232,160,0,0.25);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .trust-reason-img-wrap img { width: 100%; display: block; }
+        .trust-reason-cert-caption {
+            text-align: center; font-size: 13px;
+            color: rgba(255,255,255,0.55); line-height: 1.8;
+        }
+        .trust-reason-img-only { display: flex; flex-direction: column; }
+        .trust-reason-img-only .hero-cert { flex: 1; min-height: 0; }
+        .trust-reason-list { display: flex; flex-direction: column; gap: 23px; }
+        .trust-reason-item {
+            display: flex; align-items: flex-start; gap: 13px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 20px 22px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .trust-reason-item:hover {
+            border-color: rgba(232,160,0,0.3);
+            background: rgba(232,160,0,0.04);
+        }
+        .trust-reason-icon {
+            flex-shrink: 0;
+            width: 50px; height: 50px;
+            background: rgba(232,160,0,0.1);
+            border: 1px solid rgba(232,160,0,0.25);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .trust-reason-icon svg {
+            width: 24px; height: 24px; color: var(--accent);
+        }
+        .trust-reason-item strong {
+            display: block; font-size: 16px; font-weight: 900;
+            color: #fff; margin-bottom: 6px;
+        }
+        .trust-reason-item p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.7; margin: 0; }
+        @media(max-width:768px){
+            .trust-reason-body { grid-template-columns: 1fr; gap: 32px; }
+            .trust-reason-img-wrap { max-width: 320px; margin: 0 auto; }
         }
 
         /* ── 공통 섹션 ── */
@@ -405,20 +441,27 @@
         }
         .stats-grid {
             display: grid; grid-template-columns: repeat(4,1fr);
-            max-width: 900px; margin: 0 auto;
+            gap: 16px; max-width: 900px; margin: 0 auto;
         }
         .stat-card {
-            text-align: center; padding: 16px 16px;
-            border-right: 1px solid rgba(255,255,255,0.1);
+            text-align: center; padding: 24px 16px;
+            background: linear-gradient(145deg, rgba(232,160,0,0.1), rgba(232,160,0,0.02));
+            border: 1px solid rgba(232,160,0,0.3);
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(232,160,0,0.1), inset 0 1px 0 rgba(255,255,255,0.07);
+            transition: transform 0.25s, box-shadow 0.25s;
         }
-        .stat-card:last-child { border-right: none; }
-        .stat-emoji { font-size: 24px; margin-bottom: 8px; }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 32px rgba(232,160,0,0.22), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
         .stat-count {
-            font-size: clamp(26px,3.5vw,40px); font-weight: 900; color: var(--accent);
-            line-height: 1; margin-bottom: 4px;
+            font-size: clamp(28px,3.5vw,40px); font-weight: 900; color: var(--accent);
+            line-height: 1; margin-bottom: 8px;
+            text-shadow: 0 0 18px rgba(232,160,0,0.5);
         }
         .stat-suffix { font-size: 18px; }
-        .stat-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .stat-label { font-size: 13px; color: rgba(255,255,255,0.6); letter-spacing: 0.3px; }
 
         /* ── Products ── */
         .products-sec { background: var(--white); padding-top: clamp(30px, 4vw, 48px); }
@@ -492,11 +535,38 @@
             .steps-grid { grid-template-columns: repeat(2,1fr); }
         }
 
-        /* ── Calculator ── */
-        .calc-sec {
+        /* ── Calculator + Live ── */
+        .calc-live-sec {
             background: linear-gradient(150deg, #04091a, var(--primary-dark));
-            padding-top: clamp(36px, 5vw, 56px);
-            padding-bottom: clamp(36px, 5vw, 56px);
+            padding: clamp(36px,5vw,64px) var(--px);
+        }
+        .calc-live-box {
+            max-width: var(--mw); margin: 0 auto;
+            display: flex; align-items: stretch;
+            height: 460px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 24px; overflow: hidden;
+        }
+        .calc-live-left {
+            flex: 1; padding: 36px 40px;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .calc-live-divider {
+            width: 1px; background: rgba(255,255,255,0.06); flex-shrink: 0;
+        }
+        .calc-live-right {
+            flex: 1; padding: 36px 40px;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+        .calc-live-right .la-viewport {
+            flex: 1; height: 0 !important; min-height: 0;
+        }
+        @media(max-width:860px){
+            .calc-live-box { flex-direction: column; }
+            .calc-live-divider { width: 100%; height: 1px; }
+            .calc-live-left, .calc-live-right { padding: 28px 24px; }
         }
         .calc-sec .sec-title { color: #fff; }
         .calc-sec .sec-eyebrow { color: var(--accent); }
@@ -633,7 +703,7 @@
         .la-meta { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
         .la-right { text-align: right; }
         .la-amount { font-size: 14px; font-weight: 800; color: var(--accent); }
-        .la-time { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+
         .la-badge {
             display: inline-block; background: rgba(34,197,94,0.15);
             color: var(--green); font-size: 10px; font-weight: 700;
@@ -743,24 +813,39 @@
 
         /* ── 플로팅 CTA 바 ── */
         .float-cta {
-            position: fixed; bottom: 0; left: 0; right: 0; z-index: 1400;
-            display: flex;
-            background: var(--primary-dark);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
-            transform: translateY(100%);
-            transition: transform 0.35s ease;
+            position: fixed; bottom: 100px; right: 24px; z-index: 1400;
+            display: flex; flex-direction: column; gap: 12px;
+            opacity: 0; pointer-events: none;
+            transform: translateX(20px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
         }
-        .float-cta.show { transform: translateY(0); }
+        .float-cta.show { opacity: 1; pointer-events: auto; transform: translateX(0); }
         .float-cta-btn {
-            flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 14px 12px; font-size: 15px; font-weight: 800; color: #fff;
-            border: none; cursor: pointer; transition: filter 0.2s; text-decoration: none;
+            display: flex; align-items: center; gap: 0;
+            border-radius: 100px; overflow: hidden;
+            font-size: 14px; font-weight: 800; color: #fff;
+            text-decoration: none; cursor: pointer;
+            box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 190px;
         }
-        .float-cta-btn:hover { filter: brightness(1.1); }
-        .float-cta-call { background: linear-gradient(135deg, #e63946, #c0392b); }
-        .float-cta-kakao { background: #fee500; color: #3c1e1e; }
-        .float-cta-divider { width: 1px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
+        .float-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
+        .float-cta-icon {
+            width: 60px; height: 60px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; background: rgba(0,0,0,0.2);
+        }
+        .float-cta-text { padding: 0 18px 0 14px; line-height: 1.3; }
+        .float-cta-text strong { display: block; font-size: 15px; font-weight: 900; }
+        .float-cta-text span { font-size: 12px; font-weight: 700; opacity: 0.9; }
+        .float-cta-call { background: linear-gradient(135deg, #1e90ff, #1267d6); }
+        .float-cta-kakao { background: linear-gradient(135deg, #f9b800, #e6a800); color: #3c1e1e; }
+        .float-cta-kakao .float-cta-icon { background: rgba(0,0,0,0.1); }
+        .float-cta-kakao .float-cta-text strong,
+        .float-cta-kakao .float-cta-text span { color: #3c1e1e; }
+        .float-cta-form { background: linear-gradient(135deg, #2c3e6b, #1a2a4a); }
+        .float-cta-form .float-cta-icon { background: rgba(255,255,255,0.1); }
+        .float-cta-divider { display: none; }
 
         /* ── 심플 계산기 ── */
         .calc-simple { display: flex; flex-direction: column; gap: 28px; }
@@ -785,6 +870,22 @@
             .calc-simple-result { padding: 16px 10px; }
             .calc-simple-res-val { font-size: 14px; }
             .calc-simple-res-val.accent { font-size: 16px; }
+        }
+
+        /* ── Warning Banner ── */
+        .top-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+        }
+        .warning-banner {
+            background: #1a0a00;
+            border-bottom: 1px solid rgba(232,160,0,0.25);
+            padding: 8px var(--px);
+            text-align: center;
+            font-size: 12px;
+            color: rgba(232,160,0,0.85);
+            letter-spacing: 0.02em;
         }
 
         /* ── Legal / Footer ── */
@@ -852,7 +953,10 @@
             /* Trust strip */
             .trust-strip { padding: 16px 20px; }
             .trust-layout { grid-template-columns: 1fr; }
-            .trust-live { display: none; }
+            .calc-live-box { flex-direction: column; height: auto; }
+            .calc-live-divider { width: 100%; height: 1px; }
+            .calc-live-left, .calc-live-right { padding: 24px 20px; }
+            .calc-live-right .la-viewport { height: 260px !important; flex: none; }
             .trust-items { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
             .trust-item { padding: 10px 12px; gap: 10px; }
             .trust-icon { width: 36px; height: 36px; font-size: 16px; }
@@ -936,6 +1040,12 @@
 </head>
 <body>
 
+<div class="top-sticky">
+<!-- ── 법적 경고 배너 ── -->
+<div class="warning-banner">
+    ⚠️ 과도한 빚은 당신에게 큰 불행을 줄 수 있습니다. 대출 전 반드시 상환 능력을 확인하세요.
+</div>
+
 <!-- ── Header ── -->
 <header>
     <a href="#" class="logo">
@@ -946,27 +1056,35 @@
         <a href="#recommend">상담안내</a>
         <a href="#products">대출상품</a>
         <a href="#process">이용안내</a>
-        <a href="#calc">계산기</a>
+
         <a href="#form-sec">상담신청</a>
         <a href="#faq">FAQ</a>
         <a href="#reviews">후기</a>
     </nav>
     <div class="header-btns">
-        <a href="tel:000-0000-0000" class="hbtn hbtn-call">전화상담</a>
-        <a href="sms:000-0000-0000" class="hbtn hbtn-sms">문자상담</a>
+        <a href="tel:010-1234-5678" class="header-phone">
+            <div class="header-phone-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            </div>
+            <div class="header-phone-text">
+                <span class="header-phone-label">무료상담 문의</span>
+                <span class="header-phone-num">010-1234-5678</span>
+            </div>
+        </a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="메뉴">
         <span></span><span></span><span></span>
     </button>
 </header>
+</div><!-- /.top-sticky -->
 
 <button class="scroll-top" id="scrollTop" aria-label="맨 위로">↑</button>
 
 <!-- ── Ticker ── -->
-<div class="ticker-bar">
+<!-- <div class="ticker-bar">
     <span class="ticker-live">LIVE</span>
     <span class="ticker-msg" id="tickerMsg">서울 마포구 김** 님이 방금 상담을 신청했습니다.</span>
-</div>
+</div> -->
 
 <!-- ── Hero ── -->
 <section class="hero">
@@ -985,8 +1103,8 @@
                         등록번호 2025-인천서구-0037
                     </div>
                 </div>
-                <h1>복잡한 서류 없이<br><em>당일 대출 실행</em> 가능합니다</h1>
-                <p class="hero-sub">금융위원회 정식 등록 대부업체<br>신속하고 안전하게 도와드립니다</p>
+                <h1>복잡한 서류 없이<br><em>빠르고 간편한 당일 대출</em></h1>
+                <p class="hero-sub"><em style="color:var(--accent);font-style:normal;font-size:1.25em;font-weight:900;">신뢰할 수 있는 파트너</em><br>금융위원회 정식 등록 업체 <em style="color:var(--accent);font-style:normal;font-size:1.15em;font-weight:900;">민생대부</em>가 고객님께 딱 맞는 한도를 찾아드립니다.</p>
             </div>
             <div class="hero-tags" data-aos="fade-up" data-aos-delay="100">
                 <span class="hero-tag">직장인</span>
@@ -1014,10 +1132,6 @@
                     <div class="hero-stat-label">당일 승인율</div>
                 </div>
                 <div>
-                    <div class="hero-stat-num">30분</div>
-                    <div class="hero-stat-label">평균 처리시간</div>
-                </div>
-                <div>
                     <div class="hero-stat-num">24H</div>
                     <div class="hero-stat-label">연중무휴 상담</div>
                 </div>
@@ -1025,107 +1139,101 @@
                     <div class="hero-stat-num">비대면</div>
                     <div class="hero-stat-label">진행방식</div>
                 </div>
-                <div>
-                    <div class="hero-stat-num">연 20%</div>
-                    <div class="hero-stat-label">대출금리</div>
-                </div>
-            </div>
-        </div>
-        <!-- 오른쪽: 신뢰 카드 -->
-        <div class="hero-right" data-aos="fade-left" data-aos-delay="200">
-            <!-- 상담 가능 상태 -->
-            <div class="hero-card-online">
-                <span class="hero-card-dot"></span>
-                <span style="color:var(--green);font-weight:700;font-size:15px;">상담 가능</span>
-                <span style="color:rgba(255,255,255,0.4);font-size:13px;margin-left:6px;">전화 · 문자 연결</span>
-            </div>
-            <!-- 등록증 라벨 -->
-            <div class="cert-row">
-                <span class="cert-row-label">대부중개업등록증</span>
-                <button class="cert-view-btn" id="certViewBtn">크게보기</button>
-            </div>
-            <!-- 등록증 -->
-            <div class="hero-cert" style="position:relative;">
-                <img src="license2.jpg" alt="대부업 등록증">
-                <div style="position:absolute; background:#fff; top:53%; left:27%; width:30%; height:5%;"></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── Trust Strip ── -->
-<div class="trust-strip">
-    <div class="trust-layout">
-        <div class="trust-items">
-            <div class="trust-item">
-                <div class="trust-icon">🏛️</div>
-                <div class="trust-text">
-                    <strong>금융위원회 정식 등록</strong>
-                    <span>대부업 등록번호 2025-인천서구-0037</span>
-                </div>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon">🔒</div>
-                <div class="trust-text">
-                    <strong>SSL 보안 인증</strong>
-                    <span>개인정보 암호화</span>
-                </div>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon">⚡</div>
-                <div class="trust-text">
-                    <strong>당일 실행</strong>
-                    <span>빠른 승인 시스템</span>
-                </div>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon">🕐</div>
-                <div class="trust-text">
-                    <strong>24시간 운영</strong>
-                    <span>365일 연중무휴</span>
-                </div>
-            </div>
-        </div>
-        <div class="trust-live">
-            <div class="trust-live-header">
-                <div class="trust-live-title">
-                    <span class="la-dot"></span>
-                    실시간 신청현황
-                </div>
-                <span class="la-count" id="applyCount">0건</span>
-            </div>
-            <div class="la-viewport">
-                <div class="la-track" id="laTrack"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- ── Stats Counter ── -->
-<div class="stats-bg" id="stats-section">
-    <div class="stats-grid">
-        <div class="stat-card" data-aos="fade-up">
-            <div class="stat-emoji">✅</div>
-            <div class="stat-count" data-target="15000" data-suffix="+">0</div>
-            <div class="stat-label">누적 승인 건수</div>
+<!-- ── 신뢰 섹션 ── -->
+<section class="trust-reason-sec" id="trust-reason">
+    <div class="trust-reason-inner">
+        <div class="trust-reason-header" data-aos="fade-up">
+            <p class="sec-eyebrow">WHY MINSAENG</p>
+            <h2 class="sec-title"><em class="tr-em">민생대부</em>를 <em class="tr-em">신뢰</em>할 수 있는 이유</h2>
         </div>
-        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="stat-emoji">😊</div>
-            <div class="stat-count" data-target="98" data-suffix="%">0</div>
-            <div class="stat-label">고객 만족도</div>
+        <!-- 수치 통계 -->
+        <div class="stats-grid" style="margin-bottom: clamp(32px,4vw,52px); border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: clamp(24px,3vw,40px);" data-aos="fade-up">
+            <div class="stat-card">
+                <div class="stat-count" data-target="15000" data-suffix="+">0</div>
+                <div class="stat-label">누적 상담 건수</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-count" data-target="98" data-suffix="%">0</div>
+                <div class="stat-label">고객 만족도</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-count" data-target="30" data-suffix="분">0</div>
+                <div class="stat-label">평균 처리 시간</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-count" data-target="10" data-suffix="년+">0</div>
+                <div class="stat-label">업력 및 경험</div>
+            </div>
         </div>
-        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="stat-emoji">⚡</div>
-            <div class="stat-count" data-target="30" data-suffix="분">0</div>
-            <div class="stat-label">평균 처리 시간</div>
-        </div>
-        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="stat-emoji">🏆</div>
-            <div class="stat-count" data-target="10" data-suffix="년+">0</div>
-            <div class="stat-label">업력 및 경험</div>
+
+        <div class="trust-reason-body" data-aos="fade-up" data-aos-delay="100">
+            <div class="hero-right">
+                <div class="cert-row">
+                    <span class="cert-row-label">대부중개업등록증</span>
+                    <button class="cert-view-btn" id="certViewBtn">크게보기</button>
+                </div>
+                <div class="hero-cert" style="position:relative; flex:1;">
+                    <img src="license2.jpg" alt="대부중개업 등록증">
+                    <div style="position:absolute; background:#fff; top:53%; left:27%; width:30%; height:5%;"></div>
+                </div>
+                <p class="trust-reason-cert-caption">금융위원회에 정식 등록된 업체입니다.<br>안심하고 상담 받으세요.</p>
+            </div>
+            <div class="trust-reason-list">
+                <div class="trust-reason-item">
+                    <div class="trust-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2z"/><path d="M4 22v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="18" width="18" height="4" rx="1"/></svg>
+                    </div>
+                    <div>
+                        <strong>금융위원회 정식 등록</strong>
+                        <p>대부업 등록번호 2025-인천서구-0037로 법적 요건을 완벽히 갖춘 합법 업체입니다.</p>
+                    </div>
+                </div>
+                <div class="trust-reason-item">
+                    <div class="trust-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </div>
+                    <div>
+                        <strong>개인정보 철저 보호</strong>
+                        <p>개인정보는 안전하게 암호화되어 고객 정보를 안전하게 관리합니다.</p>
+                    </div>
+                </div>
+                <div class="trust-reason-item">
+                    <div class="trust-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><path d="m15 9-3 3"/></svg>
+                    </div>
+                    <div>
+                        <strong>당일 실행 시스템</strong>
+                        <p>불필요한 서류 없이 빠른 심사로 당일 입금까지 처리해드립니다.</p>
+                    </div>
+                </div>
+                <div class="trust-reason-item">
+                    <div class="trust-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                    </div>
+                    <div>
+                        <strong>24시간 365일 운영</strong>
+                        <p>언제든지 상담 가능합니다. 늦은 밤, 주말, 공휴일도 예외 없습니다.</p>
+                    </div>
+                </div>
+                <div class="trust-reason-item">
+                    <div class="trust-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                        <strong>고객 맞춤 컨설팅</strong>
+                        <p>고객님의 상황에 가장 적합한 상품을 추천 해드립니다.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- ── 이런 분들께 ── -->
 <section class="sec recommend-sec" id="recommend">
@@ -1190,7 +1298,7 @@
 <section class="sec products-sec" id="products">
     <div class="sec-header" data-aos="fade-down">
         <p class="sec-eyebrow">PRODUCTS</p>
-        <h2 class="sec-title">맞춤형 <em>대출 상품</em></h2>
+        <h2 class="sec-title">고객 맞춤형 <em>대출 상품</em></h2>
     </div>
     <div class="products-grid">
         <div class="product-card" data-aos="fade-up" data-aos-delay="100">
@@ -1199,46 +1307,58 @@
                 <div class="product-name">직장인 대출</div>
                 <p class="product-desc">재직 중인 직장인을 위한 맞춤 대출. 간단한 재직 증명으로 빠르게 처리됩니다.</p>
                 <div class="product-row">
-                    <span class="product-row-label">최대 한도</span>
-                    <span class="product-row-val">8,000만원</span>
+                    <span class="product-row-label">대상</span>
+                    <span class="product-row-val">재직 중인 직장인</span>
                 </div>
                 <div class="product-row">
                     <span class="product-row-label">연이율</span>
-                    <span class="product-row-val">연 [X]% ~ [Y]%</span>
+                    <span class="product-row-val">상담 후 결정</span>
                 </div>
+                <div class="product-row">
+                    <span class="product-row-label">최대한도</span>
+                    <span class="product-row-val">상담 후 결정</span>
+                </div>                                
                 <button class="product-cta" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">상담 신청하기 →</button>
             </div>
         </div>
-        <div class="product-card hot" data-aos="fade-up" data-aos-delay="200">
-            <div class="hot-badge">🔥 인기 상품</div>
+        <div class="product-card" data-aos="fade-up" data-aos-delay="200">
             <div class="product-body">
                 <div class="product-icon">🏪</div>
                 <div class="product-name">자영업자 대출</div>
                 <p class="product-desc">사업 운영자금이 필요하신가요? 사업장 기반 맞춤 대출로 빠르게 해결하세요.</p>
                 <div class="product-row">
-                    <span class="product-row-label">최대 한도</span>
-                    <span class="product-row-val">8,000만원</span>
+                    <span class="product-row-label">대상</span>
+                    <span class="product-row-val">자영업자</span>
                 </div>
                 <div class="product-row">
                     <span class="product-row-label">연이율</span>
-                    <span class="product-row-val">연 [X]% ~ [Y]%</span>
+                    <span class="product-row-val">상담 후 결정</span>
                 </div>
+                <div class="product-row">
+                    <span class="product-row-label">최대한도</span>
+                    <span class="product-row-val">상담 후 결정</span>
+                </div>                                
                 <button class="product-cta" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">상담 신청하기 →</button>
             </div>
         </div>
-        <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="product-card hot" data-aos="fade-up" data-aos-delay="300">
+            <div class="hot-badge">⭐ 인기상품</div>
             <div class="product-body">
                 <div class="product-icon">⚡</div>
-                <div class="product-name">긴급 소액 대출</div>
+                <div class="product-name">비상금 대출</div>
                 <p class="product-desc">급한 상황에 빠르게! 최소한의 서류로 당일 입금까지 처리해드립니다.</p>
                 <div class="product-row">
-                    <span class="product-row-label">최대 한도</span>
-                    <span class="product-row-val">8,000만원</span>
+                    <span class="product-row-label">대상</span>
+                    <span class="product-row-val">모두</span>
                 </div>
                 <div class="product-row">
                     <span class="product-row-label">연이율</span>
-                    <span class="product-row-val">연 [X]% ~ [Y]%</span>
+                    <span class="product-row-val">상담 후 결정</span>
                 </div>
+                <div class="product-row">
+                    <span class="product-row-label">최대한도</span>
+                    <span class="product-row-val">상담 후 결정</span>
+                </div>                
                 <button class="product-cta" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">상담 신청하기 →</button>
             </div>
         </div>
@@ -1275,50 +1395,74 @@
     </div>
 </section>
 
-<!-- ── 대출 계산기 ── -->
-<section class="sec calc-sec" id="calc">
-    <div class="sec-header" data-aos="fade-down">
-        <p class="sec-eyebrow">CALCULATOR</p>
-        <h2 class="sec-title" style="color:#fff">대출 <em style="color:var(--accent)">상환금 계산기</em></h2>
-        <p class="calc-subtitle">실제 이율은 신용도에 따라 달라질 수 있습니다. 상담 후 정확한 조건을 안내드립니다.</p>
-    </div>
-    <div class="calc-card" data-aos="zoom-in">
-        <div class="calc-simple">
-            <div class="calc-simple-row">
-                <div class="calc-simple-group">
-                    <label class="calc-simple-label">대출 금액</label>
-                    <div class="calc-simple-input-wrap">
-                        <input type="range" id="amountRange" min="100" max="8000" step="100" value="1000">
-                        <div class="calc-simple-val"><span id="amountDisplay">1,000</span>만원</div>
+<!-- ── 대출 계산기 + 실시간 신청현황 ── -->
+<section class="sec calc-live-sec" id="calc">
+    <div class="calc-live-box" data-aos="fade-up">
+        <!-- 왼쪽: 계산기 -->
+        <div class="calc-live-left">
+            <p class="sec-eyebrow" style="color:var(--accent); margin-bottom:6px;">CALCULATOR</p>
+            <h2 style="color:#fff; font-size:clamp(18px,2vw,22px); font-weight:900; margin-bottom:4px;">대출 <em style="color:var(--accent); font-style:normal;">상환금 계산기</em></h2>
+            <p class="calc-subtitle" style="margin-bottom:20px;">실제 이율은 신용도에 따라 달라질 수 있습니다.</p>
+            <div class="calc-simple">
+                <div class="calc-simple-row">
+                    <div class="calc-simple-group">
+                        <label class="calc-simple-label">대출 금액</label>
+                        <div class="calc-simple-input-wrap">
+                            <input type="range" id="amountRange" min="100" max="8000" step="100" value="1000">
+                            <div class="calc-simple-val"><span id="amountDisplay">1,000</span>만원</div>
+                        </div>
+                        <div class="range-ends"><span>100만원</span><span>8,000만원</span></div>
                     </div>
-                    <div class="range-ends"><span>100만원</span><span>8,000만원</span></div>
-                </div>
-                <div class="calc-simple-group">
-                    <label class="calc-simple-label">대출 기간</label>
-                    <div class="calc-simple-input-wrap">
-                        <input type="range" id="monthRange" min="3" max="60" step="3" value="12">
-                        <div class="calc-simple-val"><span id="monthDisplay">12</span>개월</div>
+                    <div class="calc-simple-group">
+                        <label class="calc-simple-label">대출 기간</label>
+                        <div class="calc-simple-input-wrap">
+                            <input type="range" id="monthRange" min="3" max="60" step="3" value="12">
+                            <div class="calc-simple-val"><span id="monthDisplay">12</span>개월</div>
+                        </div>
+                        <div class="range-ends"><span>3개월</span><span>60개월</span></div>
                     </div>
-                    <div class="range-ends"><span>3개월</span><span>60개월</span></div>
                 </div>
+                <div class="calc-simple-group" style="margin-top:4px;">
+                    <label class="calc-simple-label">연이율</label>
+                    <div class="calc-simple-input-wrap">
+                        <input type="range" id="rateRange" min="10" max="20" step="0.5" value="19.9">
+                        <div class="calc-simple-val"><span id="rateDisplay">19.9</span>%</div>
+                    </div>
+                    <div class="range-ends"><span>10%</span><span>20% (법정 최고)</span></div>
+                </div>
+                <div class="calc-simple-result">
+                    <div class="calc-simple-res-item">
+                        <span class="calc-simple-res-label">월 상환금</span>
+                        <strong class="calc-simple-res-val accent" id="resMonthly">-</strong>
+                    </div>
+                    <div class="calc-simple-res-divider"></div>
+                    <div class="calc-simple-res-item">
+                        <span class="calc-simple-res-label">총 상환금</span>
+                        <strong class="calc-simple-res-val" id="resTotal">-</strong>
+                    </div>
+                    <div class="calc-simple-res-divider"></div>
+                    <div class="calc-simple-res-item">
+                        <span class="calc-simple-res-label">총 이자</span>
+                        <strong class="calc-simple-res-val" id="resInterest">-</strong>
+                    </div>
+                </div>
+                <p class="calc-note">※ 참고용 계산입니다. 실제 이율은 신용도·심사에 따라 달라질 수 있습니다.</p>
             </div>
-            <div class="calc-simple-result">
-                <div class="calc-simple-res-item">
-                    <span class="calc-simple-res-label">월 상환금</span>
-                    <strong class="calc-simple-res-val accent" id="resMonthly">-</strong>
+        </div>
+        <!-- 중간 경계선 -->
+        <div class="calc-live-divider"></div>
+        <!-- 오른쪽: 실시간 신청현황 -->
+        <div class="calc-live-right">
+            <div class="trust-live-header" style="margin-bottom:16px;">
+                <div class="trust-live-title">
+                    <span class="la-dot"></span>
+                    실시간 상담신청 현황
                 </div>
-                <div class="calc-simple-res-divider"></div>
-                <div class="calc-simple-res-item">
-                    <span class="calc-simple-res-label">총 상환금</span>
-                    <strong class="calc-simple-res-val" id="resTotal">-</strong>
-                </div>
-                <div class="calc-simple-res-divider"></div>
-                <div class="calc-simple-res-item">
-                    <span class="calc-simple-res-label">총 이자</span>
-                    <strong class="calc-simple-res-val" id="resInterest">-</strong>
-                </div>
+                <span class="la-count" id="applyCount">0건</span>
             </div>
-            <p class="calc-note">※ 연 19.9% 기준 참고용. 실제 이율은 상담 후 결정됩니다.</p>
+            <div class="la-viewport" style="flex:1; height:100%;">
+                <div class="la-track" id="laTrack"></div>
+            </div>
         </div>
     </div>
 </section>
@@ -1420,15 +1564,6 @@
                 <div class="faq-ans-inner">서류가 완비된 경우 평균 30분~1시간 이내에 심사가 완료됩니다. 당일 신청 시 당일 입금도 가능합니다. 상황에 따라 다소 시간이 걸릴 수 있으니 자세한 사항은 상담사에게 문의해 주세요.</div>
             </div>
         </div>
-        <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
-            <div class="faq-q">
-                <div class="faq-q-text"><span class="faq-q-badge">Q</span> 대출 한도는 최대 얼마인가요?</div>
-                <span class="faq-arrow">▾</span>
-            </div>
-            <div class="faq-ans">
-                <div class="faq-ans-inner">개인의 신용도, 소득, 직업 등 여러 요소에 따라 한도가 결정됩니다. 직장인 최대 8,000만원, 자영업자 최대 5,000만원, 긴급 소액의 경우 최대 500만원까지 가능합니다. 정확한 한도는 상담 후 안내드립니다.</div>
-            </div>
-        </div>
         <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
             <div class="faq-q">
                 <div class="faq-q-text"><span class="faq-q-badge">Q</span> 중도상환이 가능한가요?</div>
@@ -1438,6 +1573,15 @@
                 <div class="faq-ans-inner">네, 중도상환이 가능합니다. 중도상환 시 남은 원금에 대한 이자만 납부하시면 됩니다. 중도상환 수수료 및 조건에 대해서는 계약 시 상세히 안내드립니다.</div>
             </div>
         </div>
+        <div class="faq-item" data-aos="fade-up">
+            <div class="faq-q">
+                <div class="faq-q-text"><span class="faq-q-badge">Q</span> 중개 수수료가 있나요?</div>
+                <span class="faq-arrow">▾</span>
+            </div>
+            <div class="faq-ans">
+                <div class="faq-ans-inner">아니요, 중개수수료를 요구하거나 받는 것은 불법입니다.</div>
+            </div>
+        </div>        
     </div>
 </section>
 
@@ -1476,11 +1620,26 @@
     </div>
 </div>
 
-<!-- ── 플로팅 CTA 바 ── -->
+<!-- ── 플로팅 CTA ── -->
 <div class="float-cta" id="floatCta">
-    <a href="tel:010-1234-5678" class="float-cta-btn float-cta-call">지금 바로 전화상담</a>
-    <div class="float-cta-divider"></div>
-    <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="float-cta-btn float-cta-kakao">카카오톡 간편 문의</a>
+    <a href="tel:010-1234-5678" class="float-cta-btn float-cta-call">
+        <div class="float-cta-icon">📞</div>
+        <div class="float-cta-text">
+            <strong>전화상담</strong>
+        </div>
+    </a>
+    <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="float-cta-btn float-cta-kakao">
+        <div class="float-cta-icon">💬</div>
+        <div class="float-cta-text">
+            <strong>카카오톡 문의</strong>
+        </div>
+    </a>
+    <a href="#form-sec" class="float-cta-btn float-cta-form" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'}); return false;">
+        <div class="float-cta-icon">📋</div>
+        <div class="float-cta-text">
+            <strong>상담 신청</strong>
+        </div>
+    </a>
 </div>
 
 <!-- ── 법적 고지 ── -->
@@ -1530,14 +1689,16 @@
     ];
     let tickerIdx = 0;
     const tickerEl = document.getElementById('tickerMsg');
-    setInterval(() => {
-        tickerEl.style.opacity = '0';
-        setTimeout(() => {
-            tickerIdx = (tickerIdx + 1) % tickerMessages.length;
-            tickerEl.textContent = tickerMessages[tickerIdx];
-            tickerEl.style.opacity = '1';
-        }, 300);
-    }, 3500);
+    if (tickerEl) {
+        setInterval(() => {
+            tickerEl.style.opacity = '0';
+            setTimeout(() => {
+                tickerIdx = (tickerIdx + 1) % tickerMessages.length;
+                tickerEl.textContent = tickerMessages[tickerIdx];
+                tickerEl.style.opacity = '1';
+            }, 300);
+        }, 3500);
+    }
 
     // ── Stats 카운터 애니메이션 ──
     function animateCount(el, target, suffix) {
@@ -1560,11 +1721,12 @@
                 animateCount(el, parseInt(el.dataset.target), el.dataset.suffix || '');
             });
         }
-    }, { threshold: 0.3 }).observe(document.getElementById('stats-section'));
+    }, { threshold: 0.3 }).observe(document.getElementById('trust-reason'));
 
     // ── 대출 계산기 ──
     const amountRange = document.getElementById('amountRange');
     const monthRange  = document.getElementById('monthRange');
+    const rateRange   = document.getElementById('rateRange');
 
     function fmtWon(manwon) {
         const n = Math.round(manwon);
@@ -1578,10 +1740,12 @@
     function calcLoan() {
         const amtMan = parseInt(amountRange.value);
         const months = parseInt(monthRange.value);
-        const r = 0.199 / 12;
+        const rate   = parseFloat(rateRange.value);
+        const r = rate / 100 / 12;
         const P = amtMan * 10000;
         document.getElementById('amountDisplay').textContent = amtMan.toLocaleString();
         document.getElementById('monthDisplay').textContent  = months;
+        document.getElementById('rateDisplay').textContent   = rate.toFixed(1);
         const monthly = P * r * Math.pow(1+r, months) / (Math.pow(1+r, months) - 1);
         const total   = monthly * months;
         const interest = total - P;
@@ -1596,7 +1760,7 @@
         inp.style.background = `linear-gradient(to right,var(--accent) ${pct}%,rgba(255,255,255,0.1) ${pct}%)`;
     }
 
-    [amountRange, monthRange].forEach(inp => {
+    [amountRange, monthRange, rateRange].forEach(inp => {
         colorRange(inp);
         inp.addEventListener('input', () => { calcLoan(); colorRange(inp); });
     });
@@ -1685,22 +1849,17 @@
     let allItems = [...dummyData];
 
     function makeItemHTML(d) {
-        const t = new Date();
-        t.setMinutes(t.getMinutes() - (d.min || 0));
-        const timeStr = t.getHours().toString().padStart(2,'0') + ':' + t.getMinutes().toString().padStart(2,'0');
-        const avatar  = avatars[Math.floor(Math.random() * avatars.length)];
-        const label   = d.min === 0 ? '방금 신청' : d.min + '분 전';
+        const avatar = avatars[Math.floor(Math.random() * avatars.length)];
         return `<div class="la-item">
             <div class="la-item-left">
                 <div class="la-avatar">${avatar}</div>
                 <div>
                     <div class="la-name">${d.name} 님</div>
-                    <div class="la-meta">${d.job} · ${label}</div>
+                    <div class="la-meta">${d.job}</div>
                 </div>
             </div>
             <div class="la-right">
                 <div class="la-amount">${d.amount}</div>
-                <div class="la-time">${timeStr}</div>
                 <div class="la-badge">✅ 접수완료</div>
             </div>
         </div>`;
