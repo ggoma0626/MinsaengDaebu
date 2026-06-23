@@ -68,10 +68,9 @@
     .stats-wrap { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin-bottom: 32px; }
     .stats-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     .stats-box-title { font-size: 12px; font-weight: 800; color: #94a3b8; letter-spacing: 0.05em; margin-bottom: 16px; }
-    .stats-row { display: grid; gap: 12px; }
+    .stats-row { display: grid; gap: 12px; margin-bottom: 0; }
     .stats-row.today { grid-template-columns: repeat(3, 1fr); }
     .stats-row.total { grid-template-columns: repeat(4, 1fr); }
-    .stats-row { margin-bottom: 0; }
     .stat-card {
         background: #fff; border: 1px solid #e2e8f0;
         border-radius: 14px; padding: 20px 24px;
@@ -597,7 +596,6 @@
         pendingChanges[id] = select.value;
         const count = Object.keys(pendingChanges).length;
         document.getElementById('changedCount').textContent = count;
-        // disabled 제거됨
     }
 
     document.getElementById('saveAllBtn').addEventListener('click', async () => {
@@ -623,7 +621,7 @@
             }, 1500);
         } catch (e) {
             btn.textContent = '저장 실패';
-            btn.textContent = '전체 저장';
+            setTimeout(() => { btn.textContent = '전체 저장'; }, 2000);
         }
     });
 

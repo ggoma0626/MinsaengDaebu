@@ -50,11 +50,6 @@
         nav a.active { color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
         /* ── 헤더 버튼 ── */
         .header-btns { display: flex; gap: 10px; justify-content: flex-end; }
-        .hbtn { padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; white-space: nowrap; transition: all 0.2s; }
-        .hbtn-call { background: var(--red); color: #fff; }
-        .hbtn-call:hover { background: #c62b36; color: #fff; }
-        .hbtn-sms { background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
-        .hbtn-sms:hover { background: rgba(255,255,255,0.1); color: #fff; }
         .header-phone {
             display: flex; align-items: center; gap: 10px;
             border: 1.5px solid rgba(255,255,255,0.25); border-radius: 100px;
@@ -1299,6 +1294,67 @@
 </section>
 
 <!-- ── 이런 분들께 ── -->
+<section class="form-sec" id="form-sec">
+    <div class="form-card" data-aos="fade-up">
+        <div class="form-header">
+            <h2>무료 대출 상담 신청</h2>
+            <p>작성하신 정보는 상담 목적으로만 사용되며 외부에 제공되지 않습니다</p>
+        </div>
+        <form id="consultForm">
+            <div class="form-row">
+                <div class="fg">
+                    <label>이름 <span class="req">*</span></label>
+                    <input type="text" placeholder="홍길동" required>
+                </div>
+                <div class="fg">
+                    <label>연락처 <span class="req">*</span></label>
+                    <input type="tel" placeholder="010-0000-0000" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="fg">
+                    <label>희망 대출금액 <span class="req">*</span></label>
+                    <select required>
+                        <option value="">선택해주세요</option>
+                        <option>100만원 이하</option>
+                        <option>100만원 ~ 300만원</option>
+                        <option>300만원 ~ 500만원</option>
+                        <option>500만원 ~ 1,000만원</option>
+                        <option>1,000만원 이상</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>직업 <span class="req">*</span></label>
+                    <select required>
+                        <option value="">선택해주세요</option>
+                        <option>직장인</option>
+                        <option>자영업자</option>
+                        <option>프리랜서</option>
+                        <option>주부</option>
+                        <option>기타</option>
+                    </select>
+                </div>
+            </div>
+            <div class="fg">
+                <label>대출 목적 <span style="color:var(--gray);font-weight:400">(선택)</span></label>
+                <select>
+                    <option value="">선택해주세요</option>
+                    <option>생활비</option>
+                    <option>의료비</option>
+                    <option>사업자금</option>
+                    <option>부채상환</option>
+                    <option>기타</option>
+                </select>
+            </div>
+            <label class="agree-row">
+                <input type="checkbox" required>
+                <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
+            </label>
+            <button type="submit" class="form-submit">무료 상담 신청하기 →</button>
+        </form>
+    </div>
+</section>
+
 <section class="sec recommend-sec" id="recommend">
     <div class="recommend-inner">
         <div class="recommend-visual" data-aos="fade-right">
@@ -1530,69 +1586,6 @@
         </div>
     </div>
 </section>
-
-<!-- ── 상담 신청 폼 ── -->
-<section class="form-sec" id="form-sec">
-    <div class="form-card" data-aos="fade-up">
-        <div class="form-header">
-            <h2>무료 대출 상담 신청</h2>
-            <p>작성하신 정보는 상담 목적으로만 사용되며 외부에 제공되지 않습니다</p>
-        </div>
-        <form id="consultForm">
-            <div class="form-row">
-                <div class="fg">
-                    <label>이름 <span class="req">*</span></label>
-                    <input type="text" placeholder="홍길동" required>
-                </div>
-                <div class="fg">
-                    <label>연락처 <span class="req">*</span></label>
-                    <input type="tel" placeholder="010-0000-0000" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="fg">
-                    <label>희망 대출금액 <span class="req">*</span></label>
-                    <select required>
-                        <option value="">선택해주세요</option>
-                        <option>100만원 이하</option>
-                        <option>100만원 ~ 300만원</option>
-                        <option>300만원 ~ 500만원</option>
-                        <option>500만원 ~ 1,000만원</option>
-                        <option>1,000만원 이상</option>
-                    </select>
-                </div>
-                <div class="fg">
-                    <label>직업 <span class="req">*</span></label>
-                    <select required>
-                        <option value="">선택해주세요</option>
-                        <option>직장인</option>
-                        <option>자영업자</option>
-                        <option>프리랜서</option>
-                        <option>주부</option>
-                        <option>기타</option>
-                    </select>
-                </div>
-            </div>
-            <div class="fg">
-                <label>대출 목적 <span style="color:var(--gray);font-weight:400">(선택)</span></label>
-                <select>
-                    <option value="">선택해주세요</option>
-                    <option>생활비</option>
-                    <option>의료비</option>
-                    <option>사업자금</option>
-                    <option>부채상환</option>
-                    <option>기타</option>
-                </select>
-            </div>
-            <label class="agree-row">
-                <input type="checkbox" required>
-                <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
-            </label>
-            <button type="submit" class="form-submit">무료 상담 신청하기 →</button>
-        </form>
-    </div>
-</section>
-
 
 <!-- ── FAQ ── -->
 <section class="sec faq-sec" id="faq">
@@ -1934,10 +1927,6 @@
         applyCount.textContent = items.length + '건';
     }
 
-    function addApplyItem(name, job, amount) {
-        // 폼 제출 후 즉시 반영 — Firestore onSnapshot이 곧 업데이트하므로 별도 처리 불필요
-    }
-
     // ── 신청 완료 팝업 닫기 ──
     const successPopup = document.getElementById('successPopup');
     document.getElementById('popupClose').addEventListener('click', () => successPopup.classList.remove('show'));
@@ -1984,7 +1973,6 @@
                 status: '상담신청',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            addApplyItem(name || '고객', job || '기타', amount || '미선택');
             form.reset();
             btn.textContent = '무료 상담 신청하기 →';
             btn.disabled = false;
