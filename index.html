@@ -254,7 +254,7 @@
             color: #fff;
             animation: pulse-blue 2.5s ease-out infinite;
         }
-        .hb-kakao { background: #fee500; color: #3c1e1e; box-shadow: 0 6px 20px rgba(254,229,0,0.2); }
+        .hb-kakao { background: linear-gradient(135deg, #25D366, #1aad4f); color: #fff; box-shadow: 0 6px 20px rgba(37,211,102,0.3); }
         @keyframes pulse-blue {
             0%{ box-shadow: 0 6px 20px rgba(30,144,255,0.4), 0 0 0 0 rgba(30,144,255,0.6); }
             70%{ box-shadow: 0 6px 20px rgba(30,144,255,0.4), 0 0 0 14px rgba(30,144,255,0); }
@@ -344,7 +344,7 @@
         .recommend-item p { font-size: 15px; color: var(--text); line-height: 1.5; font-weight: 500; }
         .recommend-cta { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
         .recommend-cta-btn {
-            display: inline-block; padding: 14px 28px;
+            display: inline-block; padding: 14px 28px; min-width: 160px; text-align: center;
             background: linear-gradient(135deg, #1e90ff, #1267d6);
             color: #fff; font-size: 15px; font-weight: 700;
             border-radius: 100px;
@@ -543,13 +543,13 @@
         .calc-live-box {
             max-width: var(--mw); margin: 0 auto;
             display: flex; align-items: stretch;
-            height: 520px;
+            height: 580px;
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.09);
             border-radius: 24px; overflow: hidden;
         }
         .calc-live-left {
-            flex: 1; padding: 36px 40px;
+            flex: 1; padding: 24px 40px;
             display: flex; flex-direction: column; overflow: hidden;
         }
         .calc-live-divider {
@@ -659,6 +659,31 @@
         .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,58,107,0.4); }
         .form-submit:disabled { cursor: not-allowed; }
 
+        /* ── 신청 완료 팝업 ── */
+        .popup-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .popup-overlay.show { opacity: 1; pointer-events: auto; }
+        .popup-card {
+            background: #0d2447; border: 1px solid rgba(232,160,0,0.3);
+            border-radius: 24px; padding: 48px 40px; max-width: 420px; width: 90%;
+            text-align: center;
+            transform: scale(0.9); transition: transform 0.3s;
+        }
+        .popup-overlay.show .popup-card { transform: scale(1); }
+        .popup-icon { font-size: 56px; margin-bottom: 20px; }
+        .popup-title { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 10px; }
+        .popup-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 28px; }
+        .popup-close {
+            padding: 14px 40px; background: var(--accent); color: #000;
+            font-size: 15px; font-weight: 900; border: none; border-radius: 12px;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .popup-close:hover { background: #d4920a; }
+
         /* ── 실시간 신청현황 ── */
         .la-dot {
             width: 9px; height: 9px; background: var(--green);
@@ -705,9 +730,19 @@
         .la-amount { font-size: 14px; font-weight: 800; color: var(--accent); }
 
         .la-badge {
-            display: inline-block; background: rgba(34,197,94,0.15);
-            color: var(--green); font-size: 10px; font-weight: 700;
+            display: inline-block; font-size: 10px; font-weight: 700;
             padding: 2px 8px; border-radius: 4px; margin-top: 4px;
+        }
+        .la-badge-상담신청 { background: rgba(239,68,68,0.2);  color: #ff8080; }
+        .la-badge-조회완료 { background: rgba(234,179,8,0.2);  color: #fcd34d; }
+        .la-badge-대출완료 { background: rgba(34,197,94,0.2);  color: #6ee7a0; }
+        .la-live-cta {
+            display: none;
+            margin-top: 14px;
+            background: var(--accent);
+            color: #000; font-size: 14px; font-weight: 800;
+            text-align: center; padding: 12px;
+            border-radius: 10px; text-decoration: none;
         }
 
         /* ── FAQ ── */
@@ -839,18 +874,26 @@
         .float-cta-text strong { display: block; font-size: 15px; font-weight: 900; }
         .float-cta-text span { font-size: 12px; font-weight: 700; opacity: 0.9; }
         .float-cta-call { background: linear-gradient(135deg, #1e90ff, #1267d6); }
-        .float-cta-kakao { background: linear-gradient(135deg, #f9b800, #e6a800); color: #3c1e1e; }
+        .float-cta-kakao { background: linear-gradient(135deg, #25D366, #1aad4f); color: #fff; }
         .float-cta-kakao .float-cta-icon { background: rgba(0,0,0,0.1); }
         .float-cta-kakao .float-cta-text strong,
-        .float-cta-kakao .float-cta-text span { color: #3c1e1e; }
+        .float-cta-kakao .float-cta-text span { color: #fff; }
         .float-cta-form { background: linear-gradient(135deg, #2c3e6b, #1a2a4a); }
         .float-cta-form .float-cta-icon { background: rgba(255,255,255,0.1); }
         .float-cta-divider { display: none; }
+        @media (max-width: 600px) {
+            .float-cta { gap: 8px; bottom: 80px; right: 16px; }
+            .float-cta-btn { min-width: 130px; }
+            .float-cta-icon { width: 40px; height: 40px; font-size: 17px; }
+            .float-cta-text { padding: 0 12px 0 10px; }
+            .float-cta-text strong { font-size: 12px; }
+            .float-cta-text span { font-size: 10px; }
+        }
 
         /* ── 심플 계산기 ── */
-        .calc-simple { display: flex; flex-direction: column; gap: 16px; }
-        .calc-simple-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .calc-simple-group { display: flex; flex-direction: column; gap: 10px; }
+        .calc-simple { display: flex; flex-direction: column; gap: 12px; }
+        .calc-simple-row { display: flex; flex-direction: column; gap: 10px; }
+        .calc-simple-group { display: flex; flex-direction: column; gap: 6px; }
         .calc-simple-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
         .calc-simple-input-wrap { display: flex; align-items: center; gap: 12px; }
         .calc-simple-input-wrap input[type="range"] { flex: 1; }
@@ -866,7 +909,6 @@
         .calc-simple-res-val.accent { color: var(--accent); font-size: clamp(18px,2.5vw,26px); }
         .calc-simple-res-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.1); }
         @media(max-width:640px){
-            .calc-simple-row { grid-template-columns: 1fr; gap: 20px; }
             .calc-simple-result { padding: 16px 10px; }
             .calc-simple-res-val { font-size: 14px; }
             .calc-simple-res-val.accent { font-size: 16px; }
@@ -955,8 +997,17 @@
             .trust-layout { grid-template-columns: 1fr; }
             .calc-live-box { flex-direction: column; height: auto; }
             .calc-live-divider { width: 100%; height: 1px; }
-            .calc-live-left, .calc-live-right { padding: 24px 20px; }
-            .calc-live-right .la-viewport { height: 260px !important; flex: none; }
+            .calc-live-left { padding: 20px 16px; }
+            .calc-live-right { padding: 16px 16px 20px; }
+            .calc-live-right .la-viewport { height: 160px !important; flex: none; overflow: hidden; }
+            .trust-live-header { margin-bottom: 8px !important; }
+            .la-item { padding: 7px 10px; }
+            .la-avatar { width: 26px; height: 26px; font-size: 12px; }
+            .la-name { font-size: 12px; }
+            .la-meta { font-size: 11px; margin-top: 1px; }
+            .la-amount { font-size: 12px; }
+            .la-badge { font-size: 9px; padding: 1px 6px; }
+            .la-live-cta { display: block; }
             .trust-items { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
             .trust-item { padding: 10px 12px; gap: 10px; }
             .trust-icon { width: 36px; height: 36px; font-size: 16px; }
@@ -1037,8 +1088,19 @@
             .sec-header { margin-bottom: 28px; }
         }
     </style>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+
+<!-- ── 신청 완료 팝업 ── -->
+<div class="popup-overlay" id="successPopup">
+    <div class="popup-card">        
+        <div class="popup-title">상담 신청이 완료됐습니다</div>
+        <div class="popup-desc">빠른 시일 내에 담당자가<br>입력하신 연락처로 연락드리겠습니다.<br><br>감사합니다 😊</div>
+        <button class="popup-close" id="popupClose">확인</button>
+    </div>
+</div>
 
 <div class="top-sticky">
 <!-- ── 법적 경고 배너 ── -->
@@ -1123,7 +1185,7 @@
                 <div class="hero-cta-divider"></div>
                 <div class="hero-ctas">
                     <a href="tel:010-1234-5678" class="hero-btn hb-call">지금 바로 전화상담</a>
-                    <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="hero-btn hb-kakao">카카오톡 간편 문의</a>
+                    <a href="sms:010-1234-5678" class="hero-btn hb-kakao">문자 상담</a>
                 </div>
             </div>
             <div class="hero-stats">
@@ -1180,7 +1242,8 @@
                 </div>
                 <div class="hero-cert" style="position:relative; flex:1;">
                     <img src="license2.jpg" alt="대부중개업 등록증">
-                    <div style="position:absolute; background:#fff; top:53%; left:27%; width:30%; height:5%;"></div>
+                    <div style="position:absolute; background:#fff; top:54%; left:29%; width:20%; height:4%;"></div>
+                    <div style="position:absolute; background:#fff; top:50%; left:29%; width:20%; height:4%;"></div>
                 </div>
                 <p class="trust-reason-cert-caption">금융위원회에 정식 등록된 업체입니다.<br>안심하고 상담 받으세요.</p>
             </div>
@@ -1288,7 +1351,7 @@
             </ul>
             <div class="recommend-cta">
                 <a href="tel:010-1234-5678" class="recommend-cta-btn">지금 바로 전화상담</a>
-                <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="recommend-cta-btn" style="background: linear-gradient(135deg, #FAE100, #F9C200); color: #3C1E1E;">카카오톡 간편상담</a>
+                <a href="sms:010-1234-5678" class="recommend-cta-btn" style="background: linear-gradient(135deg, #25D366, #1aad4f); color: #fff;">문자 상담</a>
             </div>
         </div>
     </div>
@@ -1406,6 +1469,14 @@
             <div class="calc-simple">
                 <div class="calc-simple-row">
                     <div class="calc-simple-group">
+                        <label class="calc-simple-label">연이율</label>
+                        <div class="calc-simple-input-wrap">
+                            <input type="range" id="rateRange" min="10" max="20" step="0.5" value="19.9">
+                            <div class="calc-simple-val"><span id="rateDisplay">19.9</span>%</div>
+                        </div>
+                        <div class="range-ends"><span>10%</span><span>20% (법정 최고)</span></div>
+                    </div>
+                    <div class="calc-simple-group">
                         <label class="calc-simple-label">대출 금액</label>
                         <div class="calc-simple-input-wrap">
                             <input type="range" id="amountRange" min="100" max="8000" step="100" value="1000">
@@ -1421,14 +1492,6 @@
                         </div>
                         <div class="range-ends"><span>3개월</span><span>60개월</span></div>
                     </div>
-                </div>
-                <div class="calc-simple-group">
-                    <label class="calc-simple-label">연이율</label>
-                    <div class="calc-simple-input-wrap">
-                        <input type="range" id="rateRange" min="10" max="20" step="0.5" value="19.9">
-                        <div class="calc-simple-val"><span id="rateDisplay">19.9</span>%</div>
-                    </div>
-                    <div class="range-ends"><span>10%</span><span>20% (법정 최고)</span></div>
                 </div>
                 <div class="calc-simple-result">
                     <div class="calc-simple-res-item">
@@ -1460,9 +1523,10 @@
                 </div>
                 <span class="la-count" id="applyCount">0건</span>
             </div>
-            <div class="la-viewport" style="flex:1; height:100%;">
+            <div class="la-viewport">
                 <div class="la-track" id="laTrack"></div>
             </div>
+            <a href="#form-sec" class="la-live-cta">지금 상담 신청하기 →</a>
         </div>
     </div>
 </section>
@@ -1594,19 +1658,19 @@
     </div>
     <div class="marquee-wrapper" data-aos="fade-up">
         <div class="marquee-track">
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 300만원</div><p class="review-text">다른 곳에서 거절당해서 걱정했는데 여기는 친절하게 설명해주시고 당일에 바로 처리해주셨어요. 정말 감사합니다!</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">김** 님 <span>(서울 강서구)</span></div><div class="review-date">2026.05.12</div></div></div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 500만원</div><p class="review-text">급하게 운영자금이 필요했는데 전화 한 통에 30분 만에 해결됐습니다. 서류도 간단하고 직원분이 너무 친절하셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">이** 님 <span>(경기 수원)</span></div><div class="review-date">2026.05.18</div></div></div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div><div class="review-date">2026.05.20</div></div></div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div><div class="review-date">2026.05.22</div></div></div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div><div class="review-date">2026.05.25</div></div></div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div><div class="review-date">2026.05.28</div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 300만원</div><p class="review-text">다른 곳에서 거절당해서 걱정했는데 여기는 친절하게 설명해주시고 당일에 바로 처리해주셨어요. 정말 감사합니다!</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">김** 님 <span>(서울 강서구)</span></div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 500만원</div><p class="review-text">급하게 운영자금이 필요했는데 전화 한 통에 30분 만에 해결됐습니다. 서류도 간단하고 직원분이 너무 친절하셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">이** 님 <span>(경기 수원)</span></div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div></div></div></div>
             <!-- 무한 루프용 복제 -->
-            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 300만원</div><p class="review-text">다른 곳에서 거절당해서 걱정했는데 여기는 친절하게 설명해주시고 당일에 바로 처리해주셨어요. 정말 감사합니다!</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">김** 님 <span>(서울 강서구)</span></div><div class="review-date">2026.05.12</div></div></div></div>
-            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 500만원</div><p class="review-text">급하게 운영자금이 필요했는데 전화 한 통에 30분 만에 해결됐습니다. 서류도 간단하고 직원분이 너무 친절하셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">이** 님 <span>(경기 수원)</span></div><div class="review-date">2026.05.18</div></div></div></div>
-            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div><div class="review-date">2026.05.20</div></div></div></div>
-            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div><div class="review-date">2026.05.22</div></div></div></div>
-            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div><div class="review-date">2026.05.25</div></div></div></div>
-            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div><div class="review-date">2026.05.28</div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 300만원</div><p class="review-text">다른 곳에서 거절당해서 걱정했는데 여기는 친절하게 설명해주시고 당일에 바로 처리해주셨어요. 정말 감사합니다!</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">김** 님 <span>(서울 강서구)</span></div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 500만원</div><p class="review-text">급하게 운영자금이 필요했는데 전화 한 통에 30분 만에 해결됐습니다. 서류도 간단하고 직원분이 너무 친절하셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">이** 님 <span>(경기 수원)</span></div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div></div></div></div>
         </div>
     </div>
 </section>
@@ -1628,10 +1692,10 @@
             <strong>전화상담</strong>
         </div>
     </a>
-    <a href="https://open.kakao.com/KAKAO_LINK" target="_blank" rel="noopener noreferrer" class="float-cta-btn float-cta-kakao">
+    <a href="sms:010-1234-5678" class="float-cta-btn float-cta-kakao">
         <div class="float-cta-icon">💬</div>
         <div class="float-cta-text">
-            <strong>카카오톡 문의</strong>
+            <strong>문자 상담</strong>
         </div>
     </a>
     <a href="#form-sec" class="float-cta-btn float-cta-form" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'}); return false;">
@@ -1830,75 +1894,111 @@
     // ── 실시간 신청현황 ──
     const laTrack    = document.getElementById('laTrack');
     const applyCount = document.getElementById('applyCount');
-    let applyTotal   = 0;
-
-    const dummyData = [
-        { name: '김*현', job: '직장인',   amount: '300만원 ~ 500만원',   min: 62 },
-        { name: '이*영', job: '자영업자', amount: '500만원 ~ 1,000만원', min: 55 },
-        { name: '박*준', job: '직장인',   amount: '100만원 ~ 300만원',   min: 47 },
-        { name: '최*린', job: '프리랜서', amount: '100만원 이하',        min: 39 },
-        { name: '정*호', job: '자영업자', amount: '1,000만원 이상',      min: 31 },
-        { name: '강*서', job: '직장인',   amount: '300만원 ~ 500만원',   min: 24 },
-        { name: '윤*아', job: '주부',     amount: '100만원 이하',        min: 18 },
-        { name: '장*민', job: '직장인',   amount: '500만원 ~ 1,000만원', min: 12 },
-        { name: '한*진', job: '자영업자', amount: '100만원 ~ 300만원',   min: 6  },
-        { name: '오*빈', job: '프리랜서', amount: '300만원 ~ 500만원',   min: 2  },
-    ];
 
     const avatars = ['👨','👩','🧑','👦','👧','🧔','👱'];
-    let allItems = [...dummyData];
+
+    const statusLabel = { '상담신청': '📋 상담신청', '조회완료': '🔍 조회완료', '대출완료': '✅ 대출완료' };
 
     function makeItemHTML(d) {
         const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+        const name = d.name || '고객';
+        const maskedName = name.length > 1 ? name[0] + '*'.repeat(name.length - 1) : name + '*';
+        const status = d.status || '상담신청';
+        const badge = statusLabel[status] || '📋 상담신청';
+        let dateStr = '';
+        if (d.createdAt) {
+            const ts = d.createdAt.toDate ? d.createdAt.toDate() : new Date(d.createdAt);
+            const m = ts.getMonth() + 1;
+            const day = ts.getDate();
+            dateStr = `${m}/${day}`;
+        }
         return `<div class="la-item">
             <div class="la-item-left">
                 <div class="la-avatar">${avatar}</div>
                 <div>
-                    <div class="la-name">${d.name} 님</div>
-                    <div class="la-meta">${d.job}</div>
+                    <div class="la-name">${maskedName} 님</div>
+                    <div class="la-meta">${d.job || '기타'}${dateStr ? ' · ' + dateStr : ''}</div>
                 </div>
             </div>
             <div class="la-right">
-                <div class="la-amount">${d.amount}</div>
-                <div class="la-badge">✅ 접수완료</div>
+                <div class="la-amount">${d.amount || '-'}</div>
+                <div class="la-badge la-badge-${status}">${badge}</div>
             </div>
         </div>`;
     }
 
-    function renderTrack() {
-        const html = allItems.map(makeItemHTML).join('');
+    function renderTrack(items) {
+        if (!items.length) return;
+        const html = items.map(makeItemHTML).join('');
         laTrack.innerHTML = html + html;
-        applyCount.textContent = allItems.length + '건';
+        applyCount.textContent = items.length + '건';
     }
-
-    renderTrack();
 
     function addApplyItem(name, job, amount) {
-        const maskedName = name.length > 1 ? name[0] + '*'.repeat(name.length - 1) : name + '*';
-        allItems.unshift({ name: maskedName, job, amount, min: 0 });
-        renderTrack();
+        // 폼 제출 후 즉시 반영 — Firestore onSnapshot이 곧 업데이트하므로 별도 처리 불필요
     }
 
+    // ── 신청 완료 팝업 닫기 ──
+    const successPopup = document.getElementById('successPopup');
+    document.getElementById('popupClose').addEventListener('click', () => successPopup.classList.remove('show'));
+    successPopup.addEventListener('click', (e) => { if (e.target === successPopup) successPopup.classList.remove('show'); });
+
+    // ── Firebase 초기화 ──
+    const firebaseConfig = {
+        apiKey: "AIzaSyBYEyjlpxV5qZFNZhgnqSongIVVLAZL2sE",
+        authDomain: "minsaengdaebu.firebaseapp.com",
+        projectId: "minsaengdaebu",
+        storageBucket: "minsaengdaebu.firebasestorage.app",
+        messagingSenderId: "321027219342",
+        appId: "1:321027219342:web:912806f99173acca83cedf"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // ── 실시간 신청현황 Firestore 연동 ──
+    db.collection('consultations')
+        .orderBy('createdAt', 'desc')
+        .limit(20)
+        .onSnapshot(snapshot => {
+            const items = snapshot.docs.map(doc => doc.data());
+            renderTrack(items);
+        });
+
     // ── 폼 제출 ──
-    document.getElementById('consultForm').addEventListener('submit', (e) => {
+    document.getElementById('consultForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const form   = e.target;
-        const name   = form.querySelector('input[type="text"]').value.trim();
-        const job    = form.querySelectorAll('select')[1].value;
-        const amount = form.querySelectorAll('select')[0].value;
+        const form    = e.target;
+        const name    = form.querySelector('input[type="text"]').value.trim();
+        const phone   = form.querySelector('input[type="tel"]').value.trim();
+        const amount  = form.querySelectorAll('select')[0].value;
+        const job     = form.querySelectorAll('select')[1].value;
+        const purpose = form.querySelectorAll('select')[2].value;
+        const btn     = form.querySelector('.form-submit');
 
-        addApplyItem(name || '고객', job || '기타', amount || '미선택');
-
-        const btn = form.querySelector('.form-submit');
-        btn.textContent = '✅ 신청 완료! 곧 연락드리겠습니다.';
-        btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+        btn.textContent = '신청 중...';
         btn.disabled = true;
-        setTimeout(() => {
-            btn.textContent = '무료 상담 신청하기 →';
-            btn.style.background = '';
-            btn.disabled = false;
+
+        try {
+            await db.collection('consultations').add({
+                name, phone, amount, job, purpose,
+                status: '상담신청',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            addApplyItem(name || '고객', job || '기타', amount || '미선택');
             form.reset();
-        }, 4000);
+            btn.textContent = '무료 상담 신청하기 →';
+            btn.disabled = false;
+            document.getElementById('successPopup').classList.add('show');
+        } catch (err) {
+            console.error(err);
+            btn.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+            btn.style.background = 'linear-gradient(135deg,#ef4444,#dc2626)';
+            btn.disabled = false;
+            setTimeout(() => {
+                btn.textContent = '무료 상담 신청하기 →';
+                btn.style.background = '';
+            }, 3000);
+        }
     });
 </script>
 </body>

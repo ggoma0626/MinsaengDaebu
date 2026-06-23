@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>민생대부 관리자페이지</title>
+<style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; background: #f5f6fa; color: #1e293b; min-height: 100vh; }
+
+    /* ── 로그인 ── */
+    .login-wrap {
+        min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        background: #f5f6fa;
+    }
+    .login-card {
+        background: #fff; border: 1px solid #e2e8f0;
+        border-radius: 20px; padding: 48px 40px; width: 100%; max-width: 400px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .login-logo { text-align: center; margin-bottom: 32px; }
+    .login-logo h1 { font-size: 26px; font-weight: 900; color: #1e293b; }
+    .login-logo h1 span { color: #e8a000; }
+    .login-logo p { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+    .login-field { margin-bottom: 16px; }
+    .login-field label { display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 6px; }
+    .login-field input {
+        width: 100%; padding: 12px 16px; background: #f8fafc;
+        border: 1px solid #e2e8f0; border-radius: 10px;
+        color: #1e293b; font-size: 15px; outline: none; font-family: inherit;
+        transition: border-color 0.2s;
+    }
+    .login-field input:focus { border-color: #e8a000; }
+    .login-btn {
+        width: 100%; padding: 14px; background: #e8a000; color: #000;
+        font-size: 15px; font-weight: 900; border: none; border-radius: 10px;
+        cursor: pointer; margin-top: 8px; transition: background 0.2s; font-family: inherit;
+    }
+    .login-btn:hover { background: #d4920a; }
+    .login-error { color: #ef4444; font-size: 13px; text-align: center; margin-top: 12px; min-height: 20px; }
+
+    /* ── 어드민 레이아웃 ── */
+    #adminPanel { display: none; }
+    .admin-header {
+        background: #fff; border-bottom: 1px solid #e2e8f0;
+        position: sticky; top: 0; z-index: 100;
+    }
+    .admin-header-inner {
+        max-width: 1200px; margin: 0 auto;
+        padding: 16px 32px;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-header-logo { font-size: 20px; font-weight: 900; color: #1e293b; }
+    .admin-header-logo span { color: #e8a000; }
+    .admin-header-right { display: flex; align-items: center; gap: 16px; }
+    .admin-uid { font-size: 12px; color: #94a3b8; }
+    .logout-btn {
+        padding: 7px 16px; background: #f1f5f9; border: 1px solid #e2e8f0;
+        border-radius: 8px; color: #475569; font-size: 13px; font-weight: 700;
+        cursor: pointer; transition: background 0.2s; font-family: inherit;
+    }
+    .logout-btn:hover { background: #e2e8f0; }
+
+    .admin-body { padding: 32px; max-width: 1200px; margin: 0 auto; }
+
+    /* ── 통계 카드 ── */
+    .stats-wrap { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin-bottom: 32px; }
+    .stats-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .stats-box-title { font-size: 12px; font-weight: 800; color: #94a3b8; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .stats-row { display: grid; gap: 12px; }
+    .stats-row.today { grid-template-columns: repeat(3, 1fr); }
+    .stats-row.total { grid-template-columns: repeat(4, 1fr); }
+    .stats-row { margin-bottom: 0; }
+    .stat-card {
+        background: #fff; border: 1px solid #e2e8f0;
+        border-radius: 14px; padding: 20px 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .stat-card-label { font-size: 12px; color: #94a3b8; font-weight: 700; margin-bottom: 8px; }
+    .stat-card-val { font-size: 28px; font-weight: 900; color: #1e293b; }
+    .stat-card-val.accent { color: #e8a000; }
+    .stat-card-val.green { color: #16a34a; }
+    .stat-card-val.blue { color: #2563eb; }
+
+    /* ── 필터 ── */
+    .filter-bar {
+        display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .filter-btn {
+        padding: 7px 18px; border-radius: 20px; font-size: 13px; font-weight: 700;
+        border: 1px solid #e2e8f0; background: #fff;
+        color: #64748b; cursor: pointer; transition: all 0.2s; font-family: inherit;
+    }
+    .filter-btn.active, .filter-btn:hover {
+        background: #e8a000; color: #000; border-color: #e8a000;
+    }
+    .filter-search {
+        margin-left: auto; padding: 8px 16px;
+        background: #fff; border: 1px solid #e2e8f0;
+        border-radius: 8px; color: #1e293b; font-size: 13px; outline: none; width: 220px;
+        font-family: inherit;
+    }
+    .filter-search::placeholder { color: #cbd5e1; }
+
+    /* ── 테이블 ── */
+    .table-wrap {
+        background: #fff; border: 1px solid #e2e8f0;
+        border-radius: 16px; overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: #f8fafc; }
+    th {
+        padding: 14px 16px; font-size: 12px; font-weight: 700;
+        color: #94a3b8; text-align: left; white-space: nowrap;
+    }
+    td {
+        padding: 14px 16px; font-size: 13px; color: #334155;
+        border-top: 1px solid #f1f5f9; vertical-align: middle;
+    }
+    tr:hover td { background: #fafafa; }
+    .td-name, .td-phone, .td-date { color: #334155; font-size: 13px; font-family: inherit; font-weight: 400; }
+
+    /* ── 전체 저장 버튼 ── */
+    .save-all-bar {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 12px;
+    }
+    .save-all-info { font-size: 13px; color: #94a3b8; }
+    .save-all-info span { color: #e8a000; font-weight: 700; }
+    .save-all-btn {
+        padding: 9px 24px; border-radius: 10px; font-size: 14px; font-weight: 800;
+        background: #e8a000; color: #000; border: none; cursor: pointer;
+        transition: background 0.2s; font-family: inherit;
+    }
+    .save-all-btn:hover { background: #d4920a; }
+    .save-all-btn:disabled { background: #fde68a; color: rgba(0,0,0,0.3); cursor: not-allowed; }
+    .save-all-btn.saved { background: #22c55e; color: #fff; }
+
+    /* ── 상태 뱃지 ── */
+    .status-select {
+        padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;
+        border: none; cursor: pointer; outline: none; font-family: inherit;
+    }
+    .status-select option { background: #fff; color: #1e293b; font-weight: 600; }
+    .status-select.changed { outline: 2px solid rgba(232,160,0,0.5); }
+    .status-wrap { display: flex; align-items: center; gap: 8px; }
+    .delete-btn { padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; background: #fee2e2; color: #ef4444; transition: background 0.2s; font-family: inherit; }
+    .delete-btn:hover { background: #fecaca; }
+    .status-상담신청 { background: #fee2e2; color: #dc2626; }
+    .status-조회완료 { background: #fef3c7; color: #b45309; }
+    .status-대출완료 { background: #dcfce7; color: #16a34a; }
+
+    .empty-row td { text-align: center; padding: 60px; color: #cbd5e1; font-size: 14px; }
+
+    /* ── 로딩 ── */
+    .loading { text-align: center; padding: 60px; color: #cbd5e1; }
+
+    /* ── 페이지네이션 ── */
+    .pagination {
+        display: flex; align-items: center; justify-content: center;
+        gap: 6px; padding: 20px 0 4px;
+    }
+    .page-btn {
+        min-width: 36px; height: 36px; padding: 0 10px;
+        border: 1px solid #e2e8f0; border-radius: 8px;
+        background: #fff; color: #475569; font-size: 13px; font-weight: 700;
+        cursor: pointer; font-family: inherit; transition: all 0.15s;
+    }
+    .page-btn:hover { background: #f1f5f9; }
+    .page-btn.active { background: #e8a000; color: #000; border-color: #e8a000; }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .page-info { font-size: 13px; color: #94a3b8; margin: 0 8px; }
+
+    /* ── 상세보기 모달 ── */
+    .modal-overlay {
+        display: none; position: fixed; inset: 0;
+        background: rgba(0,0,0,0.4); z-index: 1000;
+        align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-card {
+        background: #fff; border-radius: 20px; width: 100%; max-width: 520px;
+        max-height: 90vh; overflow-y: auto;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.15); padding: 32px;
+        position: relative;
+    }
+    .modal-close {
+        position: absolute; top: 16px; right: 20px;
+        font-size: 22px; color: #94a3b8; cursor: pointer; border: none;
+        background: none; line-height: 1;
+    }
+    .modal-close:hover { color: #1e293b; }
+    .modal-title { font-size: 18px; font-weight: 900; color: #1e293b; margin-bottom: 24px; }
+    .modal-section { margin-bottom: 20px; }
+    .modal-section-label { font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; margin-bottom: 10px; text-transform: uppercase; }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .modal-field { background: #f8fafc; border-radius: 10px; padding: 12px 14px; }
+    .modal-field-label { font-size: 11px; color: #94a3b8; font-weight: 700; margin-bottom: 4px; }
+    .modal-field-value { font-size: 14px; color: #1e293b; font-weight: 600; }
+    .modal-divider { border: none; border-top: 1px solid #f1f5f9; margin: 20px 0; }
+    .modal-memo-label { font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; }
+    .modal-memo-textarea {
+        width: 100%; min-height: 120px; padding: 12px 14px;
+        border: 1px solid #e2e8f0; border-radius: 10px;
+        font-size: 14px; font-family: inherit; color: #1e293b;
+        resize: vertical; outline: none; background: #f8fafc;
+        transition: border-color 0.2s;
+    }
+    .modal-memo-textarea:focus { border-color: #e8a000; background: #fff; }
+    .modal-memo-btn {
+        margin-top: 10px; padding: 10px 24px; background: #e8a000; color: #000;
+        font-size: 13px; font-weight: 800; border: none; border-radius: 8px;
+        cursor: pointer; font-family: inherit; transition: background 0.2s;
+    }
+    .modal-memo-btn:hover { background: #d4920a; }
+    tr.clickable-row { cursor: pointer; }
+    tr.clickable-row:hover td { background: #fef9ee; }
+
+    @media (max-width: 768px) {
+        .admin-body { padding: 16px; }
+        .stats-wrap { grid-template-columns: 1fr; }
+        .stats-row.today, .stats-row.total { grid-template-columns: repeat(2, 1fr); }
+        .admin-header { padding: 14px 16px; }
+        table { font-size: 12px; }
+        th, td { padding: 10px 10px; }
+        .filter-search { width: 100%; margin-left: 0; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ── 로그인 화면 ── -->
+<div class="login-wrap" id="loginWrap">
+    <div class="login-card">
+        <div class="login-logo">
+            <h1>민생<span>대부</span></h1>
+            <p>관리자 페이지</p>
+        </div>
+        <div class="login-field">
+            <label>이메일</label>
+            <input type="email" id="loginEmail" placeholder="admin@example.com">
+        </div>
+        <div class="login-field">
+            <label>비밀번호</label>
+            <input type="password" id="loginPassword" placeholder="••••••••">
+        </div>
+        <button class="login-btn" id="loginBtn">로그인</button>
+        <div class="login-error" id="loginError"></div>
+    </div>
+</div>
+
+<!-- ── 어드민 패널 ── -->
+<div id="adminPanel">
+    <div class="admin-header">
+        <div class="admin-header-inner">
+            <div class="admin-header-logo">민생<span>대부</span> 관리자페이지</div>
+            <div class="admin-header-right">
+                <span class="admin-uid" id="adminEmail"></span>
+                <button class="logout-btn" id="logoutBtn">로그아웃</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-body">
+        <!-- 통계 -->
+        <div class="stats-wrap">
+            <div class="stats-box">
+                <div class="stats-box-title">오늘 신청현황</div>
+                <div class="stats-row today">
+                    <div class="stat-card">
+                        <div class="stat-card-label">신청</div>
+                        <div class="stat-card-val" style="color:#f87171;" id="todayPending">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">조회완료</div>
+                        <div class="stat-card-val blue" id="todayContacted">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">대출완료</div>
+                        <div class="stat-card-val green" id="todayDone">-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-box">
+                <div class="stats-box-title">누적 신청현황</div>
+                <div class="stats-row total">
+                    <div class="stat-card">
+                        <div class="stat-card-label">전체 신청</div>
+                        <div class="stat-card-val accent" id="statTotal">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">상담신청</div>
+                        <div class="stat-card-val" style="color:#f87171;" id="statPending">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">조회완료</div>
+                        <div class="stat-card-val blue" id="statContacted">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">대출완료</div>
+                        <div class="stat-card-val green" id="statDone">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 전체 저장 -->
+        <div class="save-all-bar">
+            <div class="save-all-info">변경된 항목: <span id="changedCount">0</span>건</div>
+            <button class="save-all-btn" id="saveAllBtn">전체 저장</button>
+        </div>
+
+        <!-- 필터 -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="전체">전체</button>
+            <button class="filter-btn" data-filter="상담신청">상담신청</button>
+            <button class="filter-btn" data-filter="조회완료">조회완료</button>
+            <button class="filter-btn" data-filter="대출완료">대출완료</button>
+            <input class="filter-search" id="searchInput" type="text" placeholder="이름·연락처 검색">
+        </div>
+
+        <!-- 테이블 -->
+        <div class="table-wrap">
+            <div class="loading" id="tableLoading">데이터를 불러오는 중...</div>
+            <table id="dataTable" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>신청일시</th>
+                        <th>이름</th>
+                        <th>연락처</th>
+                        <th>희망금액</th>
+                        <th>직업</th>
+                        <th>대출목적</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+</div>
+
+<!-- ── 상세보기 모달 ── -->
+<div class="modal-overlay" id="detailModal">
+    <div class="modal-card">
+        <button class="modal-close" id="modalClose">✕</button>
+        <div class="modal-title">상담 상세보기</div>
+        <div class="modal-section">
+            <div class="modal-section-label">신청 정보</div>
+            <div class="modal-grid">
+                <div class="modal-field"><div class="modal-field-label">이름</div><div class="modal-field-value" id="mName">-</div></div>
+                <div class="modal-field"><div class="modal-field-label">연락처</div><div class="modal-field-value" id="mPhone">-</div></div>
+                <div class="modal-field"><div class="modal-field-label">희망금액</div><div class="modal-field-value" id="mAmount">-</div></div>
+                <div class="modal-field"><div class="modal-field-label">직업</div><div class="modal-field-value" id="mJob">-</div></div>
+                <div class="modal-field"><div class="modal-field-label">대출목적</div><div class="modal-field-value" id="mPurpose">-</div></div>
+                <div class="modal-field"><div class="modal-field-label">신청일시</div><div class="modal-field-value" id="mDate">-</div></div>
+                <div class="modal-field"><div class="modal-field-label">상태</div><div class="modal-field-value" id="mStatus">-</div></div>
+            </div>
+        </div>
+        <hr class="modal-divider">
+        <div class="modal-section">
+            <div class="modal-memo-label">메모</div>
+            <textarea class="modal-memo-textarea" id="memoTextarea" placeholder="메모를 입력하세요..."></textarea>
+            <button class="modal-memo-btn" id="memoSaveBtn">메모 저장</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+    firebase.initializeApp({
+        apiKey: "AIzaSyBYEyjlpxV5qZFNZhgnqSongIVVLAZL2sE",
+        authDomain: "minsaengdaebu.firebaseapp.com",
+        projectId: "minsaengdaebu",
+        storageBucket: "minsaengdaebu.firebasestorage.app",
+        messagingSenderId: "321027219342",
+        appId: "1:321027219342:web:912806f99173acca83cedf"
+    });
+
+    const auth = firebase.auth();
+    const db   = firebase.firestore();
+
+    let allDocs      = [];
+    let currentFilter = '전체';
+    let searchQuery   = '';
+
+    // ── 인증 상태 감지 ──
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            document.getElementById('loginWrap').style.display  = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            document.getElementById('adminEmail').textContent   = user.email;
+            loadData();
+        } else {
+            document.getElementById('loginWrap').style.display  = 'flex';
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+    });
+
+    // ── 로그인 ──
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+        const email    = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errEl    = document.getElementById('loginError');
+        errEl.textContent = '';
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+        } catch (e) {
+            errEl.textContent = '이메일 또는 비밀번호가 올바르지 않습니다.';
+        }
+    });
+
+    document.getElementById('loginPassword').addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+    });
+
+    // ── 로그아웃 ──
+    document.getElementById('logoutBtn').addEventListener('click', () => auth.signOut());
+
+    // ── 알림 권한 요청 ──
+    function requestNotificationPermission() {
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+    }
+
+    function sendNotification(name, amount) {
+        if ('Notification' in window && Notification.permission === 'granted') {
+            const n = new Notification('새 상담신청', {
+                body: `${name} 님이 ${amount} 상담을 신청했습니다.`,
+                icon: '/favicon.ico'
+            });
+            setTimeout(() => n.close(), 5000);
+        }
+        showToast(`새 상담신청: ${name} 님`, '#2563eb');
+    }
+
+    // ── 데이터 로드 (실시간) ──
+    let knownIds = null;
+
+    function loadData() {
+        requestNotificationPermission();
+        db.collection('consultations')
+            .orderBy('createdAt', 'desc')
+            .onSnapshot(snapshot => {
+                const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                if (knownIds !== null) {
+                    docs.forEach(d => {
+                        if (!knownIds.has(d.id) && d.status === '상담신청') {
+                            sendNotification(d.name || '고객', d.amount || '-');
+                        }
+                    });
+                }
+                knownIds = new Set(docs.map(d => d.id));
+
+                allDocs = docs;
+                updateStats();
+                renderTable();
+                document.getElementById('tableLoading').style.display = 'none';
+                document.getElementById('dataTable').style.display    = 'table';
+            }, err => {
+                document.getElementById('tableLoading').textContent = '데이터 로드 실패: ' + err.message;
+            });
+    }
+
+    // ── 통계 ──
+    function updateStats() {
+        const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+        const todayDocs = allDocs.filter(d => {
+            if (!d.createdAt) return false;
+            const ts = d.createdAt.toDate ? d.createdAt.toDate() : new Date(d.createdAt);
+            return ts >= todayStart;
+        });
+        document.getElementById('todayPending').textContent   = todayDocs.filter(d => d.status === '상담신청').length;
+        document.getElementById('todayContacted').textContent = todayDocs.filter(d => d.status === '조회완료').length;
+        document.getElementById('todayDone').textContent      = todayDocs.filter(d => d.status === '대출완료').length;
+
+        document.getElementById('statTotal').textContent     = allDocs.length;
+        document.getElementById('statPending').textContent   = allDocs.filter(d => d.status === '상담신청').length;
+        document.getElementById('statContacted').textContent = allDocs.filter(d => d.status === '조회완료').length;
+        document.getElementById('statDone').textContent      = allDocs.filter(d => d.status === '대출완료').length;
+    }
+
+    // ── 테이블 렌더 ──
+    const PAGE_SIZE = 10;
+    let currentPage = 1;
+    let filteredRows = [];
+
+    function renderTable() {
+        let rows = allDocs;
+        if (currentFilter !== '전체') rows = rows.filter(d => d.status === currentFilter);
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            rows = rows.filter(d =>
+                (d.name  || '').toLowerCase().includes(q) ||
+                (d.phone || '').includes(q)
+            );
+        }
+        filteredRows = rows;
+
+        const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        const tbody = document.getElementById('tableBody');
+        if (rows.length === 0) {
+            tbody.innerHTML = '<tr class="empty-row"><td colspan="7">신청 내역이 없습니다.</td></tr>';
+            renderPagination(0, 1);
+            return;
+        }
+
+        const start = (currentPage - 1) * PAGE_SIZE;
+        const pageRows = rows.slice(start, start + PAGE_SIZE);
+
+        tbody.innerHTML = pageRows.map(d => {
+            const date = d.createdAt ? d.createdAt.toDate().toLocaleString('ko-KR') : '-';
+            const statusClass = 'status-' + (d.status || '상담신청').replace(' ', '');
+            return `<tr class="clickable-row" onclick="openDetail('${d.id}')">
+                <td class="td-date">${date}</td>
+                <td class="td-name">${d.name || '-'}</td>
+                <td class="td-phone">${d.phone || '-'}</td>
+                <td>${d.amount || '-'}</td>
+                <td>${d.job || '-'}</td>
+                <td>${d.purpose || '-'}</td>
+                <td onclick="event.stopPropagation()">
+                    <div class="status-wrap">
+                        <select class="status-select ${statusClass}" data-id="${d.id}" onchange="onStatusChange('${d.id}', this)">
+                            <option ${d.status === '상담신청' ? 'selected' : ''}>상담신청</option>
+                            <option ${d.status === '조회완료' ? 'selected' : ''}>조회완료</option>
+                            <option ${d.status === '대출완료' ? 'selected' : ''}>대출완료</option>
+                        </select>
+                        <button class="delete-btn" onclick="deleteRow('${d.id}')">삭제</button>
+                    </div>
+                    </td>
+            </tr>`;
+        }).join('');
+
+        renderPagination(rows.length, totalPages);
+    }
+
+    function renderPagination(total, totalPages) {
+        const el = document.getElementById('pagination');
+        if (totalPages <= 1) { el.innerHTML = ''; return; }
+
+        let html = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+
+        const range = 2;
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+            } else if (i === currentPage - range - 1 || i === currentPage + range + 1) {
+                html += `<span class="page-info">…</span>`;
+            }
+        }
+
+        html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+        html += `<span class="page-info">${total}건</span>`;
+        el.innerHTML = html;
+    }
+
+    function goPage(p) {
+        const totalPages = Math.ceil(filteredRows.length / PAGE_SIZE);
+        if (p < 1 || p > totalPages) return;
+        currentPage = p;
+        renderTable();
+    }
+
+    // ── 상태 변경 ──
+    function showToast(msg, color) {
+        const t = document.createElement('div');
+        t.textContent = msg;
+        t.style.cssText = `position:fixed;bottom:32px;right:32px;background:${color || '#22c55e'};color:#fff;padding:12px 28px;border-radius:8px;font-size:15px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3);pointer-events:none;`;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2500);
+    }
+
+    const pendingChanges = {};
+
+    async function deleteRow(id) {
+        if (!confirm('정말 삭제하시겠습니까?')) return;
+        try {
+            await db.collection('consultations').doc(id).delete();
+            delete pendingChanges[id];
+            showToast('삭제되었습니다.', '#ef4444');
+        } catch (e) {
+            showToast('삭제 실패', '#64748b');
+        }
+    }
+
+    function onStatusChange(id, select) {
+        select.className = 'status-select status-' + select.value.replace(' ', '') + ' changed';
+        pendingChanges[id] = select.value;
+        const count = Object.keys(pendingChanges).length;
+        document.getElementById('changedCount').textContent = count;
+        // disabled 제거됨
+    }
+
+    document.getElementById('saveAllBtn').addEventListener('click', async () => {
+        const btn = document.getElementById('saveAllBtn');
+        const ids = Object.keys(pendingChanges);
+        if (ids.length === 0) { showToast('변경된 항목이 없습니다.', '#64748b'); return; }
+        btn.textContent = '저장 중...';
+        try {
+            const batch = db.batch();
+            ids.forEach(id => {
+                batch.update(db.collection('consultations').doc(id), { status: pendingChanges[id] });
+            });
+            await batch.commit();
+            ids.forEach(id => delete pendingChanges[id]);
+            document.getElementById('changedCount').textContent = '0';
+            btn.textContent = '저장됨 ✓';
+            btn.classList.add('saved');
+            document.querySelectorAll('.status-select.changed').forEach(s => s.classList.remove('changed'));
+            showToast('저장되었습니다.');
+            setTimeout(() => {
+                btn.textContent = '전체 저장';
+                btn.classList.remove('saved');
+            }, 1500);
+        } catch (e) {
+            btn.textContent = '저장 실패';
+            btn.textContent = '전체 저장';
+        }
+    });
+
+    // ── 필터 버튼 ──
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.dataset.filter;
+            currentPage = 1;
+            renderTable();
+        });
+    });
+
+    // ── 검색 ──
+    document.getElementById('searchInput').addEventListener('input', e => {
+        searchQuery = e.target.value.trim();
+        currentPage = 1;
+        renderTable();
+    });
+
+    // ── 상세보기 모달 ──
+    let currentDetailId = null;
+
+    function openDetail(id) {
+        const d = allDocs.find(doc => doc.id === id);
+        if (!d) return;
+        currentDetailId = id;
+        const date = d.createdAt ? d.createdAt.toDate().toLocaleString('ko-KR') : '-';
+        document.getElementById('mName').textContent    = d.name    || '-';
+        document.getElementById('mPhone').textContent   = d.phone   || '-';
+        document.getElementById('mAmount').textContent  = d.amount  || '-';
+        document.getElementById('mJob').textContent     = d.job     || '-';
+        document.getElementById('mPurpose').textContent = d.purpose || '-';
+        document.getElementById('mDate').textContent    = date;
+        document.getElementById('mStatus').textContent  = d.status  || '-';
+        document.getElementById('memoTextarea').value   = d.memo    || '';
+        document.getElementById('detailModal').classList.add('open');
+    }
+
+    document.getElementById('modalClose').addEventListener('click', () => {
+        document.getElementById('detailModal').classList.remove('open');
+    });
+    document.getElementById('detailModal').addEventListener('click', e => {
+        if (e.target === document.getElementById('detailModal'))
+            document.getElementById('detailModal').classList.remove('open');
+    });
+
+    document.getElementById('memoSaveBtn').addEventListener('click', async () => {
+        if (!currentDetailId) return;
+        const memo = document.getElementById('memoTextarea').value;
+        try {
+            await db.collection('consultations').doc(currentDetailId).update({ memo });
+            showToast('메모가 저장되었습니다.');
+        } catch (e) {
+            showToast('저장 실패', '#64748b');
+        }
+    });
+</script>
+</body>
+</html>
