@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>민생대부 | 당일 대출 상담 · 빠른 실행</title>
-    <meta name="description" content="민생대부에서 빠르고 편리한 대출 상담을 받아보세요. 당일 승인, 즉시 실행 가능.">
+    <title>민생대부중계 | 당일 대출 상담 · 빠른 실행</title>
+    <meta name="description" content="민생대부중계에서 빠르고 편리한 대출 상담을 받아보세요. 당일 승인, 즉시 실행 가능.">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
@@ -486,7 +486,7 @@
             display: flex; justify-content: space-between; align-items: center;
             background: var(--bg); border-radius: 10px; padding: 11px 14px; margin-bottom: 10px;
         }
-        .product-row-label { font-size: 12px; color: var(--gray); }
+        .product-row-label { font-size: 12px; color: var(--gray); white-space: nowrap; }
         .product-row-val { font-size: 15px; font-weight: 900; color: var(--primary); }
         .product-cta {
             width: 100%; padding: 14px; border: none; cursor: pointer;
@@ -955,7 +955,7 @@
             .hamburger { display: flex; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
             nav {
                 display: none; position: fixed;
-                top: 72px; left: 0; right: 0; z-index: 999;
+                top: 109px; left: 0; right: 0; z-index: 1099;
                 background: var(--primary-dark);
                 flex-direction: column; gap: 0;
                 border-top: 1px solid rgba(255,255,255,0.1);
@@ -963,6 +963,8 @@
             }
             nav.open { display: flex; }
             nav a { padding: 16px 24px; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+            .nav-backdrop { display: none; position: fixed; inset: 0; top: 109px; z-index: 1098; background: rgba(0,0,0,0.4); }
+            .nav-backdrop.open { display: block; }
 
             /* 티커 */
             .ticker-bar { padding: 10px 16px; gap: 10px; }
@@ -1106,7 +1108,7 @@
 <!-- ── Header ── -->
 <header>
     <a href="#" class="logo">
-        민생<span>대부</span>
+        민생<span>대부중계</span>
         <small>MINSAENG FINANCE</small>
     </a>
     <nav id="mainNav">
@@ -1119,13 +1121,13 @@
         <a href="#reviews">후기</a>
     </nav>
     <div class="header-btns">
-        <a href="tel:010-1234-5678" class="header-phone">
+        <a href="tel:010-3920-7585" class="header-phone">
             <div class="header-phone-icon">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
             </div>
             <div class="header-phone-text">
                 <span class="header-phone-label">무료상담 문의</span>
-                <span class="header-phone-num">010-1234-5678</span>
+                <span class="header-phone-num">010-3920-7585</span>
             </div>
         </a>
     </div>
@@ -1134,6 +1136,7 @@
     </button>
 </header>
 </div><!-- /.top-sticky -->
+<div class="nav-backdrop" id="navBackdrop"></div>
 
 <button class="scroll-top" id="scrollTop" aria-label="맨 위로">↑</button>
 
@@ -1157,11 +1160,11 @@
                         🏛️ 금융위원회 정식 등록 대부업체
                     </div>
                     <div class="hero-badge" style="margin-bottom:0;">
-                        등록번호 2025-인천서구-0037
+                        등록번호 2025-인천서구-0038
                     </div>
                 </div>
                 <h1>복잡한 서류 없이<br><em>빠르고 간편한 당일 대출</em></h1>
-                <p class="hero-sub"><em style="color:var(--accent);font-style:normal;font-size:1.25em;font-weight:900;">신뢰할 수 있는 파트너</em><br>금융위원회 정식 등록 업체 <em style="color:var(--accent);font-style:normal;font-size:1.15em;font-weight:900;">민생대부</em>가 고객님께 딱 맞는 한도를 찾아드립니다.</p>
+                <p class="hero-sub"><em style="color:var(--accent);font-style:normal;font-size:1.25em;font-weight:900;">신뢰할 수 있는 파트너</em><br>금융위원회 정식 등록업체 <em style="color:var(--accent);font-style:normal;font-size:1.15em;font-weight:900;">민생대부중계</em><br>고객님께 딱 맞는 한도를 찾아드립니다.</p>
             </div>
             <div class="hero-tags" data-aos="fade-up" data-aos-delay="100">
                 <span class="hero-tag">직장인</span>
@@ -1176,11 +1179,11 @@
                     <span class="hero-cta-label-dot"></span>
                     24시간 상담 연결
                 </div>
-                <div class="hero-cta-phone">010-1234-5678</div>
+                <div class="hero-cta-phone">010-3920-7585</div>
                 <div class="hero-cta-divider"></div>
                 <div class="hero-ctas">
-                    <a href="tel:010-1234-5678" class="hero-btn hb-call">지금 바로 전화상담</a>
-                    <a href="sms:010-1234-5678" class="hero-btn hb-kakao">문자 상담</a>
+                    <a href="tel:010-3920-7585" class="hero-btn hb-call">지금 바로 전화상담</a>
+                    <a href="sms:010-3920-7585" class="hero-btn hb-kakao">문자 상담</a>
                 </div>
             </div>
             <div class="hero-stats">
@@ -1207,7 +1210,7 @@
     <div class="trust-reason-inner">
         <div class="trust-reason-header" data-aos="fade-up">
             <p class="sec-eyebrow">WHY MINSAENG</p>
-            <h2 class="sec-title"><em class="tr-em">민생대부</em>를 <em class="tr-em">신뢰</em>할 수 있는 이유</h2>
+            <h2 class="sec-title"><em class="tr-em">민생대부중계</em>를 <em class="tr-em">신뢰</em>할 수 있는 이유</h2>
         </div>
         <!-- 수치 통계 -->
         <div class="stats-grid" style="margin-bottom: clamp(32px,4vw,52px); border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: clamp(24px,3vw,40px);" data-aos="fade-up">
@@ -1249,7 +1252,7 @@
                     </div>
                     <div>
                         <strong>금융위원회 정식 등록</strong>
-                        <p>대부업 등록번호 2025-인천서구-0037로 법적 요건을 완벽히 갖춘 합법 업체입니다.</p>
+                        <p>대부업 등록번호 2025-인천서구-0038로 법적 요건을 완벽히 갖춘 합법 업체입니다.</p>
                     </div>
                 </div>
                 <div class="trust-reason-item">
@@ -1406,8 +1409,8 @@
                 </li>
             </ul>
             <div class="recommend-cta">
-                <a href="tel:010-1234-5678" class="recommend-cta-btn">지금 바로 전화상담</a>
-                <a href="sms:010-1234-5678" class="recommend-cta-btn" style="background: linear-gradient(135deg, #25D366, #1aad4f); color: #fff;">문자 상담</a>
+                <a href="tel:010-3920-7585" class="recommend-cta-btn">지금 바로 전화상담</a>
+                <a href="sms:010-3920-7585" class="recommend-cta-btn" style="background: linear-gradient(135deg, #25D366, #1aad4f); color: #fff;">문자 상담</a>
             </div>
         </div>
     </div>
@@ -1647,7 +1650,7 @@
     <div class="sec-header" data-aos="fade-down">
         <p class="sec-eyebrow">REVIEW</p>
         <h2 class="sec-title">실제 고객 <em>후기</em></h2>
-        <p style="margin-top:12px; font-size:20px; color:var(--gray);">저희 민생대부를 믿고 이용해주신<br>소중한 고객님들의 후기입니다.</p>
+        <p style="margin-top:12px; font-size:20px; color:var(--gray);">저희 민생대부중계를 믿고 이용해주신<br>소중한 고객님들의 후기입니다.</p>
     </div>
     <div class="marquee-wrapper" data-aos="fade-up">
         <div class="marquee-track">
@@ -1656,14 +1659,14 @@
             <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div></div></div></div>
             <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div></div></div></div>
             <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div></div></div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div></div></div></div>
+            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부중계가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div></div></div></div>
             <!-- 무한 루프용 복제 -->
             <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 300만원</div><p class="review-text">다른 곳에서 거절당해서 걱정했는데 여기는 친절하게 설명해주시고 당일에 바로 처리해주셨어요. 정말 감사합니다!</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">김** 님 <span>(서울 강서구)</span></div></div></div></div>
             <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 500만원</div><p class="review-text">급하게 운영자금이 필요했는데 전화 한 통에 30분 만에 해결됐습니다. 서류도 간단하고 직원분이 너무 친절하셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">이** 님 <span>(경기 수원)</span></div></div></div></div>
             <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">프리랜서 · 200만원</div><p class="review-text">프리랜서라 대출이 어려울 줄 알았는데 상담사분이 꼼꼼하게 방법을 찾아주셔서 어렵지 않게 해결했습니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">박** 님 <span>(인천 부평)</span></div></div></div></div>
             <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">직장인 · 100만원</div><p class="review-text">카톡으로 문의했는데 바로 답장 주시고 필요한 서류도 안내해주셔서 당일에 입금받았습니다. 이용하기 너무 편했어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">최** 님 <span>(부산 해운대)</span></div></div></div></div>
             <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">주부 · 150만원</div><p class="review-text">주부라서 대출이 될까 걱정했는데 상담해보니 생각보다 간단하게 처리됐어요. 친절하고 빠른 처리에 만족합니다.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">정** 님 <span>(대구 수성구)</span></div></div></div></div>
-            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div></div></div></div>
+            <div class="review-card" aria-hidden="true"><div class="review-stars">★★★★★</div><div class="review-badge">자영업자 · 700만원</div><p class="review-text">여러 군데 알아봤는데 민생대부중계가 가장 빠르고 조건도 좋았습니다. 상담사분이 처음부터 끝까지 친절하게 도와주셨어요.</p><div class="review-footer"><div class="review-avatar">👤</div><div><div class="review-name">한** 님 <span>(서울 송파구)</span></div></div></div></div>
         </div>
     </div>
 </section>
@@ -1679,13 +1682,13 @@
 
 <!-- ── 플로팅 CTA ── -->
 <div class="float-cta" id="floatCta">
-    <a href="tel:010-1234-5678" class="float-cta-btn float-cta-call">
+    <a href="tel:010-3920-7585" class="float-cta-btn float-cta-call">
         <div class="float-cta-icon">📞</div>
         <div class="float-cta-text">
             <strong>전화상담</strong>
         </div>
     </a>
-    <a href="sms:010-1234-5678" class="float-cta-btn float-cta-kakao">
+    <a href="sms:010-3920-7585" class="float-cta-btn float-cta-kakao">
         <div class="float-cta-icon">💬</div>
         <div class="float-cta-text">
             <strong>문자 상담</strong>
@@ -1708,7 +1711,7 @@
     <br>
     <p>당사는 대부업 정식 등록된 업체이며 법정 금리를 지키고 있습니다.</p>
     <br>
-    <p>상호명: 민생대부 &nbsp;|&nbsp; 대부업등록번호: 2025-인천서구-0037 &nbsp;|&nbsp; 사업자등록번호: 289-18-02722</p>
+    <p>상호명: 민생대부중계 &nbsp;|&nbsp; 대부업등록번호: 2025-인천서구-0038 &nbsp;|&nbsp; 사업자등록번호: 289-18-02722</p>
     <p>대표자: 이시우 &nbsp;|&nbsp; 주소: 인천광역시 서구 청라커낼로 260번길 7-19, 청라 에이스프라자 201-1호 (청라동)</p>
     <p>대출금리: 연 20% 이내</p>
     <br>
@@ -1717,11 +1720,11 @@
 
 <!-- ── Footer ── -->
 <footer>
-    <p><strong style="color:rgba(255,255,255,0.7);font-size:17px">민생대부</strong></p>
-    <p>대표자: 이시우 &nbsp;|&nbsp; 사업자등록번호: 289-18-02722 &nbsp;|&nbsp; 대부업등록번호: 2025-인천서구-0037</p>
+    <p><strong style="color:rgba(255,255,255,0.7);font-size:17px">민생대부중계</strong></p>
+    <p>대표자: 이시우 &nbsp;|&nbsp; 사업자등록번호: 289-18-02722 &nbsp;|&nbsp; 대부업등록번호: 2025-인천서구-0038</p>
     <p>주소: 인천광역시 서구 청라커낼로 260번길 7-19, 청라 에이스프라자 201-1호 (청라동)</p>
     <p>대출금리: 연 20% 이내 &nbsp;|&nbsp; 중개수수료 없음</p>
-    <p style="margin-top:20px;font-size:11px;opacity:0.4">© 2026 민생대부. All Rights Reserved.</p>
+    <p style="margin-top:20px;font-size:11px;opacity:0.4">© 2026 민생대부중계. All Rights Reserved.</p>
 </footer>
 
 
@@ -1832,16 +1835,21 @@
     });
 
     // ── 햄버거 메뉴 ──
-    const hamburger = document.getElementById('hamburger');
-    const mainNav   = document.getElementById('mainNav');
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('open');
-        mainNav.classList.toggle('open');
-    });
-    mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    const hamburger   = document.getElementById('hamburger');
+    const mainNav     = document.getElementById('mainNav');
+    const navBackdrop = document.getElementById('navBackdrop');
+
+    function closeNav() {
         hamburger.classList.remove('open');
         mainNav.classList.remove('open');
-    }));
+        navBackdrop.classList.remove('open');
+    }
+    hamburger.addEventListener('click', () => {
+        const isOpen = mainNav.classList.contains('open');
+        isOpen ? closeNav() : (hamburger.classList.add('open'), mainNav.classList.add('open'), navBackdrop.classList.add('open'));
+    });
+    mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+    navBackdrop.addEventListener('click', closeNav);
 
     // ── 스크롤 투 탑 + 플로팅 CTA ──
     const scrollTopBtn = document.getElementById('scrollTop');
