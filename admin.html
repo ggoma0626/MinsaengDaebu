@@ -247,7 +247,7 @@
         .admin-body { padding: 16px; }
         .stats-wrap { grid-template-columns: 1fr; }
         .stats-row.today, .stats-row.total { grid-template-columns: repeat(2, 1fr); }
-        .admin-header { padding: 14px 16px; }
+        .admin-header-inner { padding: 14px 16px; }
         table { font-size: 12px; }
         th, td { padding: 10px 10px; }
         .filter-search { width: 100%; margin-left: 0; }
@@ -483,10 +483,12 @@
 
     // ── 데이터 로드 (실시간) ──
     let knownIds = null;
+    let unsubscribeData = null;
 
     function loadData() {
+        if (unsubscribeData) unsubscribeData();
         requestNotificationPermission();
-        db.collection('consultations')
+        unsubscribeData = db.collection('consultations')
             .orderBy('createdAt', 'desc')
             .onSnapshot(snapshot => {
                 const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -534,6 +536,11 @@
     let filteredRows = [];
 
     function renderTable() {
+        document.getElementById('bulkBar').style.display = 'none';
+        document.getElementById('selectedCount').textContent = '0';
+        const chkAll = document.getElementById('checkAll');
+        if (chkAll) { chkAll.checked = false; chkAll.indeterminate = false; }
+
         let rows = allDocs;
         if (currentFilter !== '전체') rows = rows.filter(d => d.status === currentFilter);
         if (searchQuery) {
@@ -550,7 +557,7 @@
 
         const tbody = document.getElementById('tableBody');
         if (rows.length === 0) {
-            tbody.innerHTML = '<tr class="empty-row"><td colspan="7">신청 내역이 없습니다.</td></tr>';
+            tbody.innerHTML = '<tr class="empty-row"><td colspan="8">신청 내역이 없습니다.</td></tr>';
             renderPagination(0, 1);
             return;
         }
